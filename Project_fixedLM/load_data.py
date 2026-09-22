@@ -1,3 +1,29 @@
+"""
+Usage:
+    python scripts/load_lang_data.py --lang fr --out data/query_fact/fr.csv
+    python scripts/load_lang_data.py --lang ja --pids P19,P20 --out 
+
+    Language codes come from data/TREx_prompts.csv's header:
+    en, zh, fr, el, nl, ru, ko, es, mr, vi, he, tr, yo, ja, hu, bn,
+    war, tl, sw, mg, pa, ilo, ceb
+
+    Flags:
+    --lang         language code (required, see list above)
+    --probe        dataset to load facts from: mlama (default), mlamaf, lama
+    --portion      trans (default): only facts translated into --lang
+                   non: only facts NOT translated into --lang
+                   all: every fact, falling back to the English label
+    --pids         comma-separated relation ids to include, e.g. P19,P20
+                   (names are in data/TREx-relations.jsonl; default: all)
+    --num_mask     number of mask tokens to substitute for the answer (default: 1)
+    --mask_token   token used to mask the answer in the query (default: [MASK])
+    --no_inflect   disable language-aware inflection (case/gender/articles),
+                   use plain [X]/[Y] substitution even if available
+    --limit        cap the number of examples, for quick testing
+    --format       csv (default, one readable file per language) or jsonl
+    --out          output path (default: data/query_fact/<lang>.<format>);
+                   pass - to print to the terminal instead of writing a file
+"""
 import sys
 import os
 import csv
