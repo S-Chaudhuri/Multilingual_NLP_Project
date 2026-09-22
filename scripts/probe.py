@@ -24,6 +24,9 @@ from check_instanceof import load_entity_instance, load_entity_is_cate
 from entity_lang import Alias, MultiRel
 from tokenization_kobert import KoBertTokenizer
 
+# Soft prompt support (Fixed-LM Prompt Tuning)
+_soft_prompt_module = None  # global: set when --soft_prompt_path is provided
+
 
 logger = logging.getLogger('mLAMA')
 logger.setLevel(logging.ERROR)
@@ -105,7 +108,36 @@ def get_tokenizer(lang: str, name: str):
 
 
 def model_prediction_wrap(model, inp_tensor, attention_mask):
-    logit = model(inp_tensor, attention_mask=attention_mask)[0]
+    global _soft_prompt_module
+    if _soft_prompt_module is not None and hasattr(model, 'bert'):
+        # --- Fixed-LM Prompt Tuning: prepend soft prompt embeddings ---
+        device = inp_tensor.device
+        with torch.no_grad():
+            input_embeds = model.bert.embeddings.word_embeddings(inp_tensor)
+            seq_len = inp_tensor.size(1)
+            position_ids = torch.arange(seq_len, device=device).unsqueeze(0).expand_as(inp_tensor)
+            token_type_ids = torch.zeros_like(inp_tensor)
+            input_embeds = (input_embeds
+                            + model.bert.embeddings.position_embeddings(position_ids)
+                            + model.bert.embeddings.token_type_embeddings(token_type_ids))
+            input_embeds = model.bert.embeddings.LayerNorm(input_embeds)
+            input_embeds = model.bert.embeddings.dropout(input_embeds)
+        # Prepend soft prompt (only differentiable part, but we're in eval mode)
+        combined_embeds = _soft_prompt_module(input_embeds)
+        # Extend attention mask
+        batch_size = inp_tensor.size(0)
+        num_prompt = _soft_prompt_module.num_prompt_tokens
+        prompt_mask = torch.ones(batch_size, num_prompt, device=device, dtype=attention_mask.dtype)
+        extended_attn = torch.cat([prompt_mask, attention_mask], dim=1)
+        extended_attn_bert = model.bert.get_extended_attention_mask(
+            extended_attn, combined_embeds.shape[:2], device)
+        encoder_out = model.bert.encoder(combined_embeds, attention_mask=extended_attn_bert)
+        hidden = encoder_out[0]
+        logit = model.cls(hidden)
+        # Slice off the prompt prefix so output shape matches original (batch, seq_len, vocab)
+        logit = logit[:, num_prompt:, :]
+    else:
+        logit = model(inp_tensor, attention_mask=attention_mask)[0]
     if transformers.__version__ in {'2.4.1', '2.4.0'}:
         if hasattr(model, 'cls'):  # bert
             bias = model.cls.predictions.bias
@@ -1112,6 +1144,13 @@ if __name__ == '__main__':
     parser.add_argument('--pred_dir', type=str, help='directory to store prediction results', default=None)
     parser.add_argument('--batch_size', type=int, help='the real batch size is this times num_mask', default=20)
     parser.add_argument('--no_cuda', action='store_true', help='not use cuda')
+
+    # Fixed-LM Prompt Tuning arguments
+    parser.add_argument('--soft_prompt_path', type=str, default=None,
+                        help='path to trained soft prompt checkpoint (.pt) for Fixed-LM Prompt Tuning evaluation')
+    parser.add_argument('--num_prompt_tokens', type=int, default=20,
+                        help='number of soft prompt tokens P (must match the checkpoint)')
+
     args = parser.parse_args()
 
     if (args.init_method != 'all' or args.iter_method != 'none') and args.max_iter:
@@ -1137,5 +1176,20 @@ if __name__ == '__main__':
     model.eval()
     if torch.cuda.is_available() and not args.no_cuda:
         model.to('cuda')
+
+    # load soft prompt for Fixed-LM Prompt Tuning (if provided)
+    if args.soft_prompt_path is not None:
+        sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'pipeline_v1'))
+        from soft_prompt import SoftPromptEmbedding
+        _soft_prompt_module = SoftPromptEmbedding.load(
+            path=args.soft_prompt_path,
+            num_prompt_tokens=args.num_prompt_tokens,
+            embedding_dim=768,
+        )
+        _soft_prompt_module.eval()
+        if torch.cuda.is_available() and not args.no_cuda:
+            _soft_prompt_module.to('cuda')
+        print('loaded soft prompt: P={}, params={:,}'.format(
+            args.num_prompt_tokens, _soft_prompt_module.num_trainable_params))
 
     probe_iter.iter(pids=set(args.pids.strip().split(',')) if args.pids is not None else None)
