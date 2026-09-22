@@ -61,6 +61,7 @@ class SoftPromptEmbedding(nn.Module):
         """
         vocab_size = model.config.vocab_size
         random_ids = torch.randint(0, vocab_size, (self.num_prompt_tokens,))
+        random_ids = random_ids.to(model.device)
         with torch.no_grad():
             # Access the word embedding layer — works for BERT-family models
             if hasattr(model, 'bert'):
