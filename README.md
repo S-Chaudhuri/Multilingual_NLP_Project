@@ -47,7 +47,7 @@ Multilingual_NLP_Project/
 ### Prerequisites
 
 ```bash
-pip install torch transformers
+pip install torch "transformers<5.0.0"
 ```
 
 ### 1. Train a Soft Prompt
