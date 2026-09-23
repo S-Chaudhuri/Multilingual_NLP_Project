@@ -204,3 +204,8 @@ fabric.properties
 data
 results
 output
+
+# Local experiment artifacts
+checkpoints/
+slurm_logs/
+*.backup

@@ -54,10 +54,11 @@ DEFAULTS = {
     'batch_size': 32,
     'epochs': 10,
     'max_seq_len': 128,
-    'num_mask': 1,
+    'num_mask': 5,
     'probe': 'mlamaf',
     'portion': 'trans',
     'val_split': 0.1,
+    'test_split': 0.1,
     'log_interval': 50,
     'seed': 42,
 }
@@ -106,66 +107,41 @@ def forward_with_soft_prompt(
     attention_mask: torch.Tensor,
 ) -> torch.Tensor:
     """
-    Run the frozen model with soft prompts prepended.
+    Run the frozen MLM with learned soft-prompt embeddings prepended.
 
-    1. Obtain frozen word embeddings for input_ids.
-    2. Prepend soft prompt embeddings.
-    3. Extend attention mask to cover the prompt tokens.
-    4. Pass through the frozen Transformer encoder + MLM head.
-    5. Return logits of shape (batch, P + seq_len, vocab_size).
+    The pretrained model remains frozen. Gradients flow only through the
+    learned soft-prompt embeddings.
     """
-    device = input_ids.device
-
-    # 1. Get frozen word embeddings
+    # Obtain frozen token embeddings.
     with torch.no_grad():
-        input_embeds = model.bert.embeddings.word_embeddings(input_ids)
-        # Add position + token_type embeddings manually
-        seq_len = input_ids.size(1)
-        position_ids = torch.arange(seq_len, device=device).unsqueeze(0).expand_as(input_ids)
-        token_type_ids = torch.zeros_like(input_ids)
-        input_embeds = (input_embeds
-                        + model.bert.embeddings.position_embeddings(position_ids)
-                        + model.bert.embeddings.token_type_embeddings(token_type_ids))
-        input_embeds = model.bert.embeddings.LayerNorm(input_embeds)
-        input_embeds = model.bert.embeddings.dropout(input_embeds)
+        word_embeds = model.get_input_embeddings()(input_ids)
 
-    # 2. Prepend soft prompt embeddings (this is the ONLY differentiable part)
-    combined_embeds = soft_prompt(input_embeds)  # (batch, P + seq_len, dim)
+    # Prepend the trainable soft prompt.
+    combined_embeds = soft_prompt(word_embeds)
 
-    # 3. Extend attention mask
+    # Extend the attention mask for the prompt positions.
     batch_size = input_ids.size(0)
     num_prompt = soft_prompt.num_prompt_tokens
-    prompt_mask = torch.ones(batch_size, num_prompt, device=device, dtype=attention_mask.dtype)
-    extended_attention_mask = torch.cat([prompt_mask, attention_mask], dim=1)
 
-    # 4. Extended position embeddings for prompt tokens
-    #    We need to create new position IDs for the combined sequence
-    total_len = num_prompt + seq_len
-    # Build extended position embeddings for prompt tokens
-    prompt_position_ids = torch.arange(num_prompt, device=device).unsqueeze(0).expand(batch_size, -1)
-    shifted_position_ids = torch.arange(num_prompt, total_len, device=device).unsqueeze(0).expand(batch_size, -1)
-
-    # Note: We don't re-add position embeddings to the prompt tokens here —
-    # the soft prompt learns its own "positional" information implicitly.
-    # The input tokens already have position embeddings from step 1.
-
-    # 5. Convert extended attention mask to the format expected by BERT
-    #    (1.0 for real tokens, 0.0 for padding → transformed to large negative for masked positions)
-    extended_attention_mask_bert = model.bert.get_extended_attention_mask(
-        extended_attention_mask, combined_embeds.shape[:2], device
+    prompt_mask = torch.ones(
+        batch_size,
+        num_prompt,
+        device=attention_mask.device,
+        dtype=attention_mask.dtype,
+    )
+    extended_attention_mask = torch.cat(
+        [prompt_mask, attention_mask],
+        dim=1,
     )
 
-    # 6. Forward through Transformer encoder (frozen)
-    encoder_outputs = model.bert.encoder(
-        combined_embeds,
-        attention_mask=extended_attention_mask_bert,
+    # Use the public Hugging Face forward API for consistent embedding
+    # processing during both training and evaluation.
+    outputs = model(
+        inputs_embeds=combined_embeds,
+        attention_mask=extended_attention_mask,
     )
-    hidden_states = encoder_outputs[0]  # (batch, P + seq_len, dim)
 
-    # 7. Forward through MLM head (frozen)
-    logits = model.cls(hidden_states)  # (batch, P + seq_len, vocab_size)
-
-    return logits
+    return outputs.logits
 
 
 def compute_loss(
@@ -324,6 +300,8 @@ def main():
                         help='Dataset variant (overrides config)')
     parser.add_argument('--pids', type=str, default=None,
                         help='Comma-separated relation IDs to train on')
+    parser.add_argument('--split_file', type=str, default=None,
+                        help='Path to a shared multilingual train/val/test split JSON')
     parser.add_argument('--limit', type=int, default=None,
                         help='Cap number of training examples (for quick testing)')
     parser.add_argument('--output_dir', type=str, default=None,
@@ -411,14 +389,157 @@ def main():
         logger.error('No training samples found. Check language/probe/portion settings.')
         sys.exit(1)
 
-    # Train/val split
-    val_size = max(1, int(len(dataset) * config['val_split']))
-    train_size = len(dataset) - val_size
-    train_dataset, val_dataset = random_split(
-        dataset, [train_size, val_size],
-        generator=torch.Generator().manual_seed(config['seed']),
+    # -----------------------------------------------------------------------
+    # Train / validation / test split
+    # -----------------------------------------------------------------------
+    if args.split_file:
+        # Use a precomputed multilingual split. Facts are identified by the
+        # stable X-FACTR key (relation, sub_uri, obj_uri), so the same factual
+        # partition is used across languages.
+        logger.info(f'Loading shared split: {args.split_file}')
+
+        with open(args.split_file, 'r', encoding='utf-8') as f:
+            split_manifest = json.load(f)
+
+        required_keys = {'train', 'val', 'test'}
+        missing_keys = required_keys - set(split_manifest)
+        if missing_keys:
+            raise ValueError(
+                f'Split file is missing required keys: {sorted(missing_keys)}'
+            )
+
+        # Convert JSON lists to stable fact tuples.
+        split_facts = {
+            split_name: {tuple(fact) for fact in split_manifest[split_name]}
+            for split_name in ('train', 'val', 'test')
+        }
+
+        # Sanity check: the supplied split itself must be disjoint.
+        if split_facts['train'] & split_facts['val']:
+            raise ValueError('Shared split has train/val overlap')
+        if split_facts['train'] & split_facts['test']:
+            raise ValueError('Shared split has train/test overlap')
+        if split_facts['val'] & split_facts['test']:
+            raise ValueError('Shared split has val/test overlap')
+
+        # Map the current language-specific dataset back to the shared
+        # multilingual fact identities.
+        indices = {
+            'train': [],
+            'val': [],
+            'test': [],
+        }
+
+        dataset_facts = set()
+
+        for idx, sample in enumerate(dataset.samples):
+            fact = (
+                sample['relation'],
+                sample['sub_uri'],
+                sample['obj_uri'],
+            )
+            dataset_facts.add(fact)
+
+            for split_name in ('train', 'val', 'test'):
+                if fact in split_facts[split_name]:
+                    indices[split_name].append(idx)
+                    break
+
+        # If --pids was supplied, only expect facts from those relations.
+        if pids is not None:
+            expected_facts = {
+                split_name: {
+                    fact for fact in split_facts[split_name]
+                    if fact[0] in set(pids)
+                }
+                for split_name in ('train', 'val', 'test')
+            }
+        else:
+            expected_facts = split_facts
+
+        # With --limit, the dataset is intentionally truncated, so exact
+        # recovery of the complete shared split is not expected.
+        if args.limit is None:
+            for split_name in ('train', 'val', 'test'):
+                found = {
+                    (
+                        dataset.samples[idx]['relation'],
+                        dataset.samples[idx]['sub_uri'],
+                        dataset.samples[idx]['obj_uri'],
+                    )
+                    for idx in indices[split_name]
+                }
+
+                missing = expected_facts[split_name] - found
+                if missing:
+                    raise ValueError(
+                        f'{len(missing)} {split_name} facts from the shared '
+                        f'split were not found for language {args.lang}'
+                    )
+
+        from torch.utils.data import Subset
+
+        train_dataset = Subset(dataset, indices['train'])
+        val_dataset = Subset(dataset, indices['val'])
+        test_dataset = Subset(dataset, indices['test'])
+
+        logger.info(
+            f'Applied shared multilingual split from {args.split_file}'
+        )
+
+    else:
+        # Fall back to a deterministic language-specific random split.
+        num_samples = len(dataset)
+
+        val_size = max(1, int(num_samples * config['val_split']))
+        test_size = max(1, int(num_samples * config['test_split']))
+        train_size = num_samples - val_size - test_size
+
+        if train_size < 1:
+            raise ValueError(
+                f'Dataset too small for train/val/test split: '
+                f'N={num_samples}, train={train_size}, '
+                f'val={val_size}, test={test_size}'
+            )
+
+        train_dataset, val_dataset, test_dataset = random_split(
+            dataset,
+            [train_size, val_size, test_size],
+            generator=torch.Generator().manual_seed(config['seed']),
+        )
+
+        # Save the exact language-specific split for reproducibility.
+        def fact_triples(subset):
+            return [
+                [
+                    dataset.samples[idx]['relation'],
+                    dataset.samples[idx]['sub_uri'],
+                    dataset.samples[idx]['obj_uri'],
+                ]
+                for idx in subset.indices
+            ]
+
+        split_manifest = {
+            'train': fact_triples(train_dataset),
+            'val': fact_triples(val_dataset),
+            'test': fact_triples(test_dataset),
+        }
+
+        split_path = join(
+            output_dir,
+            f'split_{args.lang}.json',
+        )
+
+        with open(split_path, 'w', encoding='utf-8') as f:
+            json.dump(split_manifest, f, indent=2)
+
+        logger.info(f'Saved data split → {split_path}')
+
+    logger.info(
+        f'Train: {len(train_dataset)} | '
+        f'Val: {len(val_dataset)} | '
+        f'Test: {len(test_dataset)}'
     )
-    logger.info(f'Train: {len(train_dataset)} | Val: {len(val_dataset)}')
 
     train_loader = DataLoader(
         train_dataset,

@@ -6,6 +6,7 @@ from typing import List, Dict, Tuple, Set, Union
 import traceback
 import torch
 from transformers import *
+from transformers import XLMTokenizer
 import transformers
 import json
 import numpy as np
@@ -108,56 +109,60 @@ def get_tokenizer(lang: str, name: str):
 
 
 def model_prediction_wrap(model, inp_tensor, attention_mask):
+    """Run MLM prediction, optionally with a learned soft-prompt prefix."""
     global _soft_prompt_module
-    if _soft_prompt_module is not None and hasattr(model, 'bert'):
-        # --- Fixed-LM Prompt Tuning: prepend soft prompt embeddings ---
-        device = inp_tensor.device
-        with torch.no_grad():
-            input_embeds = model.bert.embeddings.word_embeddings(inp_tensor)
-            seq_len = inp_tensor.size(1)
-            position_ids = torch.arange(seq_len, device=device).unsqueeze(0).expand_as(inp_tensor)
-            token_type_ids = torch.zeros_like(inp_tensor)
-            input_embeds = (input_embeds
-                            + model.bert.embeddings.position_embeddings(position_ids)
-                            + model.bert.embeddings.token_type_embeddings(token_type_ids))
-            input_embeds = model.bert.embeddings.LayerNorm(input_embeds)
-            input_embeds = model.bert.embeddings.dropout(input_embeds)
-        # Prepend soft prompt (only differentiable part, but we're in eval mode)
-        combined_embeds = _soft_prompt_module(input_embeds)
-        # Extend attention mask
+
+    if _soft_prompt_module is not None:
+        if not hasattr(model, 'bert'):
+            raise ValueError(
+                "Soft-prompt evaluation currently requires a BERT-based model."
+            )
+
+        # Obtain only the word embeddings. BERT's public inputs_embeds path
+        # will add position/token-type embeddings, LayerNorm, and dropout.
+        word_embeds = model.get_input_embeddings()(inp_tensor)
+
+        # Prepend learned soft-prompt vectors.
+        combined_embeds = _soft_prompt_module(word_embeds)
+
+        # Extend the attention mask to include the prompt prefix.
         batch_size = inp_tensor.size(0)
         num_prompt = _soft_prompt_module.num_prompt_tokens
-        prompt_mask = torch.ones(batch_size, num_prompt, device=device, dtype=attention_mask.dtype)
-        extended_attn = torch.cat([prompt_mask, attention_mask], dim=1)
-        extended_attn_bert = model.bert.get_extended_attention_mask(
-            extended_attn, combined_embeds.shape[:2], device)
-        encoder_out = model.bert.encoder(combined_embeds, attention_mask=extended_attn_bert)
-        hidden = encoder_out[0]
-        logit = model.cls(hidden)
-        # Slice off the prompt prefix so output shape matches original (batch, seq_len, vocab)
+        prompt_mask = torch.ones(
+            batch_size,
+            num_prompt,
+            device=attention_mask.device,
+            dtype=attention_mask.dtype,
+        )
+        extended_attention_mask = torch.cat(
+            [prompt_mask, attention_mask], dim=1
+        )
+
+        # Use the public Hugging Face forward API.
+        outputs = model(
+            inputs_embeds=combined_embeds,
+            attention_mask=extended_attention_mask,
+        )
+        logit = outputs.logits
+
+        # Remove prompt positions so the shape matches the original probe:
+        # (batch, original_seq_len, vocab_size).
         logit = logit[:, num_prompt:, :]
+
     else:
-        logit = model(inp_tensor, attention_mask=attention_mask)[0]
-    if transformers.__version__ in {'2.4.1', '2.4.0'}:
-        if hasattr(model, 'cls'):  # bert
-            bias = model.cls.predictions.bias
-        elif hasattr(model, 'lm_head'):  # roberta
-            bias = model.lm_head.bias
-        elif hasattr(model, 'pred_layer'):  # xlm
-            bias = 0.0
-        else:
-            raise Exception('not sure whether the bias is correct')
-        logit = logit - bias
-    elif transformers.__version__ in {'2.3.0'}:
-        pass
-    else:
-        raise Exception('not sure whether version {} is correct'.format(transformers.__version__))
+        # Standard zero-shot MLM prediction.
+        outputs = model(
+            input_ids=inp_tensor,
+            attention_mask=attention_mask,
+        )
+        logit = outputs.logits
+
     return logit
 
 
 def tokenizer_wrap(tokenizer, lang: str, encode: bool, *args, **kwargs):
     params = dict()
-    if type(tokenizer) is transformers.tokenization_xlm.XLMTokenizer:
+    if isinstance(tokenizer, XLMTokenizer):
         if lang.startswith('zh-'):
             lang = 'zh'
         params = {'lang': lang}
@@ -439,10 +444,22 @@ class ProbeIterator(object):
         # load facts
         self.restricted_facts = None
         if args.facts is not None:
-            filename, part = args.facts.split(':')
-            with open(filename, 'r') as fin:
-                self.restricted_facts = set(map(tuple, json.load(fin)[part]))
-                print('#restricted facts {}'.format(len(self.restricted_facts)))
+            filename, part = args.facts.split(':', 1)
+            with open(filename, 'r', encoding='utf-8') as fin:
+                raw_facts = json.load(fin)[part]
+
+            self.restricted_facts = set(map(tuple, raw_facts))
+
+            if self.restricted_facts:
+                fact_lengths = {len(fact) for fact in self.restricted_facts}
+                if not fact_lengths.issubset({2, 3}):
+                    raise ValueError(
+                        'Restricted facts must contain either '
+                        '(sub_uri, obj_uri) or '
+                        '(relation, sub_uri, obj_uri) entries.'
+                    )
+
+            print('#restricted facts {}'.format(len(self.restricted_facts)))
 
         # log
         if args.log_dir and not os.path.exists(args.log_dir):
@@ -483,9 +500,22 @@ class ProbeIterator(object):
                 l = json.loads(l)
                 sub_exist = LANG in self.entity2lang[l['sub_uri']]
                 obj_exist = LANG in self.entity2lang[l['obj_uri']]
-                if self.restricted_facts is not None and \
-                        (l['sub_uri'], l['obj_uri']) not in self.restricted_facts:
-                    continue
+                if self.restricted_facts is not None:
+                    pair_key = (
+                        l['sub_uri'],
+                        l['obj_uri'],
+                    )
+                    triple_key = (
+                        l['predicate_id'],
+                        l['sub_uri'],
+                        l['obj_uri'],
+                    )
+
+                    if (
+                        pair_key not in self.restricted_facts
+                        and triple_key not in self.restricted_facts
+                    ):
+                        continue
                 exist = sub_exist and obj_exist
                 if self.args.portion == 'trans' and not exist:
                     num_skip += 1
@@ -1168,10 +1198,10 @@ if __name__ == '__main__':
 
     # load model
     print('load model')
-    model = AutoModelWithLMHead.from_pretrained(LM)
+    model = AutoModelForMaskedLM.from_pretrained(LM)
     if args.lm_layer_model is not None:
         llm = LM_NAME[args.lm_layer_model] if args.lm_layer_model in LM_NAME else args.lm_layer_model
-        llm = AutoModelWithLMHead.from_pretrained(llm)
+        llm = AutoModelForMaskedLM.from_pretrained(llm)
         model.cls = llm.cls
     model.eval()
     if torch.cuda.is_available() and not args.no_cuda:

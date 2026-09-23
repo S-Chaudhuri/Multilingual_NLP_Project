@@ -60,18 +60,29 @@ class SoftPromptEmbedding(nn.Module):
         point than random uniform initialization (Lester et al., 2021).
         """
         vocab_size = model.config.vocab_size
-        random_ids = torch.randint(0, vocab_size, (self.num_prompt_tokens,))
+
+        # Use the model's actual input-embedding device. This keeps
+        # initialization correct on CPU, CUDA, and other supported devices.
+        embed_layer = model.get_input_embeddings()
+        device = embed_layer.weight.device
+
+        random_ids = torch.randint(
+            0,
+            vocab_size,
+            (self.num_prompt_tokens,),
+            device=device,
+        )
+
         with torch.no_grad():
-            # Access the word embedding layer — works for BERT-family models
-            if hasattr(model, 'bert'):
-                word_embeddings = model.bert.embeddings.word_embeddings(random_ids)
-            elif hasattr(model, 'roberta'):
-                word_embeddings = model.roberta.embeddings.word_embeddings(random_ids)
-            else:
-                # Fallback: try generic get_input_embeddings()
-                embed_layer = model.get_input_embeddings()
-                word_embeddings = embed_layer(random_ids)
-            self.soft_prompt.data.copy_(word_embeddings)
+            word_embeddings = embed_layer(random_ids)
+
+            # self.soft_prompt is initially created on CPU. Copy from the
+            # embedding table on its current device via a temporary CPU copy;
+            # the module is moved to the training device immediately after
+            # construction by prompt_tuning_train.py.
+            self.soft_prompt.data.copy_(
+                word_embeddings.to(self.soft_prompt.device)
+            )
 
     def forward(self, input_embeds: torch.Tensor) -> torch.Tensor:
         """

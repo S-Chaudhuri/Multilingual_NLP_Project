@@ -160,6 +160,7 @@ def load_relation_templates(lang: str) -> Dict[str, str]:
 
 def load_examples(
     lang: str,
+    tokenizer,
     probe: str = 'mlamaf',
     portion: str = 'trans',
     pids: Optional[List[str]] = None,
@@ -225,9 +226,27 @@ def load_examples(
 
                 try:
                     filled_x, _ = prompt_model.fill_x(template, sub_uri, sub_label)
+
+                    # Match the number of masks to the number of mBERT
+                    # subword tokens in the gold object, capped by num_mask.
+                    answer_token_ids = tokenizer.encode(
+                        obj_label,
+                        add_special_tokens=False,
+                    )
+
+                    if len(answer_token_ids) == 0:
+                        stats['num_errors'] += 1
+                        continue
+
+                    example_num_masks = min(
+                        len(answer_token_ids),
+                        num_mask,
+                    )
+
                     query, answer = prompt_model.fill_y(
                         filled_x, obj_uri, obj_label,
-                        num_mask=num_mask, mask_sym=mask_token,
+                        num_mask=example_num_masks,
+                        mask_sym=mask_token,
                     )
                 except Exception:
                     stats['num_errors'] += 1
@@ -301,6 +320,7 @@ class PromptTuningDataset(Dataset):
         # Load raw examples
         self.examples, self.stats = load_examples(
             lang=lang,
+            tokenizer=tokenizer,
             probe=probe,
             portion=portion,
             pids=pids,
@@ -343,16 +363,27 @@ class PromptTuningDataset(Dataset):
         # Tokenize the gold answer
         answer_token_ids = self.tokenizer.encode(answer, add_special_tokens=False)
 
-        # For single-mask training, we use only the first answer token
-        # (multi-token answers are a future extension)
         if len(answer_token_ids) == 0:
             return None
 
-        # Build label tensor: -100 everywhere except at [MASK] positions
-        labels = torch.full_like(input_ids, -100)
+        # The query contains one mask per gold answer token, up to the
+        # configured maximum number of masks. Therefore the number of
+        # supervised answer tokens must equal the number of masks.
         num_masks = mask_positions.size(0)
-        num_answer_tokens = min(len(answer_token_ids), num_masks)
-        for i in range(num_answer_tokens):
+        expected_num_masks = min(len(answer_token_ids), num_masks)
+
+        if expected_num_masks != num_masks:
+            raise ValueError(
+                f'Mask/answer mismatch: {num_masks} masks for '
+                f'{len(answer_token_ids)} answer tokens. '
+                f'Query={query!r}, answer={answer!r}'
+            )
+
+        # Build label tensor: -100 everywhere except at mask positions.
+        # Answers longer than the configured mask maximum are explicitly
+        # supervised on the prefix represented by those masks.
+        labels = torch.full_like(input_ids, -100)
+        for i in range(num_masks):
             labels[mask_positions[i]] = answer_token_ids[i]
 
         return {
@@ -362,6 +393,11 @@ class PromptTuningDataset(Dataset):
             'labels': labels,
             'answer_text': answer,
             'query_text': query,
+
+            # Stable X-FACTR fact identifiers.
+            'relation': example['relation'],
+            'sub_uri': example['sub_uri'],
+            'obj_uri': example['obj_uri'],
         }
 
     def __len__(self) -> int:
@@ -375,11 +411,17 @@ def collate_fn(batch: List[Dict]) -> Dict[str, torch.Tensor]:
     """
     Custom collate function that stacks tensors and keeps string fields as lists.
     """
+
     result = {
         'input_ids': torch.stack([b['input_ids'] for b in batch]),
         'attention_mask': torch.stack([b['attention_mask'] for b in batch]),
         'labels': torch.stack([b['labels'] for b in batch]),
         'answer_text': [b['answer_text'] for b in batch],
         'query_text': [b['query_text'] for b in batch],
+        'relation': [b['relation'] for b in batch],
+        'sub_uri': [b['sub_uri'] for b in batch],
+        'obj_uri': [b['obj_uri'] for b in batch],
+
     }
+    
     return result
