@@ -18,14 +18,17 @@ import csv
 from os.path import dirname, abspath, join, exists
 from collections import defaultdict
 from typing import Dict, List, Optional, Tuple
+import unicodedata
 
 import torch
 from torch.utils.data import Dataset
+
 
 # ---------------------------------------------------------------------------
 # Path resolution — point to the project root (Multilingual_NLP_Project/)
 # so we can reuse the existing data directory structure.
 # ---------------------------------------------------------------------------
+
 PIPELINE_DIR = dirname(abspath(__file__))
 ROOT = dirname(PIPELINE_DIR)  # Multilingual_NLP_Project/
 
@@ -61,70 +64,158 @@ class SimplePrompt:
     """Plain [X]/[Y] placeholder filler, used when scripts/prompt.py's
     dependencies aren't available."""
 
-    def fill_x(self, prompt: str, uri: str, label: str) -> Tuple[str, str]:
+    def fill_x(
+        self,
+        prompt: str,
+        uri: str,
+        label: str,
+    ) -> Tuple[str, str]:
         return prompt.replace('[X]', label), label
 
-    def fill_y(self, prompt: str, uri: str, label: str,
-               num_mask: int = 1, mask_sym: str = '[MASK]') -> Tuple[str, str]:
-        target = label if num_mask <= 0 else ' '.join([mask_sym] * num_mask)
+    def fill_y(
+        self,
+        prompt: str,
+        uri: str,
+        label: str,
+        num_mask: int = 1,
+        mask_sym: str = '[MASK]',
+    ) -> Tuple[str, str]:
+        target = (
+            label
+            if num_mask <= 0
+            else ' '.join([mask_sym] * num_mask)
+        )
         return prompt.replace('[Y]', target), label
 
 
 def _load_entity_lang(filename: str) -> Dict[str, Dict[str, str]]:
     entity2lang: Dict[str, Dict[str, str]] = defaultdict(dict)
+
     with open(filename, 'r', encoding='utf-8') as fin:
         for line in fin:
             parts = line.strip().split('\t')
             entity = parts[0]
+
             for chunk in parts[1:]:
                 label, lang = chunk.rsplit('@', 1)
                 entity2lang[entity][lang] = label.strip('"')
+
     return entity2lang
 
 
 def _load_entity_gender(filename: str) -> Dict[str, str]:
     result: Dict[str, str] = {}
+
     with open(filename, 'r', encoding='utf-8') as fin:
         for line in fin:
             uri, gender = line.strip().split('\t')
             result[uri] = Gender.parse(gender)
+
     return result
 
 
 def _load_entity_instance(filename: str) -> Dict[str, str]:
     entity2instance: Dict[str, str] = {}
+
     with open(filename, 'r', encoding='utf-8') as fin:
         for line in fin:
             parts = line.strip().split('\t')
             entity2instance[parts[0]] = ','.join(parts[1:])
+
     return entity2instance
 
 
 # ---------------------------------------------------------------------------
 # Dataset configuration
 # ---------------------------------------------------------------------------
+
 DATASET = {
     'mlama': dict(
-        entity_path=join(ROOT, 'data', 'mTREx', 'sub', '{}.jsonl'),
-        entity_lang_path=join(ROOT, 'data', 'mTREx_unicode_escape.txt'),
-        entity_gender_path=join(ROOT, 'data', 'mTREx_gender.txt'),
-        entity_instance_path=join(ROOT, 'data', 'mTREx_instanceof.txt'),
+        entity_path=join(
+            ROOT,
+            'data',
+            'mTREx',
+            'sub',
+            '{}.jsonl',
+        ),
+        entity_lang_path=join(
+            ROOT,
+            'data',
+            'mTREx_unicode_escape.txt',
+        ),
+        entity_gender_path=join(
+            ROOT,
+            'data',
+            'mTREx_gender.txt',
+        ),
+        entity_instance_path=join(
+            ROOT,
+            'data',
+            'mTREx_instanceof.txt',
+        ),
     ),
+
     'mlamaf': dict(
-        entity_path=join(ROOT, 'data', 'mTRExf', 'sub', '{}.jsonl'),
-        entity_lang_path=join(ROOT, 'data', 'mTRExf_unicode_escape.txt'),
-        entity_gender_path=join(ROOT, 'data', 'mTRExf_gender.txt'),
-        entity_instance_path=join(ROOT, 'data', 'mTRExf_instanceof.txt'),
+        entity_path=join(
+            ROOT,
+            'data',
+            'mTRExf',
+            'sub',
+            '{}.jsonl',
+        ),
+        entity_lang_path=join(
+            ROOT,
+            'data',
+            'mTRExf_unicode_escape.txt',
+        ),
+        entity_gender_path=join(
+            ROOT,
+            'data',
+            'mTRExf_gender.txt',
+        ),
+        entity_instance_path=join(
+            ROOT,
+            'data',
+            'mTRExf_instanceof.txt',
+        ),
     ),
+
     'lama': dict(
-        entity_path=join(ROOT, 'data', 'TREx', '{}.jsonl'),
-        entity_lang_path=join(ROOT, 'data', 'TREx_unicode_escape.txt'),
-        entity_gender_path=join(ROOT, 'data', 'TREx_gender.txt'),
-        entity_instance_path=join(ROOT, 'data', 'TREx_instanceof.txt'),
+        entity_path=join(
+            ROOT,
+            'data',
+            'TREx',
+            '{}.jsonl',
+        ),
+        entity_lang_path=join(
+            ROOT,
+            'data',
+            'TREx_unicode_escape.txt',
+        ),
+        entity_gender_path=join(
+            ROOT,
+            'data',
+            'TREx_gender.txt',
+        ),
+        entity_instance_path=join(
+            ROOT,
+            'data',
+            'TREx_instanceof.txt',
+        ),
     ),
 }
-RELATION_PATH = join(ROOT, 'data', 'TREx-relations.jsonl')
-PROMPT_LANG_PATH = join(ROOT, 'data', 'TREx_prompts.csv')
+
+RELATION_PATH = join(
+    ROOT,
+    'data',
+    'TREx-relations.jsonl',
+)
+
+PROMPT_LANG_PATH = join(
+    ROOT,
+    'data',
+    'TREx_prompts.csv',
+)
 
 
 # ---------------------------------------------------------------------------
@@ -133,28 +224,41 @@ PROMPT_LANG_PATH = join(ROOT, 'data', 'TREx_prompts.csv')
 
 def load_relations() -> Dict[str, Dict]:
     """Load relation metadata from TREx-relations.jsonl."""
+
     relations = {}
+
     with open(RELATION_PATH, 'r', encoding='utf-8') as fin:
         for line in fin:
             r = json.loads(line)
             relations[r['relation']] = r
+
     return relations
 
 
 def load_relation_templates(lang: str) -> Dict[str, str]:
-    """Load per-relation prompt templates for a given language from TREx_prompts.csv."""
+    """Load per-relation prompt templates for a given language."""
+
     with open(PROMPT_LANG_PATH, 'r', encoding='utf-8') as fin:
         reader = csv.DictReader(fin)
+
         if lang not in (reader.fieldnames or []):
-            available = [f for f in reader.fieldnames if f not in ('pid', 'relation')]
+            available = [
+                f
+                for f in reader.fieldnames
+                if f not in ('pid', 'relation')
+            ]
+
             raise ValueError(
                 f'Language "{lang}" has no prompt templates. '
                 f'Available languages: {", ".join(sorted(available))}'
             )
+
         templates = {}
+
         for row in reader:
             if row[lang]:
                 templates[row['pid']] = row[lang]
+
     return templates
 
 
@@ -176,65 +280,142 @@ def load_examples(
         examples: list of dicts, each with keys
             {relation, template, sub_uri, sub_label, obj_uri, obj_label,
              query, answer, translated}
+
         stats: summary statistics dict
     """
+
     paths = DATASET[probe]
+
     relations = load_relations()
     templates = load_relation_templates(lang)
-    entity2lang = _load_entity_lang(paths['entity_lang_path'])
-    entity2gender = defaultdict(lambda: Gender.NONE, _load_entity_gender(paths['entity_gender_path']))
-    entity2instance = defaultdict(str, _load_entity_instance(paths['entity_instance_path']))
+
+    entity2lang = _load_entity_lang(
+        paths['entity_lang_path']
+    )
+
+    entity2gender = defaultdict(
+        lambda: Gender.NONE,
+        _load_entity_gender(
+            paths['entity_gender_path']
+        ),
+    )
+
+    entity2instance = defaultdict(
+        str,
+        _load_entity_instance(
+            paths['entity_instance_path']
+        ),
+    )
 
     if use_inflection and HAS_INFLECTION:
-        prompt_model = Prompt.from_lang(lang, entity2gender, entity2instance)
+        prompt_model = Prompt.from_lang(
+            lang,
+            entity2gender,
+            entity2instance,
+        )
     else:
         prompt_model = SimplePrompt()
 
     pid_filter = set(pids) if pids else None
+
     examples: List[Dict] = []
-    stats = {'num_relations': 0, 'num_facts': 0, 'num_skipped_portion': 0, 'num_errors': 0}
+
+    stats = {
+        'num_relations': 0,
+        'num_facts': 0,
+        'num_skipped_portion': 0,
+        'num_errors': 0,
+    }
 
     for pid, template in templates.items():
+
         if pid_filter is not None and pid not in pid_filter:
             continue
+
         fact_path = paths['entity_path'].format(pid)
+
         if not exists(fact_path):
             continue
+
         stats['num_relations'] += 1
 
-        with open(fact_path, 'r', encoding='utf-8') as fin:
+        with open(
+            fact_path,
+            'r',
+            encoding='utf-8',
+        ) as fin:
+
             for line in fin:
+
                 fact = json.loads(line)
-                sub_uri, obj_uri = fact['sub_uri'], fact['obj_uri']
+
+                sub_uri = fact['sub_uri']
+                obj_uri = fact['obj_uri']
+
                 sub_exist = lang in entity2lang[sub_uri]
                 obj_exist = lang in entity2lang[obj_uri]
+
                 exist = sub_exist and obj_exist
 
                 if portion == 'trans' and not exist:
                     stats['num_skipped_portion'] += 1
                     continue
+
                 if portion == 'non' and exist:
                     stats['num_skipped_portion'] += 1
                     continue
 
-                sub_label = (entity2lang[sub_uri].get(lang)
-                             or entity2lang[sub_uri].get('en')
-                             or fact['sub_label'])
-                obj_label = (entity2lang[obj_uri].get(lang)
-                             or entity2lang[obj_uri].get('en')
-                             or fact['obj_label'])
+                sub_label = (
+                    entity2lang[sub_uri].get(lang)
+                    or entity2lang[sub_uri].get('en')
+                    or fact['sub_label']
+                )
+
+                obj_label = (
+                    entity2lang[obj_uri].get(lang)
+                    or entity2lang[obj_uri].get('en')
+                    or fact['obj_label']
+                )
 
                 try:
-                    filled_x, _ = prompt_model.fill_x(template, sub_uri, sub_label)
+                    filled_x, _ = prompt_model.fill_x(
+                        template,
+                        sub_uri,
+                        sub_label,
+                    )
 
-                    # Match the number of masks to the number of mBERT
-                    # subword tokens in the gold object, capped by num_mask.
-                    answer_token_ids = tokenizer.encode(
+                    # First resolve the final target form. For languages with
+                    # morphology (e.g. Turkish), fill_y may inflect obj_label,
+                    # so the final answer can tokenize differently from the
+                    # original entity label.
+                    _, final_answer = prompt_model.fill_y(
+                        filled_x,
+                        obj_uri,
                         obj_label,
+                        num_mask=0,
+                        mask_sym=mask_token,
+                    )
+
+                    # Normalize language-specific output before tokenization.
+                    # Some inflectors can return canonically decomposed Unicode
+                    # sequences, which may otherwise affect tokenizer behaviour.
+                    final_answer = unicodedata.normalize("NFC", final_answer)
+
+                    # Determine the number of masks from the FINAL target form,
+                    # not from the uninflected object label.
+                    answer_token_ids = tokenizer.encode(
+                        final_answer,
                         add_special_tokens=False,
                     )
 
                     if len(answer_token_ids) == 0:
+                        stats['num_errors'] += 1
+                        continue
+
+                    # Skip gold targets that cannot be represented by the tokenizer.
+                    # This covers both unsupported source characters and malformed
+                    # outputs introduced by language-specific inflection.
+                    if tokenizer.unk_token_id in answer_token_ids:
                         stats['num_errors'] += 1
                         continue
 
@@ -243,11 +424,33 @@ def load_examples(
                         num_mask,
                     )
 
+                    # Rebuild the query using the correct number of masks.
                     query, answer = prompt_model.fill_y(
-                        filled_x, obj_uri, obj_label,
+                        filled_x,
+                        obj_uri,
+                        obj_label,
                         num_mask=example_num_masks,
                         mask_sym=mask_token,
                     )
+
+                    query = unicodedata.normalize("NFC", query)
+                    answer = unicodedata.normalize("NFC", answer)
+
+                    # Defensive consistency check: the second fill_y call should
+                    # produce the same final target used to determine mask count.
+                    final_answer_ids = tokenizer.encode(
+                        answer,
+                        add_special_tokens=False,
+                    )
+
+                    if tokenizer.unk_token_id in final_answer_ids:
+                        stats['num_errors'] += 1
+                        continue
+
+                    if min(len(final_answer_ids), num_mask) != example_num_masks:
+                        stats['num_errors'] += 1
+                        continue
+
                 except Exception:
                     stats['num_errors'] += 1
                     continue
@@ -263,9 +466,13 @@ def load_examples(
                     'answer': answer,
                     'translated': exist,
                 })
+
                 stats['num_facts'] += 1
 
-                if limit is not None and len(examples) >= limit:
+                if (
+                    limit is not None
+                    and len(examples) >= limit
+                ):
                     return examples, stats
 
     return examples, stats
@@ -280,12 +487,23 @@ class PromptTuningDataset(Dataset):
     PyTorch Dataset for Fixed-LM Prompt Tuning on X-FACTR.
 
     Each sample is a dict with:
-        - input_ids:      tokenized query with [MASK] (LongTensor)
-        - attention_mask:  1s for real tokens, 0s for padding (LongTensor)
-        - mask_positions:  indices of [MASK] tokens in input_ids (LongTensor)
-        - label_ids:       tokenized gold answer token IDs (LongTensor)
-        - answer_text:     raw answer string (str)
-        - query_text:      raw query string (str)
+        - input_ids:
+            tokenized query with [MASK] (LongTensor)
+
+        - attention_mask:
+            1s for real tokens, 0s for padding (LongTensor)
+
+        - mask_positions:
+            indices of [MASK] tokens in input_ids (LongTensor)
+
+        - label_ids:
+            tokenized gold answer token IDs (LongTensor)
+
+        - answer_text:
+            raw answer string (str)
+
+        - query_text:
+            raw query string (str)
     """
 
     def __init__(
@@ -303,21 +521,42 @@ class PromptTuningDataset(Dataset):
     ):
         """
         Args:
-            tokenizer: HuggingFace tokenizer (e.g. BertTokenizer for mBERT).
-            lang: Language code (e.g. 'en', 'fr', 'zh').
-            probe: Dataset variant ('mlama', 'mlamaf', 'lama').
-            portion: 'trans' (only translated facts), 'non', or 'all'.
-            pids: Optional list of relation IDs to filter.
-            num_mask: Number of [MASK] tokens per answer slot.
-            mask_token: Token string used for masking (default '[MASK]').
-            use_inflection: Whether to use language-aware inflection.
-            max_seq_len: Maximum sequence length for tokenization.
-            limit: Cap number of examples (for quick testing).
+            tokenizer:
+                HuggingFace tokenizer
+                (e.g. BertTokenizer for mBERT).
+
+            lang:
+                Language code (e.g. 'en', 'fr', 'zh').
+
+            probe:
+                Dataset variant ('mlama', 'mlamaf', 'lama').
+
+            portion:
+                'trans' (only translated facts), 'non', or 'all'.
+
+            pids:
+                Optional list of relation IDs to filter.
+
+            num_mask:
+                Maximum number of [MASK] tokens per answer slot.
+
+            mask_token:
+                Token string used for masking (default '[MASK]').
+
+            use_inflection:
+                Whether to use language-aware inflection.
+
+            max_seq_len:
+                Maximum sequence length for tokenization.
+
+            limit:
+                Cap number of examples (for quick testing).
         """
+
         self.tokenizer = tokenizer
         self.max_seq_len = max_seq_len
 
-        # Load raw examples
+        # Load raw examples.
         self.examples, self.stats = load_examples(
             lang=lang,
             tokenizer=tokenizer,
@@ -330,19 +569,28 @@ class PromptTuningDataset(Dataset):
             limit=limit,
         )
 
-        # Pre-tokenize all examples
+        # Pre-tokenize all examples.
         self.samples = []
+
         for ex in self.examples:
             sample = self._tokenize_example(ex)
+
             if sample is not None:
                 self.samples.append(sample)
 
-    def _tokenize_example(self, example: Dict) -> Optional[Dict]:
+    def _tokenize_example(
+        self,
+        example: Dict,
+    ) -> Optional[Dict]:
         """Tokenize a single example into model-ready tensors."""
+
         query = example['query']
         answer = example['answer']
 
-        # Tokenize the query (which already contains [MASK])
+        # ---------------------------------------------------------------
+        # Tokenize query containing the [MASK] tokens.
+        # ---------------------------------------------------------------
+
         encoding = self.tokenizer(
             query,
             max_length=self.max_seq_len,
@@ -350,41 +598,83 @@ class PromptTuningDataset(Dataset):
             truncation=True,
             return_tensors='pt',
         )
-        input_ids = encoding['input_ids'].squeeze(0)       # (max_seq_len,)
-        attention_mask = encoding['attention_mask'].squeeze(0)  # (max_seq_len,)
 
-        # Find [MASK] positions
+        input_ids = encoding[
+            'input_ids'
+        ].squeeze(0)
+
+        attention_mask = encoding[
+            'attention_mask'
+        ].squeeze(0)
+
+        # ---------------------------------------------------------------
+        # Find [MASK] positions.
+        # ---------------------------------------------------------------
+
         mask_token_id = self.tokenizer.mask_token_id
-        mask_positions = (input_ids == mask_token_id).nonzero(as_tuple=False).squeeze(-1)
+
+        mask_positions = (
+            input_ids == mask_token_id
+        ).nonzero(
+            as_tuple=False
+        ).squeeze(-1)
 
         if mask_positions.numel() == 0:
-            return None  # skip examples where [MASK] was truncated away
+            # Skip examples where [MASK] was truncated away.
+            return None
 
-        # Tokenize the gold answer
-        answer_token_ids = self.tokenizer.encode(answer, add_special_tokens=False)
+        # ---------------------------------------------------------------
+        # Tokenize the exact final gold answer.
+        # ---------------------------------------------------------------
+
+        answer_token_ids = self.tokenizer.encode(
+            answer,
+            add_special_tokens=False,
+        )
 
         if len(answer_token_ids) == 0:
             return None
 
-        # The query contains one mask per gold answer token, up to the
-        # configured maximum number of masks. Therefore the number of
-        # supervised answer tokens must equal the number of masks.
+        # ---------------------------------------------------------------
+        # The query contains one mask per supervised answer token,
+        # up to the configured maximum number of masks.
+        # ---------------------------------------------------------------
+
         num_masks = mask_positions.size(0)
-        expected_num_masks = min(len(answer_token_ids), num_masks)
+
+        expected_num_masks = min(
+            len(answer_token_ids),
+            num_masks,
+        )
 
         if expected_num_masks != num_masks:
             raise ValueError(
-                f'Mask/answer mismatch: {num_masks} masks for '
+                f'Mask/answer mismatch: '
+                f'{num_masks} masks for '
                 f'{len(answer_token_ids)} answer tokens. '
-                f'Query={query!r}, answer={answer!r}'
+                f'Query={query!r}, '
+                f'answer={answer!r}'
             )
 
-        # Build label tensor: -100 everywhere except at mask positions.
-        # Answers longer than the configured mask maximum are explicitly
-        # supervised on the prefix represented by those masks.
-        labels = torch.full_like(input_ids, -100)
+        # ---------------------------------------------------------------
+        # Build label tensor.
+        #
+        # -100 everywhere except at [MASK] positions so HuggingFace's
+        # MLM loss ignores all non-target positions.
+        #
+        # If an answer contains more tokens than the configured mask
+        # maximum, supervise the prefix represented by those masks.
+        # ---------------------------------------------------------------
+
+        labels = torch.full_like(
+            input_ids,
+            -100,
+        )
+
         for i in range(num_masks):
-            labels[mask_positions[i]] = answer_token_ids[i]
+            labels[
+                mask_positions[i]
+            ] = answer_token_ids[i]
 
         return {
             'input_ids': input_ids,
@@ -403,25 +693,59 @@ class PromptTuningDataset(Dataset):
     def __len__(self) -> int:
         return len(self.samples)
 
-    def __getitem__(self, idx: int) -> Dict:
+    def __getitem__(
+        self,
+        idx: int,
+    ) -> Dict:
         return self.samples[idx]
 
 
-def collate_fn(batch: List[Dict]) -> Dict[str, torch.Tensor]:
+def collate_fn(
+    batch: List[Dict],
+) -> Dict[str, torch.Tensor]:
     """
-    Custom collate function that stacks tensors and keeps string fields as lists.
+    Custom collate function that stacks tensors and keeps string fields
+    as lists.
     """
 
     result = {
-        'input_ids': torch.stack([b['input_ids'] for b in batch]),
-        'attention_mask': torch.stack([b['attention_mask'] for b in batch]),
-        'labels': torch.stack([b['labels'] for b in batch]),
-        'answer_text': [b['answer_text'] for b in batch],
-        'query_text': [b['query_text'] for b in batch],
-        'relation': [b['relation'] for b in batch],
-        'sub_uri': [b['sub_uri'] for b in batch],
-        'obj_uri': [b['obj_uri'] for b in batch],
+        'input_ids': torch.stack(
+            [b['input_ids'] for b in batch]
+        ),
 
+        'attention_mask': torch.stack(
+            [b['attention_mask'] for b in batch]
+        ),
+
+        'labels': torch.stack(
+            [b['labels'] for b in batch]
+        ),
+
+        'answer_text': [
+            b['answer_text']
+            for b in batch
+        ],
+
+        'query_text': [
+            b['query_text']
+            for b in batch
+        ],
+
+        'relation': [
+            b['relation']
+            for b in batch
+        ],
+
+        'sub_uri': [
+            b['sub_uri']
+            for b in batch
+        ],
+
+        'obj_uri': [
+            b['obj_uri']
+            for b in batch
+        ],
     }
-    
+
     return result
+

@@ -54,7 +54,7 @@ DEFAULTS = {
     'batch_size': 32,
     'epochs': 10,
     'max_seq_len': 128,
-    'num_mask': 5,
+    'num_mask': 10,
     'probe': 'mlamaf',
     'portion': 'trans',
     'val_split': 0.1,

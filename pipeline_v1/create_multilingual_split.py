@@ -24,16 +24,17 @@ from pipeline_v1.prompt_tuning_data import PromptTuningDataset
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--langs", nargs="+", default=["en", "fr", "nl"])
+    parser.add_argument("--langs", nargs="+", default=["en", "nl", "tr", "el", "sw"])
     parser.add_argument("--model", default="bert-base-multilingual-cased")
     parser.add_argument("--probe", default="mlamaf")
     parser.add_argument("--portion", default="trans")
+    parser.add_argument("--num_mask",type=int, default=10)
     parser.add_argument("--seed", type=int, default=42)
     parser.add_argument("--train_ratio", type=float, default=0.8)
     parser.add_argument("--val_ratio", type=float, default=0.1)
     parser.add_argument(
         "--output",
-        default="splits/shared_en_fr_nl_seed42.json",
+        default="splits/shared_en_nl_tr_el_sw_seed42.json",
     )
     args = parser.parse_args()
 
@@ -57,7 +58,7 @@ def main():
             probe=args.probe,
             portion=args.portion,
             pids=None,
-            num_mask=1,
+            num_mask=args.num_mask,
             use_inflection=True,
             max_seq_len=128,
             limit=None,
@@ -158,6 +159,7 @@ def main():
             "probe": args.probe,
             "portion": args.portion,
             "seed": args.seed,
+            "num_mask": args.num_mask,
             "train_ratio": args.train_ratio,
             "val_ratio": args.val_ratio,
             "test_ratio": test_ratio,
