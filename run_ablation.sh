@@ -67,8 +67,17 @@ if inflected and importlib.util.find_spec("unimorph_inflect") is None:
     sys.exit(
         f"unimorph_inflect is required for {sorted(inflected)}: without it their "
         "templates keep unfilled markup such as [X.Nom]. Install it "
-        "(pip install git+https://github.com/antonisa/unimorph_inflect) or drop "
+        "(python setup_env.py) or drop "
         "those languages, e.g. LANGS=en,nl,sw")
+
+# Without its model files UniMorph asks for keyboard input and the job fails.
+models = {"tr": "tur", "el": "ell2", "ru": "rus", "hu": "hun", "bn": "ben"}
+if inflected and importlib.util.find_spec("unimorph_inflect") is not None:
+    root = os.path.join(os.path.expanduser("~"), "unimorph_inflect_resources")
+    absent = [models[l] for l in sorted(inflected) if l in models
+              and not os.path.isdir(os.path.join(root, models[l]))]
+    if absent:
+        raise RuntimeError(f"UniMorph models {absent} missing from {root}; run: python setup_env.py")
 
 from transformers import AutoTokenizer, AutoModelForMaskedLM
 names = {"mbert_base": "bert-base-multilingual-cased", "xlmr_base": "xlm-roberta-base"}
