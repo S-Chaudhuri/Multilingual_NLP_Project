@@ -16,9 +16,10 @@
 #   2. scripts/ana.py    — alias-aware Exact Match against data/alias/mTRExf,
 #                          macro-averaged over relations (all / single-token / multi-token)
 #
-# Everything is overridable from the environment, e.g.:
-#   LANGS=en,nl,sw sbatch baseline_probe.slurm
-#   FACTS= sbatch baseline_probe.slurm            # probe all facts, not just the test split
+# Everything is overridable from the environment. --export=ALL is needed because
+# Snellius does not forward the submitting shell's variables by default:
+#   LANGS=en,nl,sw sbatch --export=ALL baseline_probe.slurm
+#   FACTS= sbatch --export=ALL baseline_probe.slurm   # probe all facts, not just the test split
 
 set -eo pipefail
 

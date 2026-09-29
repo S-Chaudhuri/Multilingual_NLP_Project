@@ -96,13 +96,13 @@ mkdir -p slurm_logs
 # Submit
 # ---------------------------------------------------------------------------
 
-TRAIN_JOB=$(sbatch --parsable --array=0-$(( N_TRAIN - 1 )) ablation_train.slurm)
+TRAIN_JOB=$(sbatch --parsable --export=ALL --array=0-$(( N_TRAIN - 1 )) ablation_train.slurm)
 echo
 echo "Submitted training array:   $TRAIN_JOB ($N_TRAIN tasks)"
 
 # afterany: ensembling still runs if a few training tasks fail; it uses the
 # checkpoints that exist and warns about the rest.
-ENSEMBLE_JOB=$(sbatch --parsable --array=0-$(( N_ENSEMBLE - 1 )) \
+ENSEMBLE_JOB=$(sbatch --parsable --export=ALL --array=0-$(( N_ENSEMBLE - 1 )) \
     --dependency=afterany:"$TRAIN_JOB" ablation_ensemble.slurm)
 echo "Submitted ensembling array: $ENSEMBLE_JOB ($N_ENSEMBLE tasks, after $TRAIN_JOB)"
 
