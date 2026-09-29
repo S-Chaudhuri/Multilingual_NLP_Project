@@ -136,7 +136,10 @@ def main():
     prefix = env_prefix(conda, args.env_name)
 
     if prefix and args.recreate:
-        run([conda, "env", "remove", "-y", "-n", args.env_name])
+        # Delete the folder directly: `conda env remove` checks the Anaconda
+        # channels' Terms of Service first and fails non-interactively.
+        print(f"Removing {prefix}")
+        shutil.rmtree(prefix)
         prefix = None
 
     if prefix is None:
