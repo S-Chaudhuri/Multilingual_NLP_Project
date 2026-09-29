@@ -209,3 +209,6 @@ output
 checkpoints/
 slurm_logs/
 *.backup
+
+# UniMorph inflection cache written by scripts/prompt.py (joblib)
+inflection_cache/
