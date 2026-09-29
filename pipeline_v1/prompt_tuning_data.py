@@ -36,10 +36,11 @@ ROOT = dirname(PIPELINE_DIR)  # Multilingual_NLP_Project/
 sys.path.insert(0, join(ROOT, 'scripts'))
 
 try:
-    from prompt import Prompt
+    from prompt import Prompt, UNIMORPH_LANGS, HAS_UNIMORPH
     HAS_INFLECTION = True
 except ImportError:
     HAS_INFLECTION = False
+    UNIMORPH_LANGS, HAS_UNIMORPH = set(), False
 
 
 # ---------------------------------------------------------------------------
@@ -269,7 +270,7 @@ def load_examples(
     portion: str = 'trans',
     pids: Optional[List[str]] = None,
     num_mask: int = 1,
-    mask_token: str = '[MASK]',
+    mask_token: Optional[str] = None,
     use_inflection: bool = True,
     limit: Optional[int] = None,
 ) -> Tuple[List[Dict], Dict]:
@@ -306,6 +307,20 @@ def load_examples(
             paths['entity_instance_path']
         ),
     )
+
+    if mask_token is None:
+        mask_token = tokenizer.mask_token  # '[MASK]' for mBERT, '<mask>' for XLM-R
+
+    if use_inflection and HAS_INFLECTION and lang in UNIMORPH_LANGS and not HAS_UNIMORPH:
+        # Every fill would raise inside the try below and silently drop the
+        # example; fall back to plain [X]/[Y] filling instead. Inflection markup
+        # such as [X.Nom] in these templates is then left unfilled.
+        print(
+            f'WARNING: unimorph_inflect is not installed; templates for '
+            f'"{lang}" will not be inflected.',
+            file=sys.stderr,
+        )
+        use_inflection = False
 
     if use_inflection and HAS_INFLECTION:
         prompt_model = Prompt.from_lang(
@@ -514,7 +529,7 @@ class PromptTuningDataset(Dataset):
         portion: str = 'trans',
         pids: Optional[List[str]] = None,
         num_mask: int = 1,
-        mask_token: str = '[MASK]',
+        mask_token: Optional[str] = None,
         use_inflection: bool = True,
         max_seq_len: int = 128,
         limit: Optional[int] = None,
@@ -541,7 +556,7 @@ class PromptTuningDataset(Dataset):
                 Maximum number of [MASK] tokens per answer slot.
 
             mask_token:
-                Token string used for masking (default '[MASK]').
+                Token string used for masking (default: tokenizer.mask_token).
 
             use_inflection:
                 Whether to use language-aware inflection.

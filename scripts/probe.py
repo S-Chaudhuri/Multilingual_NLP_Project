@@ -5,9 +5,14 @@ sys.path.insert(0, dirname(dirname(dirname(abspath(__file__)))))
 from typing import List, Dict, Tuple, Set, Union
 import traceback
 import torch
-from transformers import *
-from transformers import XLMTokenizer
+from transformers import AutoTokenizer, AutoModelForMaskedLM
 import transformers
+try:
+    # Only needed for xlm_base; removed from recent transformers releases.
+    from transformers import XLMTokenizer
+except ImportError:
+    class XLMTokenizer:  # placeholder so isinstance() checks stay valid
+        pass
 import json
 import numpy as np
 import os
@@ -23,7 +28,11 @@ from prompt import Prompt
 from check_gender import load_entity_gender, Gender
 from check_instanceof import load_entity_instance, load_entity_is_cate
 from entity_lang import Alias, MultiRel
-from tokenization_kobert import KoBertTokenizer
+try:
+    # Only needed for ko_bert_base.
+    from tokenization_kobert import KoBertTokenizer
+except Exception:
+    KoBertTokenizer = None
 
 # Soft prompt support (Fixed-LM Prompt Tuning)
 _soft_prompt_module = None  # global: set when --soft_prompt_path is provided

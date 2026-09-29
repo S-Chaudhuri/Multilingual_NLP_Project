@@ -544,6 +544,15 @@ def main():
     )
 
     parser.add_argument(
+        "--allow_incomplete_split",
+        action="store_true",
+        help=(
+            "Warn instead of failing when shared-split facts are "
+            "missing (e.g. a split built with another tokenizer)"
+        ),
+    )
+
+    parser.add_argument(
         "--compare_zero_shot",
         action="store_true",
         help="Also evaluate zero-shot (no prompt) baseline",
@@ -634,7 +643,7 @@ def main():
     soft_prompt = SoftPromptEmbedding.load(
         path=args.soft_prompt_path,
         num_prompt_tokens=args.num_prompt_tokens,
-        embedding_dim=768,
+        embedding_dim=model.config.hidden_size,
     )
 
     soft_prompt.to(device)
@@ -691,6 +700,7 @@ def main():
             split_file=args.split_file,
             split_name=args.split,
             pids=pids,
+            allow_incomplete=args.allow_incomplete_split,
         )
 
     else:
@@ -770,7 +780,7 @@ def main():
     results["prompt_tuned"] = prompt_metrics
 
     logger.info(
-        f"Prompt-tuned mBERT | "
+        f"Prompt-tuned {args.model_name} | "
         f"Loss: {prompt_metrics['loss']:.4f} | "
         f"Acc@1: {prompt_metrics['accuracy']:.4f}"
     )
@@ -795,7 +805,7 @@ def main():
         results["zero_shot"] = zero_metrics
 
         logger.info(
-            f"Zero-shot mBERT | "
+            f"Zero-shot {args.model_name} | "
             f"Loss: {zero_metrics['loss']:.4f} | "
             f"Acc@1: {zero_metrics['accuracy']:.4f}"
         )

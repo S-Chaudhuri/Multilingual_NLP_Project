@@ -4,8 +4,20 @@ from overrides import overrides
 from joblib import Memory
 import json
 import unicodedata
-from unimorph_inflect import inflect
 from check_gender import Gender, load_entity_gender
+
+# Languages whose Prompt subclass calls UniMorph inflection (requires dynet).
+UNIMORPH_LANGS = {'el', 'tr', 'ru', 'hu', 'mr', 'bn'}
+try:
+    from unimorph_inflect import inflect
+    HAS_UNIMORPH = True
+except ImportError:
+    HAS_UNIMORPH = False
+
+    def inflect(*args, **kwargs):
+        raise ImportError(
+            'unimorph_inflect is required for inflection in this language '
+            '(pip install git+https://github.com/antonisa/unimorph_inflect, needs dynet)')
 memory = Memory('inflection_cache', verbose=0)
 
 

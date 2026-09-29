@@ -16,6 +16,7 @@ import argparse
 import logging
 import time
 from os.path import dirname, abspath, join, exists
+from typing import Optional
 
 import torch
 import torch.nn as nn
@@ -144,6 +145,54 @@ def forward_with_soft_prompt(
     return outputs.logits
 
 
+def masked_lm_logits(
+    model,
+    soft_prompt: Optional[SoftPromptEmbedding],
+    input_ids: torch.Tensor,
+    attention_mask: torch.Tensor,
+    target_mask: torch.Tensor,
+) -> torch.Tensor:
+    """
+    MLM logits at the target positions only.
+
+    Equivalent to forward_with_soft_prompt(...)[target positions], but the
+    LM head is applied only where it is needed. With XLM-R's 250k vocabulary
+    the full (batch, P + seq_len, vocab) logits take several GB per batch.
+
+    Args:
+        soft_prompt: None for the zero-shot model without a prompt.
+        target_mask: (batch, seq_len) bool, True at positions to predict.
+
+    Returns:
+        (num_targets, vocab_size) logits, in row-major order of target_mask.
+    """
+    encoder = getattr(model, model.base_model_prefix)  # e.g. .bert / .roberta
+    lm_head = model.cls if hasattr(model, 'cls') else model.lm_head
+
+    if soft_prompt is None:
+        hidden = encoder(
+            input_ids=input_ids,
+            attention_mask=attention_mask,
+        ).last_hidden_state
+    else:
+        with torch.no_grad():
+            word_embeds = model.get_input_embeddings()(input_ids)
+
+        num_prompt = soft_prompt.num_prompt_tokens
+        prompt_mask = torch.ones(
+            input_ids.size(0),
+            num_prompt,
+            device=attention_mask.device,
+            dtype=attention_mask.dtype,
+        )
+        hidden = encoder(
+            inputs_embeds=soft_prompt(word_embeds),
+            attention_mask=torch.cat([prompt_mask, attention_mask], dim=1),
+        ).last_hidden_state[:, num_prompt:, :]
+
+    return lm_head(hidden[target_mask])
+
+
 def compute_loss(
     logits: torch.Tensor,
     labels: torch.Tensor,
@@ -213,11 +262,13 @@ def train_epoch(
 
         optimizer.zero_grad()
 
-        # Forward pass
-        logits = forward_with_soft_prompt(model, soft_prompt, input_ids, attention_mask)
+        # Forward pass (LM head only at [MASK] positions)
+        target_mask = labels != -100
+        logits = masked_lm_logits(model, soft_prompt, input_ids, attention_mask, target_mask)
+        targets = labels[target_mask]
 
         # Loss
-        loss = compute_loss(logits, labels, soft_prompt.num_prompt_tokens, loss_fn)
+        loss = loss_fn(logits, targets)
 
         # Backward (gradients flow only to soft prompt)
         loss.backward()
@@ -226,7 +277,7 @@ def train_epoch(
             scheduler.step()
 
         # Metrics
-        acc = compute_accuracy(logits, labels, soft_prompt.num_prompt_tokens)
+        acc = (logits.argmax(-1) == targets).float().mean().item() if targets.numel() else 0.0
         total_loss += loss.item()
         total_acc += acc
         total_batches += 1
@@ -265,9 +316,11 @@ def evaluate(
         attention_mask = batch['attention_mask'].to(device)
         labels = batch['labels'].to(device)
 
-        logits = forward_with_soft_prompt(model, soft_prompt, input_ids, attention_mask)
-        loss = compute_loss(logits, labels, soft_prompt.num_prompt_tokens, loss_fn)
-        acc = compute_accuracy(logits, labels, soft_prompt.num_prompt_tokens)
+        target_mask = labels != -100
+        logits = masked_lm_logits(model, soft_prompt, input_ids, attention_mask, target_mask)
+        targets = labels[target_mask]
+        loss = loss_fn(logits, targets)
+        acc = (logits.argmax(-1) == targets).float().mean().item() if targets.numel() else 0.0
 
         total_loss += loss.item()
         total_acc += acc
@@ -287,8 +340,12 @@ def main():
                         help='Language code (e.g., en, fr, zh)')
     parser.add_argument('--config', type=str, default=None,
                         help='Path to JSON config file')
+    parser.add_argument('--model_name', type=str, default=None,
+                        help='HF model name, e.g. xlm-roberta-base (overrides config)')
     parser.add_argument('--num_prompt_tokens', type=int, default=None,
                         help='Number of soft prompt tokens P (overrides config)')
+    parser.add_argument('--seed', type=int, default=None,
+                        help='Random seed (overrides config)')
     parser.add_argument('--learning_rate', type=float, default=None,
                         help='Learning rate (overrides config)')
     parser.add_argument('--epochs', type=int, default=None,
@@ -302,6 +359,9 @@ def main():
                         help='Comma-separated relation IDs to train on')
     parser.add_argument('--split_file', type=str, default=None,
                         help='Path to a shared multilingual train/val/test split JSON')
+    parser.add_argument('--allow_incomplete_split', action='store_true',
+                        help='Warn instead of failing when shared-split facts are missing '
+                             '(e.g. a split built with another tokenizer)')
     parser.add_argument('--limit', type=int, default=None,
                         help='Cap number of training examples (for quick testing)')
     parser.add_argument('--output_dir', type=str, default=None,
@@ -316,7 +376,8 @@ def main():
     config = load_config(args.config)
 
     # CLI overrides
-    for key in ['num_prompt_tokens', 'learning_rate', 'epochs', 'batch_size', 'probe']:
+    for key in ['model_name', 'num_prompt_tokens', 'seed', 'learning_rate', 'epochs',
+                'batch_size', 'probe']:
         val = getattr(args, key, None)
         if val is not None:
             config[key] = val
@@ -350,6 +411,9 @@ def main():
 
     # ❄️ Freeze ALL model parameters
     freeze_model(model)
+
+    # The prompt vectors live in the model's input-embedding space.
+    config['embedding_dim'] = model.config.hidden_size
 
     # -----------------------------------------------------------------------
     # 2. Create soft prompt
@@ -472,10 +536,13 @@ def main():
 
                 missing = expected_facts[split_name] - found
                 if missing:
-                    raise ValueError(
+                    message = (
                         f'{len(missing)} {split_name} facts from the shared '
                         f'split were not found for language {args.lang}'
                     )
+                    if not args.allow_incomplete_split:
+                        raise ValueError(message)
+                    logger.warning(message)
 
         from torch.utils.data import Subset
 
@@ -638,6 +705,12 @@ def main():
     with open(history_path, 'w', encoding='utf-8') as f:
         json.dump(history, f, indent=2)
     logger.info(f'Saved training history → {history_path}')
+
+    # Save the resolved configuration so each checkpoint is self-describing.
+    config_path = join(output_dir, f'config_{args.lang}_P{config["num_prompt_tokens"]}.json')
+    with open(config_path, 'w', encoding='utf-8') as f:
+        json.dump(dict(config, lang=args.lang, split_file=args.split_file), f, indent=2)
+    logger.info(f'Saved run config → {config_path}')
     logger.info('Training complete.')
 
 
