@@ -28,16 +28,31 @@ Multilingual_NLP_Project/
 │   ├── prompt_tuning_data.py             # Dataset class for X-FACTR data
 │   ├── prompt_tuning_train.py            # Training pipeline (frozen mBERT + soft prompt)
 │   ├── prompt_tuning_eval.py             # Evaluation & zero-shot comparison
+│   ├── prompt_ensemble.py                # Prompt ensemble evaluation
+│   ├── ablation_summary.py               # Ablation study analysis
+│   ├── create_multilingual_split.py      # Multilingual train/val/test split creation
+│   ├── create_token_length_splits.py     # Single-token vs multi-token target splits
+│   ├── analysis/                         # Data validation & analysis scripts
+│   │   ├── validate_language_coverage.py # UTF-8 integrity, missing relations, sample sizes
+│   │   └── analyze_target_tokenization.py# Token-length distribution analysis
 │   └── configs/
 │       └── prompt_tuning_config.json     # Default hyperparameters
 ├── scripts/
 │   ├── probe.py                          # [MODIFIED] Added --soft_prompt_path support
-│   └── ...                               # Original X-FACTR scripts (unchanged)
+│   ├── ana.py                            # Alias-aware Exact Match analysis
+│   └── ...                               # Original X-FACTR scripts
 ├── data/                                 # X-FACTR datasets (mTREx, mTRExf, etc.)
+├── splits/                               # Deterministic multilingual data splits
+│   ├── shared_en_nl_tr_el_sw_seed42.json # Cross-lingual shared train/val/test split
+│   └── token_length_test_*.json          # Single-token / multi-token evaluation subsets
 ├── checkpoints/                          # Saved soft prompt weights (created at runtime)
-├── Project_fixedLM/                      # Data loading utilities
+├── results/                              # Probing & evaluation results
+├── baseline_probe.slurm                  # SLURM script: baseline discrete cloze probing
+├── ablation_train.slurm                  # SLURM script: ablation training runs
+├── setup_env.py                          # Environment setup helper
 ├── OLD_README.md                         # Original X-FACTR README
-└── requirements.txt                      # Dependencies
+├── requirements.txt                      # Original X-FACTR dependencies
+└── requirements_pipeline.txt             # Pipeline-specific dependencies
 ```
 
 ---
@@ -47,7 +62,7 @@ Multilingual_NLP_Project/
 ### Prerequisites
 
 ```bash
-pip install torch transformers
+python -m pip install torch transformers
 ```
 
 ### 1. Train a Soft Prompt
@@ -171,8 +186,16 @@ Input Tokens → mBERT Tokenizer → Token IDs
 | [`prompt_tuning_data.py`](pipeline_v1/prompt_tuning_data.py) | `PromptTuningDataset` — loads X-FACTR triples, fills prompt templates, tokenizes with [MASK]. |
 | [`prompt_tuning_train.py`](pipeline_v1/prompt_tuning_train.py) | Training loop: freezes mBERT, attaches soft prompt, runs AdamW with warmup scheduler. |
 | [`prompt_tuning_eval.py`](pipeline_v1/prompt_tuning_eval.py) | Evaluation: prompt-tuned vs. zero-shot comparison, per-example prediction output. |
+| [`create_multilingual_split.py`](pipeline_v1/create_multilingual_split.py) | Creates deterministic multilingual train/val/test splits shared across languages. |
+| [`create_token_length_splits.py`](pipeline_v1/create_token_length_splits.py) | Separates test facts into single-token and multi-token subsets per language. |
+| [`validate_language_coverage.py`](pipeline_v1/analysis/validate_language_coverage.py) | Validates UTF-8 integrity, identifies missing relations, reports sample sizes. |
+| [`analyze_target_tokenization.py`](pipeline_v1/analysis/analyze_target_tokenization.py) | Analyzes token-length distributions across languages and models. |
+| [`prompt_ensemble.py`](pipeline_v1/prompt_ensemble.py) | Prompt ensemble evaluation across multiple trained checkpoints. |
+| [`ablation_summary.py`](pipeline_v1/ablation_summary.py) | Summarizes and compares ablation study results. |
 | [`configs/prompt_tuning_config.json`](pipeline_v1/configs/prompt_tuning_config.json) | Default hyperparameters in JSON format. |
 | [`scripts/probe.py`](scripts/probe.py) | Original X-FACTR probe — extended with `--soft_prompt_path` for seamless integration. |
+| [`scripts/ana.py`](scripts/ana.py) | Alias-aware Exact Match analysis for baseline probing results. |
+| [`baseline_probe.slurm`](baseline_probe.slurm) | SLURM script for baseline discrete cloze probing across models and languages. |
 
 ---
 
