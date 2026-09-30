@@ -23,10 +23,10 @@ cd "$HOME/Multilingual_NLP_Project"
 PYTHON="${PYTHON:-$HOME/.conda/envs/multilingual_nlp/bin/python}"
 MODELS="${MODELS:-mbert_base,xlmr_base}"
 KS="${KS:-5,10,20}"
-LANGS="${LANGS:-en,nl,tr,el,sw}"
+LANGS="${LANGS:-en,nl,ru,bn,sw}"
 SEEDS="${SEEDS:-42}"
 ALPHAS="${ALPHAS:-0,0.25,0.5,0.75,1}"
-SPLIT_FILE="${SPLIT_FILE:-splits/shared_en_nl_tr_el_sw_seed42.json}"
+SPLIT_FILE="${SPLIT_FILE:-splits/shared_en_nl_ru_bn_sw_seed42.json}"
 CKPT_ROOT="${CKPT_ROOT:-checkpoints/ablation}"
 RESULTS_ROOT="${RESULTS_ROOT:-results/ablation}"
 
@@ -85,7 +85,6 @@ echo "Host: $(hostname)  Date: $(date)"
     --names "${NAMES[@]}" \
     --include_zero_shot \
     --split_file "$SPLIT_FILE" \
-    --allow_incomplete_split \
     --alphas "$ALPHAS" \
     --output "$RESULTS_ROOT/$MODEL/$LANG/ensemble.json" \
     --device cuda

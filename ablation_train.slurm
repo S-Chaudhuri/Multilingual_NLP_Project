@@ -23,12 +23,12 @@ cd "$HOME/Multilingual_NLP_Project"
 PYTHON="${PYTHON:-$HOME/.conda/envs/multilingual_nlp/bin/python}"
 MODELS="${MODELS:-mbert_base,xlmr_base}"
 KS="${KS:-5,10,20}"
-LANGS="${LANGS:-en,nl,tr,el,sw}"
+LANGS="${LANGS:-en,nl,ru,bn,sw}"
 SEEDS="${SEEDS:-42}"
 EPOCHS="${EPOCHS:-10}"
 LEARNING_RATE="${LEARNING_RATE:-0.3}"
 BATCH_SIZE="${BATCH_SIZE:-32}"
-SPLIT_FILE="${SPLIT_FILE:-splits/shared_en_nl_tr_el_sw_seed42.json}"
+SPLIT_FILE="${SPLIT_FILE:-splits/shared_en_nl_ru_bn_sw_seed42.json}"
 CKPT_ROOT="${CKPT_ROOT:-checkpoints/ablation}"
 RESULTS_ROOT="${RESULTS_ROOT:-results/ablation}"
 
@@ -77,7 +77,6 @@ echo "Training..."
     --learning_rate "$LEARNING_RATE" \
     --batch_size "$BATCH_SIZE" \
     --split_file "$SPLIT_FILE" \
-    --allow_incomplete_split \
     --output_dir "$CKPT_DIR" \
     --device cuda
 
@@ -90,7 +89,6 @@ echo "Evaluating on the test split..."
     --num_prompt_tokens "$K" \
     --split_file "$SPLIT_FILE" \
     --split test \
-    --allow_incomplete_split \
     --compare_zero_shot \
     --output "$RESULT_DIR/eval_P${K}_seed${SEED}.json" \
     --device cuda
