@@ -12,7 +12,7 @@ installs everything into it:
 
     1. conda env `multilingual_nlp` with Python 3.8 (conda-forge only)
     2. requirements_pipeline.txt
-    3. UniMorph inflection for Russian / Bengali templates: dynet 2.1.2
+    3. UniMorph inflection for Russian / Greek templates: dynet 2.1.2
        (prebuilt wheel, 3.8 only) + a checkout of unimorph_inflect (its pip
        packaging is broken) + its per-language models, downloaded now
        because the library otherwise asks for keyboard input on first use,
@@ -25,7 +25,7 @@ Rerunning is safe: an existing env is reused and pip skips what is installed.
 Options:
     --env-name NAME       conda env name (default: multilingual_nlp)
     --recreate            delete and rebuild the env
-    --no-unimorph         skip step 3 (then run without ru/bn)
+    --no-unimorph         skip step 3 (then run without ru/el)
     --skip-models         skip step 4
 """
 
@@ -42,7 +42,7 @@ PYTHON_VERSION = "3.8"  # dynet 2.1.2 has a prebuilt wheel only for 3.8
 REQUIREMENTS = os.path.join(ROOT, "requirements_pipeline.txt")
 UNIMORPH_REPO = "https://github.com/antonisa/unimorph_inflect"
 # UniMorph model codes used by scripts/prompt.py for the project languages.
-UNIMORPH_MODELS = {"ru": "rus", "bn": "ben"}
+UNIMORPH_MODELS = {"ru": "rus", "el": "ell2"}
 HF_MODELS = ["bert-base-multilingual-cased", "xlm-roberta-base"]
 
 
@@ -175,13 +175,13 @@ def main():
     run(pip + ["-r", REQUIREMENTS])
 
     # -----------------------------------------------------------------------
-    step("3. UniMorph inflection (Turkish / Greek templates)")
+    step("3. UniMorph inflection (Russian / Greek templates)")
     # -----------------------------------------------------------------------
 
     unimorph_ok = False
 
     if args.no_unimorph:
-        print("Skipped (--no-unimorph): run without ru/bn, e.g. LANGS=en,nl,sw")
+        print("Skipped (--no-unimorph): run without ru/el, e.g. LANGS=en,nl,ko")
     else:
         # --only-binary: never fall back to compiling dynet, which fails.
         dynet = run(pip + ["--only-binary=dynet", "dynet==2.1.2", "requests", "protobuf"],
@@ -202,7 +202,7 @@ def main():
                 unimorph_ok = run([python, "-c", download], check=False).returncode == 0
 
         if not unimorph_ok:
-            print("\nWARNING: UniMorph setup failed; run without ru/bn (LANGS=en,nl,sw).")
+            print("\nWARNING: UniMorph setup failed; run without ru/el (LANGS=en,nl,ko).")
 
     # -----------------------------------------------------------------------
     step("4. Hugging Face model weights")
@@ -235,14 +235,14 @@ def main():
         "if prompt.HAS_UNIMORPH:\n"
         "    from unimorph_inflect import inflect\n"
         "    print('inflect rus ', inflect('город', 'N;GEN;SG', language='rus'))\n"
-        "    print('inflect ben ', inflect('শহর', 'N;GEN;SG', language='ben'))\n"
+        "    print('inflect ell2', inflect('πόλη', 'N;GEN;SG', language='ell2'))\n"
     )
     # probe.py and prompt.py read data/ with relative paths; the project's data
     # files are UTF-8 (matters on Windows, where the default encoding is not).
     subprocess.run([python, "-c", check], check=True, cwd=ROOT,
                    env=dict(os.environ, PYTHONUTF8="1", PYTHONIOENCODING="utf-8"))
 
-    langs = "en,nl,ru,bn,sw" if unimorph_ok else "en,nl,sw"
+    langs = "en,nl,ru,el,ko" if unimorph_ok else "en,nl,ko"
     print(f"""
 Environment ready. Before submitting jobs:
 
