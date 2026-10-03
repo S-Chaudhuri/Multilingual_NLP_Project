@@ -3,6 +3,8 @@ import unicodedata as ud
 from overrides import overrides
 from joblib import Memory
 import json
+import os
+import re
 import unicodedata
 from check_gender import Gender, load_entity_gender
 
@@ -54,6 +56,30 @@ def persist_to_file(file_name: str, save_per_count: int=1):
 @memory.cache
 def cache_inflect(*args, **kwargs):
     return inflect(*args, **kwargs)
+
+
+# Optional variant, off by default (default = original X-FACTR behaviour).
+# The Russian UniMorph model often corrupts a capitalised first letter
+# (Израиль -> рзраиля) but inflects the lowercased word correctly, so with
+# XFACTR_RU_LOWERCASE=1 Russian entity labels are inflected in lowercase and
+# their capitalisation is restored afterwards.
+RU_LOWERCASE_INFLECTION = os.environ.get('XFACTR_RU_LOWERCASE') == '1'
+
+
+def restore_case(original: str, inflected: str) -> str:
+    """Copy each original word's initial capital onto the inflected word."""
+    orig = re.split(r'([ \-])', original)
+    out = re.split(r'([ \-])', inflected)
+    for i, piece in enumerate(out):
+        if i < len(orig) and orig[i][:1].isupper() and piece:
+            out[i] = piece[0].upper() + piece[1:]
+    return ''.join(out)
+
+
+def inflect_ru_entity(label: str, tag: str) -> str:
+    if not RU_LOWERCASE_INFLECTION:
+        return cache_inflect(label, tag, language='rus')[0]
+    return restore_case(label, cache_inflect(label.lower(), tag, language='rus')[0])
 
 
 # Two functions needed to check if the entity has latin characters
@@ -434,13 +460,13 @@ class PromptRU(Prompt):
             i = words.index('[X.Gen]')
             ent_case = "GEN"
             if not do_not_inflect:
-                label = cache_inflect(label, f"N;GEN;{ent_number}", language='rus')[0]
+                label = inflect_ru_entity(label, f"N;GEN;{ent_number}")
             words[i] = label
         elif "[X.Ess]" in words:
             i = words.index('[X.Ess]')
             ent_case = "ESS"
             if not do_not_inflect:
-                label = cache_inflect(label, f"N;ESS;{ent_number}", language='rus')[0]
+                label = inflect_ru_entity(label, f"N;ESS;{ent_number}")
             words[i] = label
         else:
             raise Exception('no X')
@@ -501,27 +527,27 @@ class PromptRU(Prompt):
             i = words.index('[Y.Gen]')
             ent_case = "GEN"
             if not do_not_inflect:
-                label = cache_inflect(label, f"N;GEN;{ent_number}", language='rus')[0]
+                label = inflect_ru_entity(label, f"N;GEN;{ent_number}")
         elif "[Y.Acc]" in words:
             i = words.index('[Y.Acc]')
             ent_case = "ACC"
             if not do_not_inflect:
-                label = cache_inflect(label, f"N;ACC;{ent_number}", language='rus')[0]
+                label = inflect_ru_entity(label, f"N;ACC;{ent_number}")
         elif "[Y.Dat]" in words:
             i = words.index('[Y.Dat]')
             ent_case = "DAT"
             if not do_not_inflect:
-                label = cache_inflect(label, f"N;DAT;{ent_number}", language='rus')[0]
+                label = inflect_ru_entity(label, f"N;DAT;{ent_number}")
         elif "[Y.Ess]" in words:
             i = words.index('[Y.Ess]')
             ent_case = "ESS"
             if not do_not_inflect:
-                label = cache_inflect(label, f"N;ESS;{ent_number}", language='rus')[0]
+                label = inflect_ru_entity(label, f"N;ESS;{ent_number}")
         elif "[Y.Ins]" in words:
             i = words.index('[Y.Ins]')
             ent_case = "INS"
             if not do_not_inflect:
-                label = cache_inflect(label, f"N;INS;{ent_number}", language='rus')[0]
+                label = inflect_ru_entity(label, f"N;INS;{ent_number}")
         else:
             raise Exception('no Y')
 
