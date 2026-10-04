@@ -3,8 +3,8 @@ Build the conda environment for baseline probing and the soft-prompt pipeline.
 
 Run once on a Snellius login node (compute nodes may not have internet):
 
-    module load 2023
-    module load Anaconda3/<version>        # see: module spider Anaconda3
+    module load 2025
+    module load Anaconda3/2025.06-1       # see: module spider Anaconda3
     python setup_env.py
 
 Any Python 3 can run this script; it creates a separate Python 3.8 env and

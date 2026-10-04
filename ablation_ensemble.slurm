@@ -1,13 +1,14 @@
 #!/bin/bash
-#SBATCH --job-name=abl_ensemble
+#SBATCH --job-name=abl_train
 #SBATCH --account=gpuuva086
-#SBATCH --partition=gpu_mig
-#SBATCH --gres=gpu:a100_3g.20gb:1
-#SBATCH --time=01:00:00
-#SBATCH --cpus-per-task=4
-#SBATCH --mem=16G
-#SBATCH --output=slurm_logs/abl_ensemble_%A_%a.out
-#SBATCH --error=slurm_logs/abl_ensemble_%A_%a.err
+#SBATCH --partition=gpu_a100
+#SBATCH --gpus-per-node=1
+#SBATCH --time=02:00:00
+#SBATCH --cpus-per-task=18
+#SBATCH --mem=120G
+#SBATCH --output=slurm_logs/abl_train_%A_%a.out
+#SBATCH --error=slurm_logs/abl_train_%A_%a.err
+
 
 # One array task = one (model, lang): ensemble every soft prompt trained for it
 # (all k and seeds) plus the zero-shot model, with learnable scalar weights fit
