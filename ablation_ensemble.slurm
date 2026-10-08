@@ -1,13 +1,13 @@
 #!/bin/bash
-#SBATCH --job-name=abl_train
+#SBATCH --job-name=abl_ensemble
 #SBATCH --account=gpuuva086
 #SBATCH --partition=gpu_a100
 #SBATCH --gpus-per-node=1
 #SBATCH --time=02:00:00
 #SBATCH --cpus-per-task=18
 #SBATCH --mem=120G
-#SBATCH --output=slurm_logs/abl_train_%A_%a.out
-#SBATCH --error=slurm_logs/abl_train_%A_%a.err
+#SBATCH --output=slurm_logs/abl_ensemble_%A_%a.out
+#SBATCH --error=slurm_logs/abl_ensemble_%A_%a.err
 
 
 # One array task = one (model, lang): ensemble every soft prompt trained for it
@@ -24,12 +24,12 @@ cd "$HOME/Multilingual_NLP_Project"
 PYTHON="${PYTHON:-$HOME/.conda/envs/multilingual_nlp/bin/python}"
 MODELS="${MODELS:-mbert_base,xlmr_base}"
 KS="${KS:-5,10,20}"
-LANGS="${LANGS:-en,nl,ru,bn,sw}"
+LANGS="${LANGS:-en,nl,ru,el,ko}"
 # Prompts from these seeds are ensembled; can include seeds trained in an earlier
 # run (e.g. train SEEDS=43,44 now, ensemble ENSEMBLE_SEEDS=42,43,44).
 SEEDS="${ENSEMBLE_SEEDS:-${SEEDS:-42}}"
 ALPHAS="${ALPHAS:-0,0.25,0.5,0.75,1}"
-SPLIT_FILE="${SPLIT_FILE:-splits/shared_en_nl_ru_bn_sw_seed42.json}"
+SPLIT_FILE="${SPLIT_FILE:-splits/shared_en_nl_ru_el_ko_rulc_seed42.json}"
 CKPT_ROOT="${CKPT_ROOT:-checkpoints/ablation}"
 RESULTS_ROOT="${RESULTS_ROOT:-results/ablation}"
 
