@@ -52,6 +52,9 @@ DEFAULTS = {
     'learning_rate': 0.3,
     'weight_decay': 1e-5,
     'warmup_ratio': 0.1,
+    'lr_schedule': 'linear',     # 'linear' (warmup + linear decay) or 'plateau'
+    'plateau_factor': 0.5,       # plateau: multiply the learning rate by this ...
+    'plateau_patience': 1,       # ... after this many epochs without a better val loss
     'batch_size': 32,
     'epochs': 10,
     'max_seq_len': 128,
@@ -238,6 +241,56 @@ def compute_accuracy(
     return correct / total
 
 
+class WarmupPlateauSchedule:
+    """
+    Linear warmup to the peak learning rate, then reduce-on-plateau.
+
+    step() is called after every optimizer step (like the linear schedule).
+    end_epoch() is called after validation: after `patience` epochs without a
+    better validation loss, the peak learning rate is multiplied by `factor`
+    and the caller restores the best prompt.
+    """
+
+    def __init__(self, optimizer, peak_lr: float, warmup_steps: int,
+                 factor: float, patience: int):
+        self.optimizer = optimizer
+        self.peak_lr = peak_lr
+        self.warmup_steps = warmup_steps
+        self.factor = factor
+        self.patience = patience
+        self.steps = 0
+        self.best_loss = float('inf')
+        self.bad_epochs = 0
+        self._set(self._current())
+
+    def _current(self) -> float:
+        if self.steps < self.warmup_steps:
+            return self.peak_lr * (self.steps + 1) / self.warmup_steps
+        return self.peak_lr
+
+    def _set(self, lr: float):
+        for group in self.optimizer.param_groups:
+            group['lr'] = lr
+
+    def step(self):
+        self.steps += 1
+        self._set(self._current())
+
+    def end_epoch(self, val_loss: float) -> bool:
+        """Return True when the learning rate was reduced (restore the best prompt)."""
+        if val_loss < self.best_loss:
+            self.best_loss = val_loss
+            self.bad_epochs = 0
+            return False
+        self.bad_epochs += 1
+        if self.bad_epochs < self.patience:
+            return False
+        self.peak_lr *= self.factor
+        self.bad_epochs = 0
+        self._set(self._current())
+        return True
+
+
 def train_epoch(
     model,
     soft_prompt: SoftPromptEmbedding,
@@ -348,6 +401,9 @@ def main():
                         help='Random seed (overrides config)')
     parser.add_argument('--learning_rate', type=float, default=None,
                         help='Learning rate (overrides config)')
+    parser.add_argument('--lr_schedule', type=str, default=None, choices=['linear', 'plateau'],
+                        help='linear: warmup + linear decay (default); plateau: warmup, then halve '
+                             'the learning rate and restore the best prompt when val loss stalls')
     parser.add_argument('--epochs', type=int, default=None,
                         help='Number of training epochs (overrides config)')
     parser.add_argument('--batch_size', type=int, default=None,
@@ -376,8 +432,8 @@ def main():
     config = load_config(args.config)
 
     # CLI overrides
-    for key in ['model_name', 'num_prompt_tokens', 'seed', 'learning_rate', 'epochs',
-                'batch_size', 'probe']:
+    for key in ['model_name', 'num_prompt_tokens', 'seed', 'learning_rate', 'lr_schedule',
+                'epochs', 'batch_size', 'probe']:
         val = getattr(args, key, None)
         if val is not None:
             config[key] = val
@@ -634,11 +690,20 @@ def main():
 
     total_steps = len(train_loader) * config['epochs']
     warmup_steps = int(config['warmup_ratio'] * total_steps)
-    scheduler = get_linear_schedule_with_warmup(
-        optimizer,
-        num_warmup_steps=warmup_steps,
-        num_training_steps=total_steps,
-    )
+    if config['lr_schedule'] == 'plateau':
+        scheduler = WarmupPlateauSchedule(
+            optimizer,
+            peak_lr=config['learning_rate'],
+            warmup_steps=warmup_steps,
+            factor=config['plateau_factor'],
+            patience=config['plateau_patience'],
+        )
+    else:
+        scheduler = get_linear_schedule_with_warmup(
+            optimizer,
+            num_warmup_steps=warmup_steps,
+            num_training_steps=total_steps,
+        )
 
     loss_fn = nn.CrossEntropyLoss(ignore_index=-100)
 
@@ -652,6 +717,7 @@ def main():
     logger.info(f'  Epochs:            {config["epochs"]}')
     logger.info(f'  Batch size:        {config["batch_size"]}')
     logger.info(f'  Learning rate:     {config["learning_rate"]}')
+    logger.info(f'  LR schedule:       {config["lr_schedule"]}')
     logger.info(f'  Total steps:       {total_steps}')
     logger.info(f'  Warmup steps:      {warmup_steps}')
     logger.info('=' * 60)
@@ -686,14 +752,25 @@ def main():
             'train_acc': train_metrics['accuracy'],
             'val_loss': val_metrics['loss'],
             'val_acc': val_metrics['accuracy'],
+            'lr': optimizer.param_groups[0]['lr'],
         })
 
         # Save best checkpoint
         if val_metrics['loss'] < best_val_loss:
             best_val_loss = val_metrics['loss']
+            best_prompt = soft_prompt.soft_prompt.detach().clone()
             ckpt_path = join(output_dir, f'soft_prompt_{args.lang}_P{config["num_prompt_tokens"]}_best.pt')
             soft_prompt.save(ckpt_path)
             logger.info(f'  ✓ Saved best checkpoint → {ckpt_path}')
+
+        # Reduce-on-plateau: lower the learning rate and continue from the best prompt
+        # (with fresh optimizer state) instead of from a degraded one.
+        if isinstance(scheduler, WarmupPlateauSchedule) and scheduler.end_epoch(val_metrics['loss']):
+            with torch.no_grad():
+                soft_prompt.soft_prompt.copy_(best_prompt)
+            optimizer.state.clear()
+            logger.info(f'  ↓ Val loss stalled: learning rate → {scheduler.peak_lr:.4g}, '
+                        f'restored best prompt (val loss {best_val_loss:.4f})')
 
     # Save final checkpoint
     final_path = join(output_dir, f'soft_prompt_{args.lang}_P{config["num_prompt_tokens"]}_final.pt')

@@ -13,6 +13,8 @@
 # Every setting can be overridden from the environment, e.g.:
 #   LANGS=en,nl,sw bash run_ablation.sh              # skip languages needing UniMorph
 #   SEEDS=42,43,44 bash run_ablation.sh              # more distinct prompts per k
+#   SEEDS=43,44 ENSEMBLE_SEEDS=42,43,44 bash run_ablation.sh
+#                                    # add seeds to an existing run, ensemble all three
 #   MODELS=xlmr_base KS=20 bash run_ablation.sh
 
 set -eo pipefail
@@ -24,8 +26,10 @@ export MODELS="${MODELS:-mbert_base,xlmr_base}"
 export KS="${KS:-5,10,20}"
 export LANGS="${LANGS:-en,nl,ru,bn,sw}"
 export SEEDS="${SEEDS:-42}"
+export ENSEMBLE_SEEDS="${ENSEMBLE_SEEDS:-$SEEDS}"
 export EPOCHS="${EPOCHS:-10}"
 export LEARNING_RATE="${LEARNING_RATE:-0.3}"
+export LR_SCHEDULE="${LR_SCHEDULE:-linear}"
 export BATCH_SIZE="${BATCH_SIZE:-32}"
 export ALPHAS="${ALPHAS:-0,0.25,0.5,0.75,1}"
 export SPLIT_FILE="${SPLIT_FILE:-splits/shared_en_nl_ru_bn_sw_seed42.json}"
@@ -43,7 +47,8 @@ N_ENSEMBLE=$(( ${#MODEL_LIST[@]} * ${#LANG_LIST[@]} ))
 echo "Models: $MODELS"
 echo "k:      $KS"
 echo "Langs:  $LANGS"
-echo "Seeds:  $SEEDS"
+echo "Seeds:  $SEEDS (ensembling: $ENSEMBLE_SEEDS)"
+echo "LR:     $LEARNING_RATE ($LR_SCHEDULE schedule), $EPOCHS epochs"
 echo "Python: $PYTHON"
 
 # ---------------------------------------------------------------------------

@@ -24,7 +24,9 @@ PYTHON="${PYTHON:-$HOME/.conda/envs/multilingual_nlp/bin/python}"
 MODELS="${MODELS:-mbert_base,xlmr_base}"
 KS="${KS:-5,10,20}"
 LANGS="${LANGS:-en,nl,ru,bn,sw}"
-SEEDS="${SEEDS:-42}"
+# Prompts from these seeds are ensembled; can include seeds trained in an earlier
+# run (e.g. train SEEDS=43,44 now, ensemble ENSEMBLE_SEEDS=42,43,44).
+SEEDS="${ENSEMBLE_SEEDS:-${SEEDS:-42}}"
 ALPHAS="${ALPHAS:-0,0.25,0.5,0.75,1}"
 SPLIT_FILE="${SPLIT_FILE:-splits/shared_en_nl_ru_bn_sw_seed42.json}"
 CKPT_ROOT="${CKPT_ROOT:-checkpoints/ablation}"

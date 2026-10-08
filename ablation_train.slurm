@@ -27,6 +27,7 @@ LANGS="${LANGS:-en,nl,ru,bn,sw}"
 SEEDS="${SEEDS:-42}"
 EPOCHS="${EPOCHS:-10}"
 LEARNING_RATE="${LEARNING_RATE:-0.3}"
+LR_SCHEDULE="${LR_SCHEDULE:-linear}"
 BATCH_SIZE="${BATCH_SIZE:-32}"
 SPLIT_FILE="${SPLIT_FILE:-splits/shared_en_nl_ru_bn_sw_seed42.json}"
 CKPT_ROOT="${CKPT_ROOT:-checkpoints/ablation}"
@@ -75,6 +76,7 @@ echo "Training..."
     --seed "$SEED" \
     --epochs "$EPOCHS" \
     --learning_rate "$LEARNING_RATE" \
+    --lr_schedule "$LR_SCHEDULE" \
     --batch_size "$BATCH_SIZE" \
     --split_file "$SPLIT_FILE" \
     --output_dir "$CKPT_DIR" \
