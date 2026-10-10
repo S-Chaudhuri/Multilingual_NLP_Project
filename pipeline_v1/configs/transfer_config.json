@@ -1,0 +1,22 @@
+{
+    "model_name": "bert-base-multilingual-cased",
+    "num_prompt_tokens": 20,
+    "init_from_vocab": true,
+    "learning_rate": 0.1,
+    "lr_schedule": "plateau",
+    "plateau_factor": 0.5,
+    "plateau_patience": 2,
+    "weight_decay": 1e-05,
+    "warmup_ratio": 0.1,
+    "warmup_epochs": 1,
+    "max_lr_reductions": 3,
+    "batch_size": 32,
+    "epochs": 100,
+    "max_seq_len": 128,
+    "num_mask": 10,
+    "probe": "mlamaf",
+    "portion": "trans",
+    "loss_reduction": "language",
+    "log_interval": 50,
+    "seed": 42
+}
