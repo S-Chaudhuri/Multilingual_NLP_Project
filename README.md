@@ -171,12 +171,11 @@ python pipeline_v1/prompt_tuning_eval.py \
 The original `scripts/probe.py` has been extended with `--soft_prompt_path` support:
 
 ```bash
-cd scripts
-python probe.py \
+python scripts/probe.py \
     --model mbert_base \
     --lang en \
     --probe mlamaf \
-    --soft_prompt_path ../checkpoints/soft_prompt_en_P20_best.pt \
+    --soft_prompt_path checkpoints/soft_prompt_en_P20_best.pt \
     --num_prompt_tokens 20
 ```
 
