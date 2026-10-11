@@ -84,7 +84,7 @@ def score(annotation_dir: Path, filled_paths):
     key = pd.read_csv(vdir / "validation_key.csv", encoding="utf-8-sig")
     filled = pd.concat([pd.read_csv(p, encoding="utf-8-sig") for p in filled_paths],
                        ignore_index=True)
-    filled["label"] = filled["label"].astype(str).str.strip().str.lower()
+    filled["label"] = filled["label"].fillna("").astype(str).str.strip().str.lower()
     unknown = sorted(set(filled["label"]) - set(LABELS) - {"nan", ""})
     if unknown:
         print("unknown labels ignored:", unknown)

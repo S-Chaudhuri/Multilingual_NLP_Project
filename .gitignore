@@ -218,5 +218,3 @@ inflection_cache/
 # ...but not the large, regenerable outputs
 pipeline_v1/results/**/predictions.jsonl
 pipeline_v1/results/transfer/tokenization/*.jsonl
-# Annotation CSVs contain the reference labels; keep them out while validation is open
-pipeline_v1/results/transfer/annotation/
