@@ -214,9 +214,15 @@ python pipeline_v1/analysis/transfer_summary.py --results_root pipeline_v1/resul
 python pipeline_v1/analysis/analyze_target_tokenization.py --languages en nl ru el ko \
     --models mbert_base xlmr_base --output_dir pipeline_v1/results/transfer/tokenization
 python pipeline_v1/analysis/transfer_figures.py   # PNGs in pipeline_v1/results/transfer/figures/
+
+# Error sample, then fill in the `label` column by hand
+python pipeline_v1/analysis/error_sampling.py --model mbert_base --run en --seed 42
+python pipeline_v1/analysis/error_sampling.py --model mbert_base --run en-nl-ru-el --seed 42 --langs nl ru el ko
+python pipeline_v1/analysis/error_sampling.py --model xlmr_base --run en --seed 42
+python pipeline_v1/analysis/error_sampling.py --model xlmr_base --run en-nl-ru-el --seed 42 --langs nl ru el ko
 ```
 
-> **Optional: failure-mode analysis (F8).** [`error_sampling.py`](pipeline_v1/analysis/error_sampling.py)
+> **Failure-mode analysis (F8).** [`error_sampling.py`](pipeline_v1/analysis/error_sampling.py)
 > samples incorrect predictions (R1 vs R4, both models) into `pipeline_v1/results/transfer/annotation/`.
 > The `label` column has been pre-filled by an LLM and must be validated by human annotators
 > ([`annotation_agreement.py`](pipeline_v1/analysis/annotation_agreement.py) `sample` / `score`)
@@ -233,6 +239,7 @@ python pipeline_v1/analysis/transfer_figures.py   # PNGs in pipeline_v1/results/
 | F5 `same_fact` | P(correct in X \| correct in English) by gold length |
 | F6 `overlap` | Number of languages a fact is correct in; Jaccard overlap |
 | F7 `training_curves` | Validation loss per source language and epoch |
+| F8 `ablation_summary` | Validation EM per peak LR/schedule and XLM-R loss spikes |
 | F9 `relation_diff` | Per-relation EM change on Korean, R4 vs R1 |
 
 Single run by hand:
