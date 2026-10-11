@@ -1,0 +1,21 @@
+# Environment for baseline probing (scripts/probe.py, scripts/ana.py) and the
+# soft-prompt pipeline (pipeline_v1/). Target: Python 3.8, Linux (Snellius).
+#
+# Build everything, including the optional UniMorph inflection for tr/el,
+# with:  python setup_env.py
+#
+# Python 3.8 is required for UniMorph: dynet 2.1.2 only ships a prebuilt
+# wheel for 3.8 and fails to compile from source with current Cython.
+# (requirements.txt holds the original X-FACTR pins and is kept for reference.)
+
+torch==2.4.1
+transformers==4.46.3
+tokenizers==0.20.3
+sentencepiece==0.2.0
+numpy==1.24.4
+pandas==2.0.3
+tqdm==4.70.1
+matplotlib==3.7.5
+joblib==1.4.2
+overrides==7.7.0
+SPARQLWrapper==2.0.0

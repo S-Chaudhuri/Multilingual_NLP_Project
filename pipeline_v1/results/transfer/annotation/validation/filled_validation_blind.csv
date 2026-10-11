@@ -1,0 +1,321 @@
+﻿id,lang,relation,sub_label,query,gold,ranked_prediction,greedy_prediction,label,notes,annotator
+1,el,P31,Σαχναμέ,το Σαχναμέ είναι έναν [MASK] [MASK] .,έπο,πόλη,##τιήμος,wrong_entity_type,,miguel
+2,el,P140,Αβερρόης,Το θρήσκευμα του Αβερρόη είναι <mask> <mask> .,Ισλάμ,Χριστιανισμός,e,non_informative,,miguel
+3,el,P530,Λευκορωσία,η Λευκορωσία διατηρεί διπλωματικές σχέσεις με την <mask> <mask> <mask> .,Λετονία,Ελλάδα,Republika.ia,language_specific_bias,,miguel
+4,el,P131,Λεπίνγκ,η Λεπίνγκ βρίσκεται στην [MASK] [MASK] [MASK] [MASK] [MASK] [MASK] [MASK] [MASK] .,Τζινγκντεσέν,Γερμανία,"πόληη of, of ofy )",wrong_entity_type,,miguel
+5,el,P449,Οι Σοπράνος,το Οι Σοπράνος προβλήθηκε αρχικά στο <mask> <mask> <mask> .,Home Box Office,Nickelodeon,os,non_informative,,miguel
+6,el,P527,Νότια Αμερική,η Νότια Αμερική αποτελείται από [MASK] [MASK] [MASK] [MASK] [MASK] .,Νήσοι /,Νότια Αμερική,the South States New Islands,subject_repetition,,miguel
+7,el,P54,Μάικλ Όουεν,ο Μάικλ Όουεν παίζει στην [MASK] [MASK] [MASK] [MASK] [MASK] .,εμακή λης,Εθνική Ιταλία,Εθνική - -. League,wrong_entity_type,Gold team name corrupted; cannot confirm club vs national-team mismatch.,miguel
+8,el,P279,σκληρή επιστημονική φαντασία,η σκληρή επιστημονική φαντασία είναι υποκατηγορία της [MASK] [MASK] [MASK] [MASK] [MASK] [MASK] [MASK] [MASK] [MASK] [MASK] .,επιστημονικής φαντασίας,ιστορίας,επστης of the of of of Science,other,"Does partial ""Science"" in greedy qualify as a gold match, or should this be non_informative?",miguel
+9,el,P37,Φλόριντα,Η επίσημη γλώσσα της Φλόριντας είναι τα [MASK] [MASK] .,Αγγλικά,Ελλάδα,##ιννικά,language_specific_bias,,miguel
+10,el,P136,Κλαούντιο Μοντεβέρντι,ο Κλαούντιο Μοντεβέρντι παίζει <mask> <mask> <mask> μουσική .,όπερα,Rhythm and blues,foniforte,non_informative,,miguel
+11,el,P54,Πατρίκ Βιεϊρά,ο Πατρίκ Βιεϊρά παίζει στις [MASK] [MASK] [MASK] .,Αάννες,Εθνική Ιταλία,10 Footballs,non_informative,,miguel
+12,el,P106,Μόργκαν Τσανγκιράι,ο Μόργκαν Τσανγκιράι εργάζεται ως <mask> <mask> .,πολιτικός,ιατρός,Premierer,non_informative,,miguel
+13,el,P495,ταλιατέλες,οι ταλιατέλες δημουργήθηκαν στην [MASK] .,Ιταλία,Άνωμένες Πμερική,Ευρώπη,other,,miguel
+14,el,P159,Μπενφίκα,Η έδρα της Μπενφίκας είναι στην [MASK] [MASK] [MASK] [MASK] [MASK] [MASK] .,Λισαβόνα,Αθήνα,Μπενφφίκα,subject_repetition,,miguel
+15,el,P463,Τατζικιστάν,το Τατζικιστάν είναι μέλος του <mask> <mask> <mask> <mask> <mask> <mask> <mask> .,Οργανισμός Ηνωμένων Εθνών,FIFA,ςικικικιστισμού,subject_repetition,"Greedy looks like a fragment of Tajikistan, but the repetition is unclear.",miguel
+16,el,P407,Radio France Internationale,το Radio France Internationale γράφτηκε στα <mask> <mask> <mask> <mask> .,Περσική γλώσσα,Γαλλικά,γαλλικαλλνικά,other,,miguel
+17,el,P178,Deep blue,το Deep blue αναπτύσσεται από την [MASK] .,IBM,Apple,Sony,other,,miguel
+18,el,P127,Άνφιλντ,το Άνφιλντ ανήκει στην <mask> <mask> <mask> <mask> <mask> <mask> <mask> .,Λίβερπουλ Φ.Κ.,The Walt Disney Company,United States of ofssshire,wrong_entity_type,,miguel
+19,el,P30,Ζάμπια,η Ζάμπια βρίσκεται στην <mask> <mask> .,Αφρική,Ευρώπη,Ιία,non_informative,,miguel
+20,el,P176,Airbus A350 XWB,το Airbus A350 XWB παράγεται από την <mask> .,Airbus,Boeing,Boeing,other,,miguel
+21,el,P495,Pretty Woman,το Pretty Woman δημιουργήθηκε στην <mask> <mask> <mask> <mask> <mask> <mask> .,Άνωμένες Πμερική,Αγγλία,United Statess of of Company,other,,miguel
+22,el,P530,Ισραήλ,ο Ισραήλ διατηρεί διπλωματικές σχέσεις με την <mask> <mask> <mask> .,Νότια Κορέα,Τουρκία,Αράία,other,,miguel
+23,el,P413,Ματιέ Βαλμπουενά,ο Ματιέ Βαλμπουενά παίζει στη θέση του [MASK] [MASK] [MASK] [MASK] .,Πλάγιος,αμυντικού,παίχου,non_informative,should this be other? Since it still predicts a football position.,miguel
+24,el,P69,Νόαμ Τσόμσκι,ο Νόαμ Τσόμσκι φοίτησε στο πανεπιστήμιο του <mask> <mask> <mask> <mask> <mask> <mask> <mask> <mask> .,Πανεπιστήμιο τενσυλβάνιας,Πανεπιστήμιο Πρίνστον,Βνμςςββς,non_informative,,miguel
+25,el,P1001,Γερουσία,η Γερουσία είναι ένας νομικός όρος στην <mask> <mask> <mask> <mask> <mask> <mask> .,Αρχαία Σπάρτη,Γερμανία,United States States Statesc),non_informative,,miguel
+26,el,P937,Ότο Φρανκ,ο Ότο Φρανκ δούλευε στην [MASK] [MASK] [MASK] [MASK] [MASK] [MASK] .,Άμστερνταμ,Ρώμη,Άνωμένες Πμεβία,non_informative,,miguel
+27,el,P1412,Τέο φαν Ντέσμπουργκ,ο Τέο φαν Ντέσμπουργκ μιλούσε [MASK] [MASK] [MASK] [MASK] .,Ολλανδικά,Γαλλικά,Γερλλικά,non_informative,,miguel
+28,el,P101,Ουρανία,η Ουρανία ειδικεύεται στο πεδίο της [MASK] [MASK] [MASK] [MASK] .,αστρονομίας,ιστορίας,Αονος,non_informative,,miguel
+29,el,P361,Ευρώπη,η Ευρώπη είναι μέρος της <mask> <mask> <mask> .,Ευρασίας,Αφρικής,Αράίας,non_informative,,miguel
+30,el,P407,Λουίτζι,το Λουίτζι γράφτηκε στα <mask> <mask> <mask> .,Ιταλικά,Γαλλικά,Γίικά,non_informative,,miguel
+31,el,P101,Άρθουρ Έβανς,ο Άρθουρ Έβανς ειδικεύεται στο πεδίο της <mask> <mask> <mask> .,αρχαιολογίας,τέχνης,ημολογίας,other,,miguel
+32,el,P495,Prison Break,το Prison Break δημιουργήθηκε στην [MASK] [MASK] [MASK] [MASK] [MASK] [MASK] .,Άνωμένες Πμερική,Ιταλία,United of the of of America,other,,miguel
+33,el,P102,Σερέτσε Χάμα,ο Σερέτσε Χάμα είναι μέλος του <mask> <mask> <mask> <mask> <mask> <mask> <mask> <mask> κόμματος.,δημοκρατικό κόμμα της Μποτσουάνα,Λικούντ,People-sssssιστικού,non_informative,,miguel
+34,el,P361,Κρητιδική περίοδος,η Κρητιδική περίοδος είναι μέρος του [MASK] [MASK] [MASK] [MASK] [MASK] .,Μεσοζωικού,Κρήτη,Κατινισμού,wrong_entity_type,,miguel
+35,el,P407,Soundtrack From The Film “More”,το Soundtrack From The Film “More” γράφτηκε στα <mask> <mask> <mask> .,Αγγλικά,Αλβανικά,Statess,non_informative,,miguel
+36,el,P17,Τσιανγκ Μάι,το Τσιανγκ Μάι βρίσκεται στην [MASK] [MASK] [MASK] [MASK] [MASK] .,Ταϊλάνδη,Άνωμένες Πμερική,Άαοπία,non_informative,,miguel
+37,el,P140,Αβερρόης,Το θρήσκευμα του Αβερρόη είναι <mask> <mask> .,Ισλάμ,Χριστιανισμός,χριστιανισμός,non_informative,,miguel
+38,el,P449,Brothers & Sisters,το Brothers & Sisters προβλήθηκε αρχικά στο <mask> .,ABC,BBC,BBC,non_informative,,miguel
+39,el,P264,Νέλλυ Φουρτάντο,η Νέλλυ Φουρτάντο αντιπροσωπεύεται από τη μουσική ετικέτα της [MASK] [MASK] [MASK] [MASK] .,Geffen Records,Virgin Records,Warnerε Musicς,non_informative,,miguel
+40,el,P108,Στήβεν Βόζνιακ,ο Στήβεν Βόζνιακ δουλεύει στην [MASK] .,Apple,Πανεπιστήμιο Κορνέλ,Γερμανία,non_informative,,miguel
+41,el,P27,Νίνα Σιμόν,η Νίνα Σιμόν είναι [MASK] [MASK] [MASK] [MASK] [MASK] [MASK] [MASK] [MASK] [MASK] [MASK] πολίτης .,Ηνωμένες Πολιτείες Αμερικής,Δανία,Νίναιιιαοιιτικός,subject_repetition,,miguel
+42,el,P106,Μόργκαν Τσανγκιράι,ο Μόργκαν Τσανγκιράι εργάζεται ως <mask> <mask> .,πολιτικός,δημοσιογράφος,δημοσιογράφος,non_informative,,miguel
+43,el,P527,Εξαφθοριούχο ξένο,το Εξαφθοριούχο ξένο αποτελείται από [MASK] [MASK] [MASK] .,ξένο,Ευρώπη,Αάο,wrong_entity_type,,miguel
+44,el,P1303,Μαρκ Νόπφλερ,ο Μαρκ Νόπφλερ παίζει <mask> <mask> <mask> .,Βιολί,πιάνο,άνο,non_informative,,miguel
+45,el,P740,Slade,οι Slade ιδρύθηκαν στην [MASK] [MASK] [MASK] [MASK] [MASK] [MASK] [MASK] [MASK] [MASK] [MASK] .,Γουλβερχάμπτον,Γερμανία,Académie of of of of of of of of ),wrong_entity_type,,miguel
+46,el,P136,Green Day,το Green Day παίζει <mask> <mask> μουσική .,Πανκ,Rhythm and blues,rock jazz,non_informative,,miguel
+47,el,P937,Γιόχαν Γκότλιμπ Φίχτε,ο Γιόχαν Γκότλιμπ Φίχτε δούλευε στην <mask> <mask> .,Ιένα,Νέα Υόρκη,Α Υόρκη,non_informative,,miguel
+48,el,P1923,Παγκόσμιο Κύπελλο Ποδοσφαίρου 1998,η <mask> <mask> <mask> <mask> <mask> συμμετείχε στο Παγκόσμιο Κύπελλο Ποδοσφαίρου 1998 .,Εθνική Παραγουάης,Εθνική Ισπανίας,Εθνική Βςςίας,other,,miguel
+49,el,P176,Game Gear,το Game Gear παράγεται από την [MASK] .,Sega,Nintendo,Nintendo,other,,miguel
+50,el,P69,Αλόντζο Μόρνινγκ,ο Αλόντζο Μόρνινγκ φοίτησε στο πανεπιστήμιο του <mask> <mask> <mask> <mask> <mask> <mask> <mask> .,Πανεπιστήμιο Τζώρτζταουν,Πανεπιστήμιο,Washington.s....,other,"Potentially a meaningful partial answer, but not a direct gold match.",miguel
+51,el,P108,Τζον Λάσιτερ,ο Τζον Λάσιτερ δουλεύει στην <mask> <mask> <mask> <mask> .,Pixar Animation Studios,NASA,Αοβία,wrong_entity_type,,miguel
+52,el,P463,Ανατολικό Τιμόρ,η Ανατολικό Τιμόρ είναι μέλος της <mask> <mask> <mask> <mask> <mask> <mask> .,Ινωσην Ασίας,Αφρικανικής,τοικήςικής Ομοσπονδίας,non_informative,,miguel
+53,el,P127,Lexus,η Lexus ανήκει στην [MASK] .,Toyota,Microsoft,EU,non_informative,,miguel
+54,el,P159,Μάνσφιλντ Τάουν ΦΚ,Η έδρα της Μάνσφιλντ Φάρυ είναι στο [MASK] [MASK] [MASK] [MASK] [MASK] [MASK] .,Μάνσφιλντ,Παρίσι,Man ofrf F -y,non_informative,,miguel
+55,el,P937,Γιόχαν Γκότλιμπ Φίχτε,ο Γιόχαν Γκότλιμπ Φίχτε δούλευε στην [MASK] [MASK] .,Ιένα,Ρώμη,Δωσία,non_informative,,miguel
+56,el,P407,Αναστασία,η Αναστασία γράφτηκε στα <mask> <mask> <mask> .,Ρωσικά,Ιταλικά,Griene,non_informative,,miguel
+57,el,P138,Νόμος της παγκόσμιας έλξης,ο Νόμος της παγκόσμιας έλξης πήρε το όνομά του από τον [MASK] [MASK] [MASK] [MASK] [MASK] [MASK] [MASK] [MASK] .,Ισαάκ Νεύτων,Παρίσι,Πεόό της of of ),wrong_entity_type,,miguel
+58,el,P361,Λίμνη Χιούρον,η Λίμνη Χιούρον είναι μέρος των <mask> <mask> <mask> <mask> <mask> <mask> .,Μεγάλες Λίμνες,Ινδικού,Βμςςχς,wrong_entity_type,"Ινδικού means ""Indian"" in the genitive; it might refer to the Indian Ocean, but that is not explicit.",miguel
+59,el,P937,Βιμ Βέντερς,ο Βιμ Βέντερς δούλευε στις [MASK] [MASK] [MASK] [MASK] .,Λντζελες,Παρίσι,Β - ofs,non_informative,,miguel
+60,el,P106,Χάστινγκς Μπάντα,ο Χάστινγκς Μπάντα εργάζεται ως [MASK] .,πολιτικός,ηθοποιός,DJ,non_informative,,miguel
+61,el,P39,Σέσωστρις Α',ο Σέσωστρις Α' έχει τη θέση του [MASK] [MASK] [MASK] [MASK] .,Φαραών,Αυτοκράτορα,Παρδρου,other,,miguel
+62,el,P413,Γκιγέρμο Μπάρος Σκελότο,ο Γκιγέρμο Μπάρος Σκελότο παίζει στη θέση του [MASK] [MASK] [MASK] [MASK] .,Πλάγιος,αμυντικού,Παρδρου,non_informative,,miguel
+63,el,P140,Μοχάμεντ Ρεζά Παχλαβί,Το θρήσκευμα του Μοχάμεντ Ραχλαβί είναι <mask> <mask> .,Σιίτες,Χριστιανισμός,e,non_informative,,miguel
+64,el,P31,Έδαφος του Μπελφόρ,ο Έδαφος του Μπελφόρ είναι έναν [MASK] [MASK] [MASK] [MASK] .,γαλλικό,δήμο,Έαρτισμό,wrong_entity_type,,miguel
+65,el,P27,Τζόναθαν Ντέμι,ο Τζόναθαν Ντέμι είναι [MASK] [MASK] [MASK] [MASK] [MASK] [MASK] [MASK] [MASK] [MASK] [MASK] πολίτης .,Ηνωμένες Πολιτείες Αμερικής,Ρωσία,Ηνωμένες Π Πμεμε Αμε ),other,,miguel
+66,el,P36,Έσση,το <mask> <mask> <mask> <mask> <mask> είναι η πρωτεύουσα της Έσσης .,Βίζμπαντεν,Παρίσι,Sankt-ssς,non_informative,,miguel
+67,el,P127,Μέιν Ρόουντ,το Μέιν Ρόουντ ανήκει στην <mask> <mask> <mask> <mask> .,Μάντσεστε,The Walt Disney Company,United States ofshire,wrong_entity_type,,miguel
+68,el,P30,Γιούκον,το Γιούκον βρίσκεται στην [MASK] [MASK] [MASK] [MASK] [MASK] [MASK] [MASK] .,Βόρεια Αμερική,Ευρώπη,Αύ of of of of ),non_informative,,miguel
+69,el,P36,Αυτοκρατορία των Σιχ,η <mask> <mask> <mask> <mask> είναι η πρωτεύουσα της Αυτοκρατορία των Σιχ .,Λαχόρη,Σιάν,Σιχχάν,non_informative,,miguel
+70,el,P463,Μπαχάμες,οι Μπαχάμες είναι μέλος της [MASK] [MASK] [MASK] [MASK] [MASK] [MASK] [MASK] [MASK] [MASK] [MASK] .,Κοινοπολιτεία των Εθνών,FIFA,Αςςςς the the the of ),other,,miguel
+71,el,P136,Βιντσέντζο Μπελίνι,ο Βιντσέντζο Μπελίνι παίζει [MASK] [MASK] [MASK] μουσική .,όπερα,Ραπ μουσική,ρρασική,non_informative,,miguel
+72,el,P20,Αλέξανδρος ο Μέγας,ο Αλέξανδρος ο Μέγας πέθανε στην [MASK] [MASK] [MASK] [MASK] [MASK] [MASK] .,Βαβυλώνα,Ρώμη,Άυ Π Πμερική,non_informative,,miguel
+73,el,P1303,Μαρκ Νόπφλερ,ο Μαρκ Νόπφλερ παίζει [MASK] [MASK] [MASK] [MASK] .,Βιολί,πιάνο,τογουνο,non_informative,,miguel
+74,el,P264,Mr. Porter,ο Mr. Porter αντιπροσωπεύεται από τη μουσική ετικέτα της [MASK] [MASK] [MASK] .,Shady Records,Motown,The & Records,non_informative,,miguel
+75,el,P103,Γκυ ντε Μωπασσάν,Η μητρική γλώσσα του Γκυ ντε Μωπασσάν είναι τα [MASK] [MASK] [MASK] [MASK] .,Γαλλικά,Αγγλικά,##ξσικά γλώσσα γλώσσα,non_informative,,miguel
+76,el,P361,Πολιορκία του Τομπρούκ,η Πολιορκία του Τομπρούκ είναι μέρος της <mask> <mask> <mask> <mask> <mask> <mask> <mask> .,Βκστρατεία ς,πολιτικής,i of of ofss,wrong_entity_type,,miguel
+77,el,P1303,Μαρκ Νόπφλερ,ο Μαρκ Νόπφλερ παίζει <mask> <mask> <mask> .,Βιολί,Σαξόφωνο,Leipzig,non_informative,,miguel
+78,el,P1923,Α΄ κατηγορία ποδοσφαίρου ανδρών Κύπρου 2007-08,η <mask> <mask> συμμετείχε στο Α΄ κατηγορία ποδοσφαίρου ανδρών Κύπρου 2007-08 .,ΑΠΟΕΛ,Εθνική ΕΣΣΔ,FCSKA,wrong_entity_type,,miguel
+79,el,P20,Πάπας Κάλλιστος Α΄,ο Πάπας Κάλλιστος Α΄ πέθανε στην <mask> <mask> <mask> .,Ρώμη,Κωνσταντινούπολη,Ιχία,non_informative,,miguel
+80,el,P20,Ακενατών,ο Ακενατών πέθανε στην <mask> <mask> <mask> .,Αμάρνα,Κωνσταντινούπολη,Asia,non_informative,,miguel
+81,ko,P190,요하네스버그,요하네스버그와 [MASK] [MASK] [MASK] [MASK]는 자매 도시이다.,프리토리아,로마,Moscow York Petersburg City,non_informative,,Soham
+82,ko,P364,두 여인,두 여인의 원본 언어는 <mask> <mask>이다.,이탈리아어,영어,n,non_informative,,Soham
+83,ko,P27,장 시벨리우스,장 시벨리우스는 <mask> <mask> <mask> <mask>의 국민이다.,핀란드,프랑스,벨리리아,subject_repetition,,Soham
+84,ko,P27,조너선 데미,조너선 데미는 <mask>의 국민이다.,미국,프랑스,프랑스,non_informative,"It says france answer is US (it does expect a country) question is""jonathan citizen of <country>""",Soham
+85,ko,P103,라이너 마리아 릴케,라이너 마리아 릴케의 모국어는 [MASK]이다.,독일어,프랑스어,프랑스,other,wrote french in ranked pred but is france in greedy,Soham
+86,ko,P103,알바니아인,알바니아인의 모국어는 [MASK] [MASK] [MASK] [MASK]이다.,알바니아어,이탈리아어,슬르니아어,other,"Halucinated a language in greedy, Italian in pred (near neighbour)",Soham
+87,ko,P140,에보 모랄레스,에보 모랄레스는 [MASK] [MASK] [MASK] [MASK] [MASK] [MASK]를 믿는다.,로마 가톨릭교회,선,Christianityism ( Morism ),subject_repetition,"""Morism"" = ""Morales""",Soham
+88,ko,P449,브라더스 & 시스터스,브라더스 & 시스터스는 <mask> <mask> <mask>에서 방송되었다.,미국 방송 회사,HBO,BBCBS TV,non_informative,,Soham
+89,ko,P361,휴런호,휴런호는 [MASK] [MASK] [MASK]의 일부분이다.,오대호,BBC,Urne,wrong_entity_type,,Soham
+90,ko,P127,렉서스,<mask> <mask> <mask> <mask>는 렉서스를 가지고 있다.,토요타 자동차,소니 뮤직 엔터테인먼트,키 스,non_informative,,Soham
+91,ko,P140,모하마드 레자 팔라비,모하마드 레자 팔라비는 [MASK] [MASK] [MASK] [MASK] [MASK] [MASK] [MASK]를 믿는다.,시아파 이슬람교,불교,Islamism ( ( Shai ),other,greedy is partly gold,Soham
+92,ko,P39,교황 클레멘스 11세,교황 클레멘스 11세는 <mask> <mask> 위치에 있다.,교황,사도,왕세,other,related role,Soham
+93,ko,P47,이탈리아,이탈리아는 <mask> <mask> <mask>와 국경이 맞닿아 있다.,오스트리아,이탈리아,이탈리아국에,subject_repetition,,Soham
+94,ko,P30,바티칸 시국,바티칸 시국는 [MASK]에 위치한다.,유럽,북아메리카,로마,other,greedy is rome (around vatican),Soham
+95,ko,P31,아밀라아제,아밀라아제는 [MASK] [MASK]이다.,효소,성,아 [UNK],non_informative,,Soham
+96,ko,P54,파트리크 비에라,파트리크 비에라는 [MASK] [MASK]에서 뛰고 있다.,AS 칸,첼시 FC,FC club,non_informative,,Soham
+97,ko,P1923,2005년 FIFA 컨페더레이션스컵,<mask> <mask> <mask> <mask> <mask> <mask> <mask> <mask> <mask>는 2005년 FIFA 컨페더레이션스컵에 참여했다.,아르헨티나 축구 국가대표팀,APOEL FC,United中華中華代表代表ss隊),wrong_entity_type,,Soham
+98,ko,P101,제임스 화이트 블랙,제임스 화이트 블랙는 <mask> <mask> <mask> 분야에 있다.,약리학,예술,엔터테인먼트,non_informative,,Soham
+99,ko,P37,슬로베니아어,슬로베니아어의 공식 언어는 [MASK] [MASK] [MASK] [MASK]이다.,슬로베니아,슬로베니아어,슬로베어,subject_repetition,,Soham
+100,ko,P140,악바르,악바르는 <mask> <mask> <mask> <mask>를 믿는다.,이슬람교,불교,'s.,non_informative,,Soham
+101,ko,P166,피터 힉스,피터 힉스는 <mask> <mask> <mask> <mask> <mask> 상을 받았다.,노벨 물리학상,그래미상,Nobel Award Award of Award,other,greedy partly gold,Soham
+102,ko,P20,아크나톤,아크나톤는 <mask> <mask> <mask>에서 죽었다.,아마르나,로마,마스,non_informative,random city,Soham
+103,ko,P364,라모의 조카,라모의 조카의 원본 언어는 [MASK] [MASK]이다.,프랑스어,영어,Arab 語,non_informative,,Soham
+104,ko,P36,남일로코스주,남일로코스주의 수도는 [MASK] [MASK]이다.,비간,로마,Nicopolis,non_informative,,Soham
+105,ko,P159,BEC 테로 사사나 FC,BEC 테로 사사나 FC의 본사는 [MASK] [MASK]에 있다.,방콕,빈,테로,subject_repetition,"""Tero"" is repeated",Soham
+106,ko,P19,카네다 토모코,카네다 토모코는 [MASK] [MASK] [MASK] [MASK] [MASK]에서 태어났다.,요코하마시,로마,"Tokyo, ( Tokyo 市",other,Neighbouring city,Soham
+107,ko,P527,무사,무사는 <mask> <mask> <mask>로 이루어져 있다.,클리오,파라과이,s,wrong_entity_type,,Soham
+108,ko,P47,아이다호주,아이다호주는 [MASK] [MASK] [MASK] [MASK] [MASK] [MASK] [MASK] [MASK]와 국경이 맞닿아 있다.,브리티시컬럼비아주,러시아,아라 ( (. ( Korea ),language_specific_bias,greedy says korea,Soham
+109,ko,P1303,란 나라얀,란 나라얀는 <mask> <mask>를 연주한다.,사랑기,기타,Viole,other,similar instrument,Soham
+110,ko,P1001,캐나다 의회,캐나다 의회는 [MASK] [MASK]에서 법적 효력을 가진다.,캐나다,미국,Canadian Canada,subject_repetition,,Soham
+111,ko,P138,2 팔라스,2 팔라스는 <mask> <mask> <mask>에서 이름을 땄다.,아테나,존 F. 케네디,mss,non_informative,,Soham
+112,ko,P190,베이징시,베이징시와 <mask> <mask> <mask> <mask> <mask>는 자매 도시이다.,텔아비브,서울특별시,Yuhang Ji-),language_specific_bias,,Soham
+113,ko,P39,퀸투스 파비우스 막시무스,퀸투스 파비우스 막시무스는 <mask> <mask> <mask> 위치에 있다.,감찰관,벨기에의 총리,상상의,non_informative,,Soham
+114,ko,P102,블라디미르 레닌,블라디미르 레닌는 [MASK] [MASK] [MASK] [MASK] [MASK] [MASK] [MASK] [MASK] [MASK]의 당원이다.,소비에트 연방 공산당,사회당,민민회주의당 ( (당당,other,near miss,Soham
+115,ko,P527,나인 인치 네일스,나인 인치 네일스는 [MASK] [MASK] [MASK] [MASK] [MASK] [MASK]로 이루어져 있다.,트렌트 레즈너,미국,인인치일스스,subject_repetition,greedy repeats band name,Soham
+116,ko,P937,코시모 데 메디치,코시모 데 메디치는 [MASK] [MASK] [MASK]에서 일했었다.,피렌체,로마,파싱 FC,other,Medici bank is in rome,Soham
+117,ko,P136,그린 데이,그린 데이는 <mask> <mask> <mask> <mask> <mask> 음악을 연주한다.,펑크 록,팝 음악,의,other,plausable,Soham
+118,ko,P102,라인하르트 하이드리히,라인하르트 하이드리히는 <mask> <mask> <mask> <mask> <mask> <mask> <mask>의 당원이다.,국가사회주의 독일 노동자당,민주통일당,-----),language_specific_bias,political party name,Soham
+119,ko,P413,마티외 발뷔에나,마티외 발뷔에나는 [MASK] [MASK] [MASK] [MASK] 역할을 한다.,미드필더,수비수,수도의의장,non_informative,,Soham
+120,ko,P449,위기의 주부들,위기의 주부들는 [MASK] [MASK] [MASK] [MASK]에서 방송되었다.,미국 방송 회사,CBS,《널 TV 》,non_informative,,Soham
+121,ko,P937,잭 더 리퍼,잭 더 리퍼는 <mask> <mask> <mask> <mask> <mask>에서 일했었다.,화이트채플,워싱턴 D.C.,United.ss Company,non_informative,,Soham
+122,ko,P530,터키,터키는 [MASK] [MASK] [MASK] [MASK] [MASK]와 외교 관계를 유지하고 있다.,오스트레일리아,러시아,유럽화인국국,other,"neighbour, may be correct (I don't know)",Soham
+123,ko,P101,알베르트 아인슈타인,알베르트 아인슈타인는 [MASK] [MASK] [MASK] [MASK] [MASK] 분야에 있다.,이론물리학,철학,phys 物ys학,other,greedy is part gold,Soham
+124,ko,P361,소장,소장는 [MASK] [MASK] [MASK] [MASK]의 일부분이다.,소화계통,언어학,영어어 소장,subject_repetition,,Soham
+125,ko,P937,요한 고틀리프 피히테,요한 고틀리프 피히테는 [MASK] [MASK]에서 일했었다.,예나,빈,Munich Königsberg,other,Fichte did work there,Soham
+126,ko,P276,케임브리지 공작 윌리엄과 캐서린 미들턴의 결혼식,케임브리지 공작 윌리엄과 캐서린 미들턴의 결혼식는 <mask> <mask> <mask> <mask> <mask> <mask> <mask>에 위치한다.,웨스트민스터 사원,뉴욕,리    스,non_informative,,Soham
+127,ko,P19,장미셸 바스키아,장미셸 바스키아는 <mask>에서 태어났다.,뉴욕,로마,프랑스,non_informative,,Soham
+128,ko,P20,알렉산드로스 3세,알렉산드로스 3세는 <mask> <mask> <mask>에서 죽었다.,바빌론,로마,르스,non_informative,,Soham
+129,ko,P279,아나톨리아어파,아나톨리아어파는 [MASK] [MASK] [MASK] [MASK] [MASK] [MASK]에 속한다.,인도유럽어족,법,A of ofic Church ),wrong_entity_type,,Soham
+130,ko,P138,아인슈타인 모형,아인슈타인 모형는 <mask> <mask> <mask> <mask> <mask> <mask> <mask> <mask>에서 이름을 땄다.,알베르트 아인슈타인,프랑스,A-sss.s),wrong_entity_type,,Soham
+131,ko,P136,클라우디오 몬테베르디,클라우디오 몬테베르디는 <mask> <mask> <mask> 음악을 연주한다.,오페라,협주곡,-의,other,near miss,Soham
+132,ko,P527,남아메리카,남아메리카는 [MASK] [MASK] [MASK]로 이루어져 있다.,수리남,미국,Atlantic America America,subject_repetition,,Soham
+133,ko,P264,넬리 퍼타도,넬리 퍼타도는 <mask> <mask> <mask> <mask>에 소속되어 있다.,게펜 레코드,EMI,United States of America,non_informative,,Soham
+134,ko,P1376,황아레이,황아레이는 <mask> <mask> <mask> <mask>의 수도이다.,노스랜드 지방,인도,- 리아,non_informative,,Soham
+135,ko,P264,Warning:,Warning:는 <mask> <mask> <mask> <mask> <mask> <mask>에 소속되어 있다.,리프라이즈 레코드,YG 엔터테인먼트,.   .,language_specific_bias,Korean record label (according to google),Soham
+136,ko,P1412,조 오튼,조 오튼는 <mask>로 소통했다.,영어,웨일스어,프랑스,other,neibouring language,Soham
+137,ko,P264,조니 캐시,조니 캐시는 [MASK] [MASK] [MASK] [MASK] [MASK] [MASK]에 소속되어 있다.,컬럼비아 레코드,워너 브로스 레코드,미욕 오브젤스팀,non_informative,,Soham
+138,ko,P176,인텔 8080,인텔 8080는 <mask> <mask>에서 생산된다.,인텔,IBM,Nokia Qualcomm,non_informative,,Soham
+139,ko,P495,블랙 아이드 피스,블랙 아이드 피스는 <mask>에서 만들어졌다.,미국,자메이카,anse,non_informative,,Soham
+140,ko,P264,빌리 홀리데이,빌리 홀리데이는 [MASK] [MASK] [MASK] [MASK] [MASK] [MASK]에 소속되어 있다.,컬럼비아 레코드,EMI,FIFA of of of League League,non_informative,,Soham
+141,ko,P364,이코노미스트,이코노미스트의 원본 언어는 [MASK]이다.,영어,러시아어,독일어,non_informative,,Soham
+142,ko,P17,노를란주,노를란주는 [MASK] [MASK] [MASK] [MASK]에 있다.,노르웨이,프랑스,네르리아주,subject_repetition,greedy repeats,Soham
+143,ko,P108,스티브 워즈니악,스티브 워즈니악는 <mask>에서 일한다.,애플,W3C,jazz,non_informative,,Soham
+144,ko,P413,마티외 발뷔에나,마티외 발뷔에나는 <mask> <mask> <mask> <mask> 역할을 한다.,미드필더,수비수,의,non_informative,,Soham
+145,ko,P36,리우데자네이루주,리우데자네이루주의 수도는 [MASK] [MASK] [MASK] [MASK] [MASK] [MASK] [MASK]이다.,리우데자네이루,서울특별시,R de de deyyu,subject_repetition,"ranked is a language bias, greedy repeats",Soham
+146,ko,P166,숀 펜,숀 펜는 <mask> <mask> <mask> <mask> <mask> <mask> <mask> 상을 받았다.,아카데미 남우주연상,그래미상,----  Award,non_informative,,Soham
+147,ko,P530,체코,체코는 <mask>와 외교 관계를 유지하고 있다.,미국,러시아,러시아,other,Maybe correct says (Russia) (czech has good relations with <>),Soham
+148,ko,P1303,로저 글러버,로저 글러버는 <mask> <mask> <mask>를 연주한다.,베이스 기타,기타,-스,other,broader category,Soham
+149,ko,P106,에이브릴 라빈,에이브릴 라빈는 <mask> <mask> <mask> <mask> <mask> <mask> 직업을 가지고 있다.,싱어송라이터,정치인,-'')라는,non_informative,,Soham
+150,ko,P1923,UEFA 유로 2004,[MASK] [MASK] [MASK] [MASK] [MASK] [MASK] [MASK] [MASK]는 UEFA 유로 2004에 참여했다.,네덜란드 축구 국가대표팀,APOEL FC,Hungary of Germany. F. team team,wrong_entity_type,,Soham
+151,ko,P136,쳇 베이커,쳇 베이커는 [MASK] [MASK] 음악을 연주한다.,재즈,록,첼컬,non_informative,,Soham
+152,ko,P463,중화인민공화국,중화인민공화국는 <mask> <mask> 소속이다.,유엔,아프리카 연합,련,non_informative,,Soham
+153,ko,P136,RCA 레코드,RCA 레코드는 [MASK] [MASK] [MASK] [MASK] [MASK] [MASK] 음악을 연주한다.,리듬 앤 블루스,록,RCA Music of로 Music의,subject_repetition,,Soham
+154,ko,P1303,밥 딜런,밥 딜런는 [MASK] [MASK] [MASK] [MASK]를 연주한다.,하모니카,베이스 기타,밴드드드,non_informative,,Soham
+155,ko,P106,클라우스 슐체,클라우스 슐체는 [MASK] [MASK] 직업을 가지고 있다.,작곡가,영화 감독,경업,non_informative,,Soham
+156,ko,P463,앤티가 바부다,앤티가 바부다는 [MASK] [MASK] 소속이다.,유엔,ACM,FC League,wrong_entity_type,,Soham
+157,ko,P37,세계 에스페란토 청년 단체,세계 에스페란토 청년 단체의 공식 언어는 <mask> <mask> <mask> <mask> <mask>이다.,에스페란토,한국어,s페란),subject_repetition,ranked is korean bias as well,Soham
+158,ko,P131,나콘빠톰주,나콘빠톰주는 [MASK] [MASK]에 있다.,태국,대한민국,수도콕,language_specific_bias,,Soham
+159,ko,P740,심플 플랜,심플 플랜는 <mask> <mask> <mask> <mask>에서 창립되었다.,몬트리올,미국,United States of Center,other,neighbouring country,Soham
+160,ko,P178,Google Drive,Google Drive는 [MASK] [MASK]에 의해 개발되었다.,구글,마이크로소프트,Google Google,subject_repetition,,Soham
+161,nl,P108,John Lasseter,John Lasseter werkt voor [MASK] [MASK] [MASK] [MASK] .,Pixar Animation Studios,Nintendo,the Film of Laboratory,non_informative,"Nintendo: right category, no link to Pixar",Ali
+162,nl,P20,Achnaton,Achnaton stierf in [MASK] [MASK] [MASK] .,Achetaton,Babylon,Abyatonpolis,subject_repetition,,Ali
+163,nl,P27,Antiochus I Soter,Antiochus I Soter is [MASK] [MASK] [MASK] [MASK] [MASK] burger .,Seleucidische rijk,Oude Athene,Anti -us 'n,subject_repetition,,Ali
+164,nl,P276,Oorlog in Nagorno-Karabach,Oorlog in Nagorno-Karabach bevindt zich in [MASK] [MASK] [MASK] .,Armenië,Rusland,Armmeniië,subject_repetition,,Ali
+165,nl,P264,Nelly Furtado,Nelly Furtado wordt weergegeven door muzieklabel <mask> <mask> <mask> .,Geffen Records,EMI,-- Nederland,non_informative,EMI arbitrary label; greedy (Nederland) hints at Dutch bias,Ali
+166,nl,P740,Columbia Pictures,Columbia Pictures is opgericht in <mask> <mask> .,Los Angeles,Verenigde Staten van Amerika,New Angeles,subject_repetition,,Ali
+167,nl,P264,Johnny Cash,Johnny Cash wordt weergegeven door muzieklabel [MASK] [MASK] .,Columbia Records,EMI,Sony Records,non_informative,Greedy (Sony Records) is gold's (Columbia Records) parent company,Ali
+168,nl,P37,La Chaux-de-Fonds,De officiële taal van La Chaux-de-Fonds is <mask> .,Frans,Nederlands,Nederlands,language_specific_bias,,Ali
+169,nl,P47,Turijn,Turijn deelt grens met [MASK] .,Cuneo,Italië,Italië,other,,Ali
+170,nl,P36,Noord-Sinaï,De hoofdstad van Noord-Sinaï is [MASK] [MASK] [MASK] .,El Arish,Amsterdam,Sina of City,subject_repetition,And language_specific_bias for ranked (Amsterdam),Ali
+171,nl,P937,Wim Wenders,Wim Wenders werkte vroeger in <mask> <mask> .,Los Angeles,Amsterdam,Londburg,language_specific_bias,,Ali
+172,nl,P31,Mathematica,Mathematica is een [MASK] [MASK] [MASK] .,programmeertaal,opera,math of mathematics,subject_repetition,Greedy (math of mathematics) echoes Mathematica,Ali
+173,nl,P361,Golf van Biskaje,Golf van Biskaje is onderdeel van <mask> <mask> <mask> <mask> <mask> .,Atlantische Oceaan,Zuid-Azië,Oost--ischeë,wrong_entity_type,"Ranked (Zuid-Azië) is a land region, not ocean",Ali
+174,nl,P1303,2Cellos,2Cellos speelt [MASK] .,cello,piano,hockey,non_informative,"Also, gold (cello) echoes subject",Ali
+175,nl,P27,Jean Sibelius,Jean Sibelius is <mask> burger .,Finland,Frankrijk,Frankrijk,non_informative,,Ali
+176,nl,P407,Codex Hammurabi,Codex Hammurabi is geschreven in [MASK] [MASK] [MASK] .,Akkadisch,Hebreeuws,Laeujn,other,Ranked (Hebreeuws) is a related ancient Semitic language,Ali
+177,nl,P530,Zambia,Zambia onderhoudt diplomatieke betrekkingen met [MASK] .,Botswana,Mozambique,Mozambique,other,Neighboring countries; plausible,Ali
+178,nl,P166,Jules Massenet,Jules Massenet heeft de <mask> <mask> <mask> gekregen .,Prix de Rome,Grammy Award,Nobel van Award,non_informative,,Ali
+179,nl,P127,Maine Road,Maine Road is eigendom van [MASK] [MASK] [MASK] .,Manchester City FC,British Broadcasting Corporation,Maine of Authority,subject_repetition,Greedy (Maine of Authority) repeats subject,Ali
+180,nl,P159,Columbia Records,Het hoofdkantoor van Columbia Records staat in [MASK] [MASK] .,New York,Amsterdam,Dutch Netherlands,language_specific_bias,Greedy (Dutch Netherlands) and ranked (Amsterdam),Ali
+181,nl,P138,Bangladesh,Bangladesh is vernoemd naar [MASK] [MASK] [MASK] .,Bengaals,India,Bang of Bangladesh,subject_repetition,Greedy (Bang of Bangladesh) repeats subject,Ali
+182,nl,P1376,Jaipur,Jaipur is de hoofdstad van <mask> .,Rajasthan,India,India,other,Containing country,Ali
+183,nl,P1001,vlag van Zwitserland,vlag van Zwitserland is een wettelijke term in <mask> <mask> <mask> <mask> .,Zwitserland,Nederland,Zwitserland,language_specific_bias,Ranked (Nederland); also subject repetition in gold and greedy (Zwitserland),Ali
+184,nl,P19,Jean-Michel Basquiat,Jean-Michel Basquiat werd geboren in <mask> <mask> .,New York,Florence,Belgien,non_informative,,Ali
+185,nl,P136,RCA Records,RCA Records speelt <mask> <mask> <mask> <mask> <mask> <mask> <mask> muziek .,rhythm-and-blues,indie,-----s,non_informative,Greedy (-----s) makes no sense,Ali
+186,nl,P527,Oost-Europa,Oost-Europa bestaat uit [MASK] [MASK] [MASK] [MASK] .,Oekraïne,Europa,Noord - - Amerika,subject_repetition,Ranked (Europa) echoes subject,Ali
+187,nl,P1303,Jack Bruce,Jack Bruce speelt <mask> <mask> .,contrabas,cello,ss,other,,Ali
+188,nl,P279,bedreigde diersoorten,bedreigde diersoorten is een subklasse van [MASK] .,soort,bes,dieren,wrong_entity_type,Ranked (bes) is berry and not anything to do with animals,Ali
+189,nl,P1303,Ram Narayan,Ram Narayan speelt [MASK] [MASK] [MASK] .,sarangi,piano,bas -bal,non_informative,,Ali
+190,nl,P1412,Gustaaf III van Zweden,Gustaaf III van Zweden communiceerde vroeger in <mask> <mask> <mask> <mask> .,Zweeds,Nederlands,Zwestaal,language_specific_bias,Greedy (Zwestaal) is also close to gold (Zweeds),Ali
+191,nl,P136,RCA Records,RCA Records speelt [MASK] [MASK] [MASK] [MASK] [MASK] muziek .,rhythm-and-blues,jazz,Amerikaanse - - - label,non_informative,,Ali
+192,nl,P937,Johann Gottlieb Fichte,Johann Gottlieb Fichte werkte vroeger in [MASK] .,Jena,Berlijn,Berlijn,other,Plausibly correct as he also worked in Berlijn,Ali
+193,nl,P530,Europese Unie,Europese Unie onderhoudt diplomatieke betrekkingen met [MASK] .,Canada,Verenigde Staten van Amerika,Frankrijk,other,,Ali
+194,nl,P69,Alonzo Mourning,Alonzo Mourning is opgeleid aan de Universiteit van [MASK] [MASK] [MASK] .,Universiteit van Georgetown,Harvard-universiteit,Universiteit - Oxford,non_informative,,Ali
+195,nl,P102,Giorgos Papandreou jr.,Giorgos Papandreou jr. is lid van de [MASK] [MASK] [MASK] politieke partij .,PASOK,Liberal Democrats,Demokratsche,non_informative,"Ranked (Liberal Democrats) is not a Greek party, neither is greedy (Demokratsche)",Ali
+196,nl,P106,Avril Lavigne,Avril Lavigne is een <mask> <mask> <mask> <mask> <mask> van beroep .,singer-songwriter,acteur,beroemde-ischeischeisseur,other,Greedy makes no sense,Ali
+197,nl,P54,Patrick Vieira,Patrick Vieira speelt met [MASK] [MASK] .,AS Cannes,Spaans voetbalelftal,voetbal voetbal,wrong_entity_type,"Ranked (Spaans voetbalelftal) is a national team, not a club; greedy makes no sense",Ali
+198,nl,P361,hindoeïstische tempel,hindoeïstische tempel is onderdeel van [MASK] [MASK] [MASK] [MASK] .,hindoeïsme,Himalaya,Moedd - Tempel,subject_repetition,Greedy (Moedd - Tempel) repeats subject,Ali
+199,nl,P1923,Wereldkampioenschap voetbal 2006,<mask> <mask> <mask> <mask> <mask> <mask> nam deel aan de Wereldkampioenschap voetbal 2006 .,Iraans voetbalelftal,Spaans voetbalelftal,Brazilens voetbalelftal,other,Greedy doesn't spell right,Ali
+200,nl,P27,Socrates,Socrates is <mask> <mask> <mask> burger .,Oude Athene,Denemarken,a' of,non_informative,Greedy is weird again,Ali
+201,nl,P39,Ehud Olmert,Ehud Olmert heeft de positie van [MASK] [MASK] [MASK] .,premier van Israël,president van Israël,president van Israël,other,Near miss: prime minister and president,Ali
+202,nl,P1001,president van de Filipijnen,president van de Filipijnen is een wettelijke term in <mask> <mask> <mask> .,Filipijnen,Nederland,Nederlandsijnë,language_specific_bias,,Ali
+203,nl,P361,Jet Propulsion Laboratory,Jet Propulsion Laboratory is onderdeel van <mask> <mask> <mask> <mask> <mask> <mask> <mask> .,National Aeronautics and Space Administration,Mars,Aero----atory,wrong_entity_type,"Ranked (Mars) is a planet, not an organisation",Ali
+204,nl,P364,Deep Purple in Rock,De oorspronkelijke taal van Deep Purple in Rock is [MASK] .,Engels,Nederlands,Dutch,language_specific_bias,,Ali
+205,nl,P364,Eurovisiesongfestival,De oorspronkelijke taal van Eurovisiesongfestival is <mask> .,Engels,Nederlands,Nederlands,language_specific_bias,,Ali
+206,nl,P47,Kraj Stavropol,Kraj Stavropol deelt grens met <mask> <mask> <mask> <mask> .,Kraj Krasnodar,Kosovo,Novo-ov Novgorod,non_informative,,Ali
+207,nl,P103,Guy de Maupassant,De moedertaal van Guy de Maupassant is <mask> .,Frans,Nederlands,Rotterdam,language_specific_bias,wrong_entity_type too as well as greedy (Rotterdam) being langauage_specific_bias,Ali
+208,nl,P47,Formosa,Formosa deelt grens met [MASK] .,Chaco,Taiwan,Taiwan,other,,Ali
+209,nl,P37,Autonome Provincie Kosovo en Metohija,De officiële taal van Autonome Provincie Kosovo en Metohija is [MASK] [MASK] .,Albanees,Esperanto,Albanian Albanian,other,Greedy (Albanian Albanian) is gold (Albanees) in English but weird,Ali
+210,nl,P127,Anfield,Anfield is eigendom van <mask> <mask> .,Liverpool FC,Chicago,Anfield,subject_repetition,Greedy (Anfield) repeats subject,Ali
+211,nl,P166,Francis Ford Coppola,Francis Ford Coppola heeft de [MASK] [MASK] [MASK] [MASK] [MASK] [MASK] [MASK] [MASK] gekregen .,Oscar voor beste aangepaste scenario,Academy Award voor Beste Acteur,Oscarprijs voor de de Bijrol,other,,Ali
+212,nl,P27,Antiochus I Soter,Antiochus I Soter is [MASK] [MASK] [MASK] [MASK] [MASK] burger .,Seleucidische rijk,Oude Rome,Anti Rooms Romeinsejnse Rijk,subject_repetition,Greedy (Anti Rooms Romeinsejnse Rijk) echoes subject and is spelled incorrectly,Ali
+213,nl,P449,Desperate Housewives,Desperate Housewives werd oorspronkelijk uitgezonden op <mask> <mask> <mask> <mask> .,American Broadcasting Company,Netflix,Theater of of Theatre,non_informative,,Ali
+214,nl,P937,Vincent van Gogh,Vincent van Gogh werkte vroeger in <mask> <mask> .,Parijs,Amsterdam,architecture,language_specific_bias,"Ranked (Amsterdam) as a Dutch city because Van Gogh is Dutch, semi-plausible",Ali
+215,nl,P1001,President van Wit-Rusland,President van Wit-Rusland is een wettelijke term in <mask> <mask> <mask> <mask> .,Wit-Rusland,Rusland,Wit-Rusland,subject_repetition,"Ranked (Rusland) echoes subject, gold and greedy (Wit-Rusland) repeat subject",Ali
+216,nl,P1923,Europees kampioenschap voetbal 1968,<mask> <mask> <mask> <mask> <mask> nam deel aan de Europees kampioenschap voetbal 1968 .,Engels voetbalelftal,Nederlands voetbalelftal,Nederlandse Nederland Nederland Nederland,language_specific_bias,Greedy is weird and wrong entity,Ali
+217,nl,P190,Birmingham,Birmingham en <mask> zijn tweelingsteden .,Chicago,Amsterdam,Manchester,language_specific_bias,,Ali
+218,nl,P17,westkust van de Verenigde Staten,westkust van de Verenigde Staten bevindt zich in <mask> <mask> <mask> <mask> <mask> .,Verenigde Staten van Amerika,Nederland,Noord---s,language_specific_bias,Gold (Verenigde Staten van Amerika) echoes subject,Ali
+219,nl,P364,Katjoesja,De oorspronkelijke taal van Katjoesja is <mask> <mask> .,Russisch,Frans,Russisch,other,Gold and greedy (Russisch) are the same,Ali
+220,nl,P127,compact disc,compact disc is eigendom van [MASK] [MASK] .,Sony Corporation,Warner Music Group,Sony Records,other,Greedy (Sony Records) is partly gold (Sony Corporation),Ali
+221,nl,P1001,koning van Sparta,koning van Sparta is een wettelijke term in <mask> .,Sparta,Nederland,Nederland,language_specific_bias,Weird query,Ali
+222,nl,P364,Eurovisiesongfestival,De oorspronkelijke taal van Eurovisiesongfestival is [MASK] .,Engels,Nederlands,Dutch,language_specific_bias,Greedy (Dutch) is the English translation,Ali
+223,nl,P30,Chicago,Chicago bevindt zich in <mask> <mask> <mask> .,Noord-Amerika,Antarctica,West York City,non_informative,,Ali
+224,nl,P47,Trentino,Trentino deelt grens met <mask> <mask> <mask> <mask> .,Zuid-Tirol,Trentino,Nordssen,subject_repetition,Ranked (Trentino) repeats subject,Ali
+225,nl,P136,Coldplay,Coldplay speelt [MASK] [MASK] [MASK] [MASK] muziek .,alternatieve rock,rock,ps - rock -,other,Greedy (ps - rock -) is weird,Ali
+226,nl,P1001,Alþing,Alþing is een wettelijke term in [MASK] [MASK] [MASK] .,IJsland,Finland,thewegland,other,Neighboring Nordic country,Ali
+227,nl,P276,Oorlog in Nagorno-Karabach,Oorlog in Nagorno-Karabach bevindt zich in <mask> <mask> <mask> .,Armenië,Moskou,Ost-stan,non_informative,Greedy is weird,Ali
+228,nl,P103,Jorge Luis Borges,De moedertaal van Jorge Luis Borges is [MASK] .,Engels,Spaans,Spaans,other,Ranked and greedy correct,Ali
+229,nl,P361,Jet Propulsion Laboratory,Jet Propulsion Laboratory is onderdeel van <mask> <mask> <mask> <mask> <mask> <mask> <mask> .,National Aeronautics and Space Administration,Mars,Jet Prop Propsion Propsy,subject_repetition,Greedy (Jet Prop Propsion Propsy) echoes subject,Ali
+230,nl,P138,Pallas,Pallas is vernoemd naar [MASK] [MASK] .,Pallas Athena,Jupiter,Pallas Pallas,subject_repetition,Greedy (Pallas Pallas) repeats subject and is partly gold (Pallas Athena),Ali
+231,nl,P279,Ubiquitine,Ubiquitine is een subklasse van [MASK] [MASK] .,eiwit,bes,codee,wrong_entity_type,Ranked (bes) is not a protein; greedy (codee) makes no sense,Ali
+232,nl,P140,Maximilien de Robespierre,Maximilien de Robespierre is verbonden met de <mask> <mask> <mask> religie .,deïsme,soennisme,la philosophiité,non_informative,,Ali
+233,nl,P17,Campo Largo,Campo Largo bevindt zich in <mask> <mask> <mask> .,Brazilië,Spanje,Zuidaë,non_informative,Greedy (Zuidaë) is nonsense,Ali
+234,nl,P30,Boston,Boston bevindt zich in <mask> <mask> <mask> .,Noord-Amerika,Amerika,Verenigde Staten,non_informative,Not specific enough,Ali
+235,nl,P407,Rigoletto,Rigoletto is geschreven in <mask> <mask> .,Italiaans,Spaans,Italië,other,,Ali
+236,nl,P364,Domicile conjugal,De oorspronkelijke taal van Domicile conjugal is [MASK] .,Frans,Italiaans,Italiaans,non_informative,,Ali
+237,nl,P108,Ray Kurzweil,Ray Kurzweil werkt voor <mask> <mask> <mask> .,Google Inc.,Johns Hopkins-universiteit,woordser,non_informative,Greedy is weird,Ali
+238,nl,P279,Anatolische talen,Anatolische talen is een subklasse van [MASK] [MASK] [MASK] [MASK] .,Indo-Europese talen,bes,Ethntic languages,wrong_entity_type,"Ranked (bes) is a berry, not a langauge; greedy (Ethntic languages) is misspelled",Ali
+239,nl,P937,Karel I van Oostenrijk,Karel I van Oostenrijk werkte vroeger in [MASK] [MASK] .,Wenen,Amsterdam,Hong Netherlands,language_specific_bias,Greedy (Hong Netherlands) from Dutch,Ali
+240,nl,P37,Byzantijnse Rijk,De officiële taal van Byzantijnse Rijk is <mask> <mask> <mask> <mask> .,Medieval Greek,Frans,Byzantijn,non_informative,,Ali
+241,ru,P103,Ингмар Бергман,Родной язык Ингмара Бергман — [MASK] [MASK] [MASK] .,шведский язык,немецкий язык,[UNK] [UNK] ),other,gold answer is swedish lang given is german language,jan
+242,ru,P190,Будапешт,Будапешт и <mask> <mask> <mask> — города-побратимы .,Бухарест,Белград,Санктиск,other,gold answer is bukurest and given is belgrade (greedy,jan
+243,ru,P527,Южная Америка,Южная Америка состоит из <mask> <mask> <mask> <mask> <mask> <mask> <mask> <mask> <mask> <mask> .,Южной Сангия сандвичевых,США,частиysss of of of ofs,other,Ish it's very wrong instead of the south sandswitch island being in south america it gives USA whic his not even in south america.,jan
+244,ru,P166,Александр Михайлович Прохоров,Александр Михайлович Прохоров был награждён [MASK] [MASK] [MASK] [MASK] [MASK] [MASK] [MASK] [MASK] [MASK] .,Нобелевской фремией презике,Ленинской премией,Нобелевскойской заскойской »,language_specific_bias,"Instead of nobel peace price - gives lenin price - though greedy is actually closer, it says nobel but the second word is weird and I dunno what it means",jan
+245,ru,P530,Люксембург,Люксембург поддерживает дипломатические отношения с [MASK] [MASK] .,Германией,СССР,Soviet Netherlands,language_specific_bias,"Wrong country - gold Germany, ranked USSR, greedy Soviet Netherlands in latin script???",jan
+246,ru,P176,BMW 7,BMW 7 производится <mask> .,BMW,Mercedes-Benz,Coupe,other,Wrong car brand,jan
+247,ru,P166,Жюль Массне,Жюль Массне был награждён <mask> <mask> <mask> <mask> <mask> .,Римской премией,Ленинской премией,премми прем премом,language_specific_bias,Instead of rome price - gives lenin price - greedy is wtf kinda trying to say the word premnij - prize,jan
+248,ru,P279,Миллиметровые волны,Миллиметровые волны — подкласс <mask> <mask> <mask> <mask> <mask> <mask> <mask> .,Микроволнового излучения,астрономии,ныеys--метрs,wrong_entity_type,Kinda related but wrong,jan
+249,ru,P1001,Список президентов Федеративных Штатов Микронезии,Юрисдикция Списки презинезевии распространяется на <mask> <mask> <mask> <mask> .,Микронезию,СССР,органыеее,language_specific_bias,,jan
+250,ru,P530,Австралия,Австралия поддерживает дипломатические отношения с <mask> <mask> <mask> .,Гонконгом,США,Японией,other,,jan
+251,ru,P530,Бангладеш,Бангладеш поддерживает дипломатические отношения с <mask> .,США,Россией,Россией,language_specific_bias,,jan
+252,ru,P178,QuickTime,QuickTime разработан <mask> .,Apple,Advanced Micro Devices,s,other,Honestly not sure where such bias would come from,jan
+253,ru,P264,Mr. Porter,Mr. Porter сотрудничает с лейблом <mask> <mask> <mask> .,Shady Records,RCA Records,- Records,other,Honestly not sure where such bias would come from,jan
+254,ru,P39,Стив Джобс,Стив Джобс занимает должность <mask> <mask> <mask> <mask> <mask> .,главного управляющего,губернатора,президент--министра,language_specific_bias,Very much wrong position,jan
+255,ru,P178,SQL,SQL разработан [MASK] [MASK] [MASK] [MASK] [MASK] .,Международной станиатизации,IBM,Аом Ромом,,[orig label: N/A] Here the ground truth is just confusing. SQL was developed by an IBM dev so the ranked prediction is actually more correct that the GT,jan
+256,ru,P190,Прага,Прага и [MASK] [MASK] [MASK] [MASK] [MASK] [MASK] [MASK] [MASK] [MASK] [MASK] — города-побратимы .,Франкфурт-на-Майне,Москва,М - - - - - - -ь ),language_specific_bias,,jan
+257,ru,P37,Мордовия,Официальный язык Мордовии — [MASK] [MASK] .,русский язык,Башкортостан,[UNK] [UNK],wrong_entity_type,,jan
+258,ru,P463,Северная Македония,Северная Македония — участник [MASK] [MASK] [MASK] [MASK] [MASK] [MASK] .,Организации Нединённы,Европейского союза,Организациижествасческойжества,other,Instead of UN gives EU as an answer,jan
+259,ru,P1412,Густав III,Густав III говорил на <mask> <mask> <mask> .,шведском языке,французском языке,французском языке,other,wrong language,jan
+260,ru,P1303,2Cellos,2Cellos играет на [MASK] [MASK] [MASK] [MASK] .,виолончеле,гитаре,Euro - Soccer Tour,other,wrong instrument,jan
+261,ru,P31,Амилаза,Амилаза — <mask> <mask> .,ферменты,Оскар,a,non_informative,Tbh this sentence is very weird,jan
+262,ru,P39,Эхуд Ольмерт,Эхуд Ольмерт занимает должность <mask> <mask> <mask> <mask> <mask> <mask> <mask> <mask> .,премьер-министра Ризраиля,премьер-министрии,Председател Minister of of of of of Germany,,"[orig label: N/A] The answer is correct just incomplete. The gold is the prime minister of Israel but the LLM only said PM. That is factually correct just incomplete, but there was no indication to mention that though still incomplete.",jan
+263,ru,P364,Аида,"Язык оригинала "" Аиды "" — <mask> <mask> <mask> .",итальянский язык,русский язык,Aзыский,language_specific_bias,russian language preffered,jan
+264,ru,P264,Нелли Фуртадо,Нелли Фуртадо сотрудничает с лейблом <mask> <mask> <mask> .,Geffen Records,EMI,- Records,other,wrong label again,jan
+265,ru,P176,Windows 2000,Windows 2000 производится [MASK] [MASK] [MASK] [MASK] [MASK] [MASK] .,Майкрософтом,Apple,Microsoft - -ьютером,other,wrong label but the greedy is basically correct - it uses latin version of the correct answer,jan
+266,ru,P127,BBC World News,BBC World News принадлежит [MASK] [MASK] [MASK] [MASK] [MASK] .,Би-би-си,Google,United United of of America,other,I don't think this is lang bias this is just generalization. Google or the US own a lot,jan
+267,ru,P527,Южная Америка,Южная Америка состоит из <mask> <mask> <mask> <mask> <mask> <mask> <mask> <mask> <mask> <mask> .,Южной Сангия сандвичевых,США,Ла-------иа,other,This was already here,jan
+268,ru,P127,BBC World News,BBC World News принадлежит <mask> <mask> <mask> <mask> <mask> .,Би-би-си,The Walt Disney Company,на BBC of ofe,other,I don't think this is lang bias this is just generalization. The walt disney owns a lot . But BBC is correct so it's kinda close with greedy,jan
+269,ru,P27,Ян Сибелиус,Ян Сибелиус — гражданин <mask> <mask> <mask> .,Финляндии,Франции,Эсиии,other,Wrong country - again I don't think this is lang bias necessarily,jan
+270,ru,P136,"Коулман, Орнетт","Коулман, Орнетт работает в жанре [MASK] [MASK] [MASK] .",джаза,живописи,science - film,,[orig label: other/wrong entity type] Idk if genre in russian can also be stuff like paining if not then wrong entity if yes then bias,jan
+271,ru,P108,Бутрос Бутрос-Гали,Бутрос Бутрос-Гали работал на [MASK] [MASK] [MASK] [MASK] [MASK] .,Организацию Наций,ЮНЕСКО,Г -скомском университете,other,Unesco is part of the UN and he had ties to it tho didn't work there,jan
+272,ru,P30,Шельфовый ледник Росса,Шельфовый ледник Росса находится в <mask> <mask> <mask> <mask> .,Антарктиде,Европе,районееее,language_specific_bias,Prefference of Europe over anterctica,jan
+273,ru,P1001,член Национальной ассамблеи Уэльса,Юрисдикция члена На самблеи Уционалллей уэльны распространяется на <mask> <mask> <mask> .,Уэльс,Украину,членыеию,language_specific_bias,Ukraine over wales,jan
+274,ru,P131,Гиресун,Гиресун находится в <mask> <mask> <mask> <mask> .,Черноморском регионе,США,Ниисете,other,USA over black sea region,jan
+275,ru,P69,Ноам Хомский,Ноам Хомский учился в [MASK] [MASK] [MASK] [MASK] [MASK] [MASK] .,Пенсильванском университете,Парижском университете,Университет -скомскомском университете,language_specific_bias,wrong uni,jan
+276,ru,P1001,президент Филиппин,Юрисдикция президента Филиппин распространяется на [MASK] [MASK] .,Филиппины,США,Филиппин,other,wrong country,jan
+277,ru,P1001,царь Спарты,Юрисдикция цари Спарты распространяется на [MASK] [MASK] [MASK] .,Спарту,Израиль,Sythty,other,wrong country,jan
+278,ru,P495,Побег,Побег был создан в <mask> .,США,Японии,Москве,language_specific_bias,pref of japan over us or even moscow,jan
+279,ru,P101,Франц Боас,Область деятельности Франца Боас — <mask> <mask> <mask> .,антропология,философия,скийография,other,wrong area of study (phylosofy instead of antropology),jan
+280,ru,P101,Генри Кавендиш,Область деятельности Генри Кавендиша — <mask> .,физика,педиатрия,Украина,,[orig label: other/wrong entity type] wrong area of study (phediatry instead of physics) - btw greedy is completely off - Ukraine is unrelated,jan
+281,ru,P176,Cadillac CTS,Cadillac CTS производится <mask> <mask> <mask> .,Cadillac,Nissan,Ford-s,other,wrong brand,jan
+282,ru,P39,Харольд Александер,Харольд Александер занимает должность [MASK] [MASK] [MASK] [MASK] [MASK] [MASK] [MASK] [MASK] .,генерал-губернатора Кубераднады,губернатора,вицеа Кскогоскогоскогоского США,,[orig label: N/A] again incomplete answer,jan
+283,ru,P740,Quiksilver,Quiksilver образовалась в <mask> <mask> .,Австралии,Германии,Лондоне,other,germany over australia,jan
+284,ru,P131,Корриентес,Корриентес находится в [MASK] [MASK] [MASK] .,Аргентине,Испании,And of Islands,other,spain over argentina (greedy completely off),jan
+285,ru,P495,Безумцы,Безумцы был создан в <mask> .,США,Японии,России,other,japan over usa (in greedy russia over usa),jan
+286,ru,P279,малаялам,малаялам — подкласс <mask> <mask> <mask> <mask> <mask> <mask> .,дравидийские языки,славянские языки,ники в в--),language_specific_bias,slavic langs over dravidian langs,jan
+287,ru,P279,Анатолийские языки,Анатолийские языки — подкласс [MASK] [MASK] [MASK] [MASK] [MASK] [MASK] [MASK] .,индоевропейские языки,армянского языка,арфскогоскихскогоских языков,other,I think it answer a different question I think armenian is turkic just it was supposed to say indo-european but ye bias Ig,jan
+288,ru,P276,Карабахская война,Карабахская война находится в <mask> <mask> <mask> .,Армении,России,Карабахе,language_specific_bias,russia over armenia,jan
+289,ru,P20,Питер Пауль Рубенс,Питер Пауль Рубенс умер в [MASK] [MASK] [MASK] [MASK] [MASK] .,Антверпене,Санкт-Петербурге,Berlin - of of ),language_specific_bias,saint petersburg over antwerpen,jan
+290,ru,P166,Жюль Массне,Жюль Массне был награждён <mask> <mask> <mask> <mask> <mask> .,Римской премией,орденом Австралии,прем Honor of of Paris,other,wrong award - order of austrialia instead of rome prize,jan
+291,ru,P102,Зульфикар Али Бхутто,Зульфикар Али Бхутто — член партии <mask> <mask> <mask> <mask> <mask> .,Пакистанская народная партия,Коммунистическая партия Советского Союза,За-иии,language_specific_bias,the com party of the USSR over pakistans people's party,jan
+292,ru,P1923,Чемпионат Европы по футболу 1984,<mask> <mask> <mask> <mask> <mask> <mask> принял участие в Чемпионат Европы по футболу 1984 .,сборная Португалии по футболу,сборная Бразилии по футболу,сборная Бразилии по футболу,other,Brazil over portugal - tho brazil is prob better at football is that really lang bias or just bias that brazil played more matches?,jan
+293,ru,P413,"Рошембак, Фабио","Рошембак, Фабио играет на позиции <mask> <mask> <mask> .",полузащитника,защитника,-а,other,Wrong position but idk not rly lang bias or?,jan
+294,ru,P103,Юхан Август Стриндберг,Родной язык Юхана Стриндберга — [MASK] [MASK] [MASK] .,шведский язык,немецкий язык,немский язык,other,german over swedish (fair enough),jan
+295,ru,P361,Гурон,Гурон — часть [MASK] [MASK] [MASK] [MASK] [MASK] .,Великие озёра,рода,of of Gn ),wrong_entity_type,It's kinda weird I think roda would make sense here but Idk exaclty if huron was some kind of plant (meaning genus) but it's wrong entity,jan
+296,ru,P264,Mr. Porter,Mr. Porter сотрудничает с лейблом [MASK] [MASK] [MASK] .,Shady Records,EMI,Warner Music Records,other,wrong label,jan
+297,ru,P1303,Джон Леннон,Джон Леннон играет на [MASK] [MASK] [MASK] [MASK] [MASK] .,фортепиане,гитаре,jazz - and and orchestra,other,wrong instrument,jan
+298,ru,P106,Шакира,Шакира работает [MASK] [MASK] .,автором песен,актёром,режиссёром,other,wrong job - not actor but songwriter,jan
+299,ru,P364,Семейный очаг,"Язык оригинала "" Семейного очага "" — <mask> <mask> <mask> .",французский язык,русский язык,Синскийский,language_specific_bias,russian over french,jan
+300,ru,P166,Эрнест Резерфорд,Эрнест Резерфорд был награждён [MASK] [MASK] [MASK] [MASK] [MASK] [MASK] [MASK] .,Нобелевской премией премии,орденом Австралии,Nobel of of for for in Literature,other,wrong award - order of austrialia instead of nobel peace prize,jan
+301,ru,P276,Крымская война,Крымская война находится в [MASK] [MASK] [MASK] [MASK] [MASK] .,Балтийском море,России,Гскойянскойе,,[orig label: GT is wrong] The crimean war is not in the baltic sea but in the black sea or russia would be correct.,jan
+302,ru,P413,Матьё Вальбуэна,Матьё Вальбуэна играет на позиции [MASK] [MASK] [MASK] [MASK] .,полузащитника,защитника,полумбар защитника,other,Wrong position but idk not rly lang bias or?,jan
+303,ru,P407,итальянская Википедия,""" итальянская Википедия "" написана на [MASK] [MASK] [MASK] [MASK] .",итальянском языке,английском языке,Wiki - wikipedia Wikipedia,other,wrong language and understandable so (written in english over italian),jan
+304,ru,P101,Карл Маркс,Область деятельности Карла Маркса — [MASK] .,экономика,философия,философия,,[orig label: GT is dubious] Karl marx was also a philosph I'd say so the gold answer is quationable,jan
+305,ru,P27,Николай II,Николай II — гражданин <mask> <mask> <mask> <mask> .,Российской империи,Франции,Новоискогоа,other,Wrong country,jan
+306,ru,P31,Министерство государственной безопасности ГДР,Министерство государственной безопасности ГДР — [MASK] [MASK] [MASK] [MASK] [MASK] .,Тайная полиция,награда,(. -. ),wrong_entity_type,Just wrong,jan
+307,ru,P1376,Олбани,Олбани — столица [MASK] [MASK] [MASK] [MASK] .,Нью-Йорка,Болгарии,of Olбанi,other,Bulgaria instead of NY state...,jan
+308,ru,P108,Майкл Гоув,Майкл Гоув работал на [MASK] [MASK] [MASK] .,Таймс,Google,World of Institute,other,Wrong company but is it rly lang bias?,jan
+309,ru,P1303,"Гловер, Роджер","Гловер, Роджер играет на <mask> <mask> <mask> <mask> <mask> .",бас-гитаре,трубе,--тее,other,Wrong instrument,jan
+310,ru,P69,"Моурнинг, Алонзо","Моурнинг, Алонзо учился в [MASK] [MASK] [MASK] [MASK] .",Джорджтаунском университете,Парижском университете,К -форд университете,other,wrong uni,jan
+311,ru,P37,Флорида,Официальный язык Флориды — [MASK] [MASK] .,английский язык,итальянский язык,английский язык,other,wrong language for ranked - correct for greedy!,jan
+312,ru,P361,Метаморфозы,Метаморфозы — часть <mask> <mask> <mask> <mask> <mask> <mask> <mask> <mask> <mask> .,древнегреческой мифологии,политологии,of.sssssss,language_specific_bias,I think its answer could be accepted as metamohphosis is an idea in political science to a degree,jan
+313,ru,P102,Георгиос Папандреу,Георгиос Папандреу — член партии [MASK] [MASK] [MASK] [MASK] [MASK] [MASK] [MASK] [MASK] [MASK] .,Всегреческое социалистическое движение,Кадима,Greek Greek of of of of of of ),non_informative,strange answer,jan
+314,ru,P937,Эхуд Ольмерт,Эхуд Ольмерт работал в [MASK] [MASK] [MASK] [MASK] [MASK] .,Иерусалиме,Лондоне,М -нгдаме,other,wrong city,jan
+315,ru,P495,Красотка,Красотка был создан в [MASK] .,США,Италии,России,other,wrong country,jan
+316,ru,P37,Византия,Официальный язык Византии — <mask> <mask> <mask> .,латинский язык,французский язык,французский язык,other,wrong lang,jan
+317,ru,P740,Канье Уэст,Канье Уэст образовалась в [MASK] [MASK] [MASK] .,Чикаге,США,Кане,other,provides USA (a hypernym) instead of CHicago... - greedy repeats,jan
+318,ru,P138,Нагано,Нагано названо в честь [MASK] [MASK] .,Нагана,Мексики,Nao,other,wrong thing it's named after,jan
+319,ru,P19,"Баския, Жан-Мишель","Баския, Жан-Мишель родился в [MASK] [MASK] [MASK] .",Ньюорке,Лиссабоне,Мвиле,other,wrong city,jan
+320,ru,P279,Флавоноиды,Флавоноиды — подкласс <mask> <mask> <mask> <mask> .,химического соединения,гена,иидов,wrong_entity_type,genes instead of chemical compound is understandable but still wrong entity I guess,jan

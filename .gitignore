@@ -204,3 +204,17 @@ fabric.properties
 data
 results
 output
+
+# Local experiment artifacts
+checkpoints/
+slurm_logs/
+*.backup
+
+# UniMorph inflection cache written by scripts/prompt.py (joblib)
+inflection_cache/
+
+# Keep pipeline_v1 results (figures, summary tables, per-run metrics)
+!pipeline_v1/results/
+# ...but not the large, regenerable outputs
+pipeline_v1/results/**/predictions.jsonl
+pipeline_v1/results/transfer/tokenization/*.jsonl

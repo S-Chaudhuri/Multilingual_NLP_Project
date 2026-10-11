@@ -1,0 +1,321 @@
+﻿id,source_file,source_line,model,run,lang,ref_label,ref_notes
+1,errors_mbert_base_en_seed42.csv,57,mbert_base,en,el,wrong_entity_type,[reviewed] 'city' as class of an epic poem
+2,errors_xlmr_base_en_seed42.csv,27,xlmr_base,en,el,non_informative,greedy has no usable content (fragments/function words)
+3,errors_xlmr_base_en_seed42.csv,83,xlmr_base,en,el,language_specific_bias,ranked 'Ελλάδα' is tied to the query language (el)
+4,errors_mbert_base_en_seed42.csv,16,mbert_base,en,el,non_informative,greedy has no usable content (fragments/function words)
+5,errors_xlmr_base_en_seed42.csv,74,xlmr_base,en,el,non_informative,greedy has no usable content (fragments/function words)
+6,errors_mbert_base_en_seed42.csv,81,mbert_base,en,el,subject_repetition,greedy copies subject piece 'νοτια αμερικη'
+7,errors_mbert_base_en_seed42.csv,85,mbert_base,en,el,non_informative,greedy has no usable content (fragments/function words)
+8,errors_mbert_base_en_seed42.csv,52,mbert_base,en,el,other,[reviewed] greedy partially writes the gold ('επστ... Science')
+9,errors_mbert_base_en_seed42.csv,65,mbert_base,en,el,language_specific_bias,ranked 'Ελλάδα' is tied to the query language (el)
+10,errors_xlmr_base_en_seed42.csv,21,xlmr_base,en,el,non_informative,greedy has no usable content (fragments/function words)
+11,errors_mbert_base_en_seed42.csv,84,mbert_base,en,el,non_informative,greedy has no usable content (fragments/function words)
+12,errors_xlmr_base_en_seed42.csv,10,xlmr_base,en,el,other,[reviewed] near miss: greedy 'Premier' (gold politician)
+13,errors_mbert_base_en-nl-ru-el_seed42.csv,77,mbert_base,en-nl-ru-el,el,other,[reviewed] near miss: greedy 'Europe' for an Italian dish
+14,errors_mbert_base_en-nl-ru-el_seed42.csv,28,mbert_base,en-nl-ru-el,el,subject_repetition,greedy copies subject piece 'μπενφικα'
+15,errors_xlmr_base_en-nl-ru-el_seed42.csv,75,xlmr_base,en-nl-ru-el,el,other,[reviewed] plausibly correct: Tajikistan is a FIFA member
+16,errors_xlmr_base_en-nl-ru-el_seed42.csv,70,xlmr_base,en-nl-ru-el,el,other,[reviewed] plausibly correct: RFI broadcasts in French
+17,errors_mbert_base_en-nl-ru-el_seed42.csv,35,mbert_base,en-nl-ru-el,el,other,"[reviewed] meaningful greedy entity ('Sony'), wrong"
+18,errors_xlmr_base_en_seed42.csv,14,xlmr_base,en,el,non_informative,greedy has no usable content (fragments/function words)
+19,errors_xlmr_base_en-nl-ru-el_seed42.csv,57,xlmr_base,en-nl-ru-el,el,non_informative,greedy has no usable content (fragments/function words)
+20,errors_xlmr_base_en-nl-ru-el_seed42.csv,36,xlmr_base,en-nl-ru-el,el,other,[reviewed] near miss: Boeing (competitor of Airbus)
+21,errors_xlmr_base_en_seed42.csv,80,xlmr_base,en,el,other,[reviewed] greedy_correct_en: 'United States'
+22,errors_xlmr_base_en-nl-ru-el_seed42.csv,83,xlmr_base,en-nl-ru-el,el,other,[reviewed] plausibly correct: Israel has relations with Turkey
+23,errors_mbert_base_en-nl-ru-el_seed42.csv,68,mbert_base,en-nl-ru-el,el,non_informative,greedy has no usable content (fragments/function words)
+24,errors_xlmr_base_en-nl-ru-el_seed42.csv,87,xlmr_base,en-nl-ru-el,el,non_informative,greedy has no usable content (fragments/function words)
+25,errors_xlmr_base_en_seed42.csv,3,xlmr_base,en,el,non_informative,greedy has no usable content (fragments/function words)
+26,errors_mbert_base_en-nl-ru-el_seed42.csv,88,mbert_base,en-nl-ru-el,el,non_informative,greedy has no usable content (fragments/function words)
+27,errors_mbert_base_en-nl-ru-el_seed42.csv,26,mbert_base,en-nl-ru-el,el,non_informative,greedy has no usable content (fragments/function words)
+28,errors_mbert_base_en-nl-ru-el_seed42.csv,4,mbert_base,en-nl-ru-el,el,non_informative,greedy has no usable content (fragments/function words)
+29,errors_xlmr_base_en-nl-ru-el_seed42.csv,62,xlmr_base,en-nl-ru-el,el,non_informative,greedy has no usable content (fragments/function words)
+30,errors_xlmr_base_en-nl-ru-el_seed42.csv,71,xlmr_base,en-nl-ru-el,el,non_informative,greedy has no usable content (fragments/function words)
+31,errors_xlmr_base_en-nl-ru-el_seed42.csv,5,xlmr_base,en-nl-ru-el,el,other,[reviewed] greedy partially writes the gold ('...ολογίας'); ranked art related
+32,errors_mbert_base_en_seed42.csv,78,mbert_base,en,el,other,[reviewed] greedy_correct_en: greedy writes 'United ... America' (gold USA)
+33,errors_xlmr_base_en_seed42.csv,7,xlmr_base,en,el,non_informative,greedy has no usable content (fragments/function words)
+34,errors_mbert_base_en-nl-ru-el_seed42.csv,58,mbert_base,en-nl-ru-el,el,subject_repetition,[reviewed] surface copy of the subject (Cretaceous -> Crete)
+35,errors_xlmr_base_en_seed42.csv,70,xlmr_base,en,el,non_informative,greedy has no usable content (fragments/function words)
+36,errors_mbert_base_en-nl-ru-el_seed42.csv,32,mbert_base,en-nl-ru-el,el,non_informative,greedy has no usable content (fragments/function words)
+37,errors_xlmr_base_en-nl-ru-el_seed42.csv,26,xlmr_base,en-nl-ru-el,el,other,"[reviewed] meaningful greedy ('Christianity'), wrong"
+38,errors_xlmr_base_en-nl-ru-el_seed42.csv,73,xlmr_base,en-nl-ru-el,el,other,[reviewed] near miss: BBC (another broadcaster)
+39,errors_mbert_base_en-nl-ru-el_seed42.csv,44,mbert_base,en-nl-ru-el,el,other,"[reviewed] meaningful greedy entity ('Warner Music'), wrong"
+40,errors_mbert_base_en-nl-ru-el_seed42.csv,10,mbert_base,en-nl-ru-el,el,other,"[reviewed] meaningful greedy entity ('Germany'), wrong"
+41,errors_mbert_base_en_seed42.csv,49,mbert_base,en,el,subject_repetition,greedy copies subject piece 'νινα'
+42,errors_xlmr_base_en-nl-ru-el_seed42.csv,10,xlmr_base,en-nl-ru-el,el,other,"[reviewed] meaningful greedy occupation ('journalist'), wrong"
+43,errors_mbert_base_en-nl-ru-el_seed42.csv,78,mbert_base,en-nl-ru-el,el,wrong_entity_type,[reviewed] a continent as part of a chemical compound
+44,errors_xlmr_base_en-nl-ru-el_seed42.csv,16,xlmr_base,en-nl-ru-el,el,non_informative,greedy has no usable content (fragments/function words)
+45,errors_mbert_base_en_seed42.csv,88,mbert_base,en,el,non_informative,greedy has no usable content (fragments/function words)
+46,errors_xlmr_base_en_seed42.csv,20,xlmr_base,en,el,other,[reviewed] near miss: greedy 'rock' (gold punk)
+47,errors_xlmr_base_en-nl-ru-el_seed42.csv,91,xlmr_base,en-nl-ru-el,el,non_informative,greedy has no usable content (fragments/function words)
+48,errors_xlmr_base_en-nl-ru-el_seed42.csv,44,xlmr_base,en-nl-ru-el,el,other,[reviewed] plausibly correct (World Cup participant)
+49,errors_mbert_base_en_seed42.csv,34,mbert_base,en,el,other,[reviewed] near miss: competitor manufacturer (Nintendo vs Sega)
+50,errors_xlmr_base_en_seed42.csv,87,xlmr_base,en,el,other,[reviewed] near miss: greedy 'Washington' (Georgetown is in Washington)
+51,errors_xlmr_base_en-nl-ru-el_seed42.csv,13,xlmr_base,en-nl-ru-el,el,non_informative,greedy has no usable content (fragments/function words)
+52,errors_xlmr_base_en-nl-ru-el_seed42.csv,76,xlmr_base,en-nl-ru-el,el,non_informative,greedy has no usable content (fragments/function words)
+53,errors_mbert_base_en_seed42.csv,13,mbert_base,en,el,other,"[reviewed] meaningful greedy entity ('EU'), wrong"
+54,errors_mbert_base_en_seed42.csv,28,mbert_base,en,el,other,[reviewed] greedy starts the gold in Latin script ('Man...' = Mansfield)
+55,errors_mbert_base_en_seed42.csv,90,mbert_base,en,el,non_informative,greedy has no usable content (fragments/function words)
+56,errors_xlmr_base_en_seed42.csv,71,xlmr_base,en,el,non_informative,greedy has no usable content (fragments/function words)
+57,errors_mbert_base_en_seed42.csv,23,mbert_base,en,el,subject_repetition,greedy copies subject piece 'τησ'
+58,errors_xlmr_base_en-nl-ru-el_seed42.csv,63,xlmr_base,en-nl-ru-el,el,non_informative,greedy has no usable content (fragments/function words)
+59,errors_mbert_base_en_seed42.csv,91,mbert_base,en,el,non_informative,greedy has no usable content (fragments/function words)
+60,errors_mbert_base_en-nl-ru-el_seed42.csv,9,mbert_base,en-nl-ru-el,el,other,"[reviewed] meaningful greedy occupation ('DJ'), wrong"
+61,errors_mbert_base_en-nl-ru-el_seed42.csv,65,mbert_base,en-nl-ru-el,el,other,[reviewed] near miss: 'Emperor' for a pharaoh (ruler title)
+62,errors_mbert_base_en_seed42.csv,70,mbert_base,en,el,non_informative,greedy has no usable content (fragments/function words)
+63,errors_xlmr_base_en_seed42.csv,26,xlmr_base,en,el,non_informative,greedy has no usable content (fragments/function words)
+64,errors_mbert_base_en-nl-ru-el_seed42.csv,55,mbert_base,en-nl-ru-el,el,other,[reviewed] near miss: 'municipality' for a French territory
+65,errors_mbert_base_en-nl-ru-el_seed42.csv,47,mbert_base,en-nl-ru-el,el,other,[reviewed] greedy partially writes the gold ('Ηνωμένες Π... Αμε')
+66,errors_xlmr_base_en_seed42.csv,60,xlmr_base,en,el,non_informative,greedy has no usable content (fragments/function words)
+67,errors_xlmr_base_en_seed42.csv,15,xlmr_base,en,el,non_informative,greedy has no usable content (fragments/function words)
+68,errors_mbert_base_en_seed42.csv,54,mbert_base,en,el,non_informative,greedy has no usable content (fragments/function words)
+69,errors_xlmr_base_en-nl-ru-el_seed42.csv,60,xlmr_base,en-nl-ru-el,el,subject_repetition,[reviewed] greedy copies the subject ('Σιχ...'); ranked Xi'an is a surface match
+70,errors_mbert_base_en_seed42.csv,74,mbert_base,en,el,other,[reviewed] plausibly correct: the Bahamas is a FIFA member
+71,errors_mbert_base_en-nl-ru-el_seed42.csv,18,mbert_base,en-nl-ru-el,el,other,[reviewed] near miss: greedy ~'κλασική' (classical) for opera
+72,errors_mbert_base_en-nl-ru-el_seed42.csv,43,mbert_base,en-nl-ru-el,el,non_informative,greedy has no usable content (fragments/function words)
+73,errors_mbert_base_en-nl-ru-el_seed42.csv,15,mbert_base,en-nl-ru-el,el,non_informative,greedy has no usable content (fragments/function words)
+74,errors_mbert_base_en-nl-ru-el_seed42.csv,45,mbert_base,en-nl-ru-el,el,non_informative,greedy has no usable content (fragments/function words)
+75,errors_mbert_base_en_seed42.csv,7,mbert_base,en,el,other,en_default: ranked is 'English'
+76,errors_xlmr_base_en_seed42.csv,63,xlmr_base,en,el,non_informative,greedy has no usable content (fragments/function words)
+77,errors_xlmr_base_en_seed42.csv,16,xlmr_base,en,el,wrong_entity_type,[reviewed] greedy writes a city for a musical instrument
+78,errors_xlmr_base_en_seed42.csv,45,xlmr_base,en,el,wrong_entity_type,[reviewed] a national team for a club league
+79,errors_xlmr_base_en-nl-ru-el_seed42.csv,47,xlmr_base,en-nl-ru-el,el,language_specific_bias,ranked 'Κωνσταντινούπολη' is tied to the query language (el)
+80,errors_xlmr_base_en_seed42.csv,47,xlmr_base,en,el,language_specific_bias,ranked 'Κωνσταντινούπολη' is tied to the query language (el)
+81,errors_mbert_base_en_seed42.csv,132,mbert_base,en,ko,other,"[reviewed] meaningful greedy entities (city names), wrong"
+82,errors_xlmr_base_en_seed42.csv,155,xlmr_base,en,ko,other,en_default: ranked is 'English'
+83,errors_xlmr_base_en-nl-ru-el_seed42.csv,140,xlmr_base,en-nl-ru-el,ko,subject_repetition,[reviewed] greedy copies the subject ('벨리...')
+84,errors_xlmr_base_en-nl-ru-el_seed42.csv,141,xlmr_base,en-nl-ru-el,ko,other,"[reviewed] meaningful greedy entity ('France'), wrong"
+85,errors_mbert_base_en-nl-ru-el_seed42.csv,96,mbert_base,en-nl-ru-el,ko,other,"[reviewed] meaningful greedy ('France'), wrong"
+86,errors_mbert_base_en-nl-ru-el_seed42.csv,95,mbert_base,en-nl-ru-el,ko,other,[reviewed] greedy writes the gold misspelled ('...니아어' ~ Albanian)
+87,errors_mbert_base_en_seed42.csv,116,mbert_base,en,ko,other,[reviewed] near miss: greedy 'Christianity' (gold Roman Catholic)
+88,errors_xlmr_base_en_seed42.csv,164,xlmr_base,en,ko,other,[reviewed] near miss: HBO / greedy 'BBCBS TV' (other broadcasters)
+89,errors_mbert_base_en_seed42.csv,153,mbert_base,en,ko,wrong_entity_type,[reviewed] an organisation (BBC) as whole of a lake group
+90,errors_xlmr_base_en-nl-ru-el_seed42.csv,104,xlmr_base,en-nl-ru-el,ko,non_informative,greedy has no usable content (fragments/function words)
+91,errors_mbert_base_en_seed42.csv,117,mbert_base,en,ko,other,[reviewed] greedy_correct_en (partial): 'Islam ... Shai' = Shia Islam
+92,errors_xlmr_base_en-nl-ru-el_seed42.csv,158,xlmr_base,en-nl-ru-el,ko,other,[reviewed] near miss: apostle (gold Pope)
+93,errors_xlmr_base_en-nl-ru-el_seed42.csv,169,xlmr_base,en-nl-ru-el,ko,subject_repetition,greedy copies subject piece '이탈리아'
+94,errors_mbert_base_en-nl-ru-el_seed42.csv,143,mbert_base,en-nl-ru-el,ko,other,[reviewed] near miss: greedy 'Rome' (Vatican is in Rome)
+95,errors_mbert_base_en_seed42.csv,148,mbert_base,en,ko,wrong_entity_type,[reviewed] ranked 'castle' as class of an enzyme
+96,errors_mbert_base_en_seed42.csv,176,mbert_base,en,ko,non_informative,greedy has no usable content (fragments/function words)
+97,errors_xlmr_base_en_seed42.csv,134,xlmr_base,en,ko,wrong_entity_type,[reviewed] ranked is a club team for a national-team tournament
+98,errors_xlmr_base_en-nl-ru-el_seed42.csv,94,xlmr_base,en-nl-ru-el,ko,other,"[reviewed] meaningful greedy ('entertainment'), wrong"
+99,errors_mbert_base_en-nl-ru-el_seed42.csv,154,mbert_base,en-nl-ru-el,ko,subject_repetition,[reviewed] ranked copies the subject (Slovene language)
+100,errors_xlmr_base_en_seed42.csv,117,xlmr_base,en,ko,non_informative,greedy has no usable content (fragments/function words)
+101,errors_xlmr_base_en_seed42.csv,123,xlmr_base,en,ko,other,[reviewed] greedy partially writes the gold ('Nobel Award')
+102,errors_xlmr_base_en-nl-ru-el_seed42.csv,137,xlmr_base,en-nl-ru-el,ko,non_informative,greedy has no usable content (fragments/function words)
+103,errors_mbert_base_en_seed42.csv,154,mbert_base,en,ko,other,en_default: ranked is 'English'
+104,errors_mbert_base_en_seed42.csv,151,mbert_base,en,ko,non_informative,greedy has no usable content (fragments/function words)
+105,errors_mbert_base_en-nl-ru-el_seed42.csv,117,mbert_base,en-nl-ru-el,ko,subject_repetition,[reviewed] greedy copies the subject ('테로')
+106,errors_mbert_base_en_seed42.csv,131,mbert_base,en,ko,other,[reviewed] near miss: greedy 'Tokyo' (gold Yokohama)
+107,errors_xlmr_base_en-nl-ru-el_seed42.csv,172,xlmr_base,en-nl-ru-el,ko,wrong_entity_type,[reviewed] a country as part of the Muses
+108,errors_mbert_base_en_seed42.csv,169,mbert_base,en,ko,language_specific_bias,greedy '아라 ( (. ( Korea )' names a query-language (ko) entity
+109,errors_xlmr_base_en_seed42.csv,107,xlmr_base,en,ko,other,"[reviewed] meaningful greedy instrument ('Viole'), wrong"
+110,errors_mbert_base_en_seed42.csv,93,mbert_base,en,ko,other,[reviewed] greedy_correct_en: greedy writes 'Canada'
+111,errors_xlmr_base_en_seed42.csv,114,xlmr_base,en,ko,non_informative,greedy has no usable content (fragments/function words)
+112,errors_xlmr_base_en_seed42.csv,133,xlmr_base,en,ko,language_specific_bias,ranked '서울특별시' is tied to the query language (ko)
+113,errors_xlmr_base_en_seed42.csv,158,xlmr_base,en,ko,non_informative,greedy has no usable content (fragments/function words)
+114,errors_mbert_base_en-nl-ru-el_seed42.csv,94,mbert_base,en-nl-ru-el,ko,other,[reviewed] near miss: greedy ~'socialist party' (gold Communist Party)
+115,errors_mbert_base_en-nl-ru-el_seed42.csv,170,mbert_base,en-nl-ru-el,ko,subject_repetition,[reviewed] greedy copies the subject ('...인치...일스')
+116,errors_mbert_base_en-nl-ru-el_seed42.csv,180,mbert_base,en-nl-ru-el,ko,non_informative,greedy has no usable content (fragments/function words)
+117,errors_xlmr_base_en-nl-ru-el_seed42.csv,110,xlmr_base,en-nl-ru-el,ko,non_informative,greedy has no usable content (fragments/function words)
+118,errors_xlmr_base_en_seed42.csv,97,xlmr_base,en,ko,non_informative,greedy has no usable content (fragments/function words)
+119,errors_mbert_base_en-nl-ru-el_seed42.csv,160,mbert_base,en-nl-ru-el,ko,non_informative,greedy has no usable content (fragments/function words)
+120,errors_mbert_base_en-nl-ru-el_seed42.csv,161,mbert_base,en-nl-ru-el,ko,other,[reviewed] near miss: CBS (another US network)
+121,errors_xlmr_base_en_seed42.csv,181,xlmr_base,en,ko,non_informative,greedy has no usable content (fragments/function words)
+122,errors_mbert_base_en-nl-ru-el_seed42.csv,171,mbert_base,en-nl-ru-el,ko,other,[reviewed] plausibly correct: Turkey has relations with Russia
+123,errors_mbert_base_en_seed42.csv,95,mbert_base,en,ko,other,[reviewed] greedy partially writes the gold ('phys...학' = physics)
+124,errors_mbert_base_en-nl-ru-el_seed42.csv,150,mbert_base,en-nl-ru-el,ko,subject_repetition,[reviewed] greedy copies the subject ('소장')
+125,errors_mbert_base_en_seed42.csv,182,mbert_base,en,ko,other,[reviewed] plausibly correct: Fichte also worked in Königsberg
+126,errors_xlmr_base_en-nl-ru-el_seed42.csv,142,xlmr_base,en-nl-ru-el,ko,non_informative,greedy has no usable content (fragments/function words)
+127,errors_xlmr_base_en-nl-ru-el_seed42.csv,131,xlmr_base,en-nl-ru-el,ko,other,"[reviewed] meaningful greedy entity ('France'), wrong"
+128,errors_xlmr_base_en-nl-ru-el_seed42.csv,136,xlmr_base,en-nl-ru-el,ko,non_informative,greedy has no usable content (fragments/function words)
+129,errors_mbert_base_en_seed42.csv,144,mbert_base,en,ko,non_informative,greedy has no usable content (fragments/function words)
+130,errors_xlmr_base_en_seed42.csv,115,xlmr_base,en,ko,non_informative,greedy has no usable content (fragments/function words)
+131,errors_xlmr_base_en_seed42.csv,110,xlmr_base,en,ko,other,[reviewed] near miss: concerto (gold opera)
+132,errors_mbert_base_en_seed42.csv,173,mbert_base,en,ko,subject_repetition,[reviewed] greedy copies the subject in English ('America')
+133,errors_xlmr_base_en_seed42.csv,138,xlmr_base,en,ko,non_informative,greedy has no usable content (fragments/function words)
+134,errors_xlmr_base_en-nl-ru-el_seed42.csv,113,xlmr_base,en-nl-ru-el,ko,non_informative,greedy has no usable content (fragments/function words)
+135,errors_xlmr_base_en-nl-ru-el_seed42.csv,138,xlmr_base,en-nl-ru-el,ko,language_specific_bias,[reviewed] ranked 'YG Entertainment' (Korean label) tied to the query language
+136,errors_xlmr_base_en-nl-ru-el_seed42.csv,118,xlmr_base,en-nl-ru-el,ko,other,"[reviewed] meaningful greedy ('France'), wrong"
+137,errors_mbert_base_en-nl-ru-el_seed42.csv,136,mbert_base,en-nl-ru-el,ko,non_informative,greedy has no usable content (fragments/function words)
+138,errors_xlmr_base_en_seed42.csv,126,xlmr_base,en,ko,other,[reviewed] near miss: greedy 'Nokia Qualcomm' (chip makers)
+139,errors_xlmr_base_en_seed42.csv,170,xlmr_base,en,ko,non_informative,greedy has no usable content (fragments/function words)
+140,errors_mbert_base_en_seed42.csv,139,mbert_base,en,ko,non_informative,greedy has no usable content (fragments/function words)
+141,errors_mbert_base_en-nl-ru-el_seed42.csv,152,mbert_base,en-nl-ru-el,ko,other,"[reviewed] meaningful greedy ('German'), wrong"
+142,errors_mbert_base_en-nl-ru-el_seed42.csv,122,mbert_base,en-nl-ru-el,ko,non_informative,greedy has no usable content (fragments/function words)
+143,errors_xlmr_base_en_seed42.csv,103,xlmr_base,en,ko,wrong_entity_type,[reviewed] greedy writes a genre ('jazz') for an employer
+144,errors_xlmr_base_en-nl-ru-el_seed42.csv,162,xlmr_base,en-nl-ru-el,ko,non_informative,greedy has no usable content (fragments/function words)
+145,errors_mbert_base_en_seed42.csv,150,mbert_base,en,ko,language_specific_bias,ranked '서울특별시' is tied to the query language (ko)
+146,errors_xlmr_base_en-nl-ru-el_seed42.csv,123,xlmr_base,en-nl-ru-el,ko,other,[reviewed] greedy partially writes the gold ('Award')
+147,errors_xlmr_base_en-nl-ru-el_seed42.csv,175,xlmr_base,en-nl-ru-el,ko,other,[reviewed] plausibly correct: Czechia has relations with Russia
+148,errors_xlmr_base_en-nl-ru-el_seed42.csv,106,xlmr_base,en-nl-ru-el,ko,other,[reviewed] near alias: guitar (gold bass guitar)
+149,errors_xlmr_base_en_seed42.csv,100,xlmr_base,en,ko,non_informative,greedy has no usable content (fragments/function words)
+150,errors_mbert_base_en_seed42.csv,134,mbert_base,en,ko,wrong_entity_type,[reviewed] ranked is a club team for a national-team tournament
+151,errors_mbert_base_en-nl-ru-el_seed42.csv,107,mbert_base,en-nl-ru-el,ko,non_informative,greedy has no usable content (fragments/function words)
+152,errors_xlmr_base_en-nl-ru-el_seed42.csv,167,xlmr_base,en-nl-ru-el,ko,non_informative,greedy has no usable content (fragments/function words)
+153,errors_mbert_base_en_seed42.csv,110,mbert_base,en,ko,subject_repetition,greedy copies subject piece 'rca'
+154,errors_mbert_base_en-nl-ru-el_seed42.csv,104,mbert_base,en-nl-ru-el,ko,non_informative,greedy has no usable content (fragments/function words)
+155,errors_mbert_base_en-nl-ru-el_seed42.csv,98,mbert_base,en-nl-ru-el,ko,non_informative,greedy has no usable content (fragments/function words)
+156,errors_mbert_base_en_seed42.csv,167,mbert_base,en,ko,non_informative,greedy has no usable content (fragments/function words)
+157,errors_xlmr_base_en_seed42.csv,156,xlmr_base,en,ko,language_specific_bias,ranked '한국어' is tied to the query language (ko)
+158,errors_mbert_base_en-nl-ru-el_seed42.csv,106,mbert_base,en-nl-ru-el,ko,language_specific_bias,ranked '대한민국' is tied to the query language (ko)
+159,errors_xlmr_base_en_seed42.csv,178,xlmr_base,en,ko,non_informative,greedy has no usable content (fragments/function words)
+160,errors_mbert_base_en-nl-ru-el_seed42.csv,126,mbert_base,en-nl-ru-el,ko,other,[reviewed] greedy_correct_en: 'Google'
+161,errors_mbert_base_en_seed42.csv,195,mbert_base,en,nl,other,"[reviewed] meaningful greedy ('Film ... Laboratory'), close to Pixar"
+162,errors_mbert_base_en_seed42.csv,225,mbert_base,en,nl,other,[reviewed] greedy partially writes the gold ('Abyatonpolis' ~ Achetaton)
+163,errors_mbert_base_en_seed42.csv,228,mbert_base,en,nl,subject_repetition,greedy copies subject piece 'antiochus'
+164,errors_mbert_base_en-nl-ru-el_seed42.csv,228,mbert_base,en-nl-ru-el,nl,other,[reviewed] greedy writes the gold misspelled ('Armmeniië')
+165,errors_xlmr_base_en_seed42.csv,228,xlmr_base,en,nl,language_specific_bias,greedy '-- Nederland' names a query-language (nl) entity
+166,errors_xlmr_base_en-nl-ru-el_seed42.csv,272,xlmr_base,en-nl-ru-el,nl,other,[reviewed] greedy partially writes the gold ('... Angeles')
+167,errors_mbert_base_en_seed42.csv,226,mbert_base,en,nl,other,[reviewed] near miss: greedy 'Sony Records' (Columbia belongs to Sony)
+168,errors_xlmr_base_en_seed42.csv,247,xlmr_base,en,nl,language_specific_bias,ranked 'Nederlands' is tied to the query language (nl)
+169,errors_mbert_base_en-nl-ru-el_seed42.csv,252,mbert_base,en-nl-ru-el,nl,other,[reviewed] near miss: Italy (contains the gold)
+170,errors_mbert_base_en_seed42.csv,238,mbert_base,en,nl,subject_repetition,greedy copies subject piece 'sinai'
+171,errors_xlmr_base_en-nl-ru-el_seed42.csv,273,xlmr_base,en-nl-ru-el,nl,language_specific_bias,ranked 'Amsterdam' is tied to the query language (nl)
+172,errors_mbert_base_en_seed42.csv,237,mbert_base,en,nl,subject_repetition,greedy copies subject piece 'mathematica'
+173,errors_xlmr_base_en-nl-ru-el_seed42.csv,245,xlmr_base,en-nl-ru-el,nl,non_informative,greedy has no usable content (fragments/function words)
+174,errors_mbert_base_en-nl-ru-el_seed42.csv,195,mbert_base,en-nl-ru-el,nl,wrong_entity_type,[reviewed] greedy writes a sport ('hockey') for an instrument
+175,errors_xlmr_base_en-nl-ru-el_seed42.csv,232,xlmr_base,en-nl-ru-el,nl,other,"[reviewed] meaningful greedy entity ('Frankrijk'), wrong"
+176,errors_mbert_base_en-nl-ru-el_seed42.csv,246,mbert_base,en-nl-ru-el,nl,other,"[reviewed] near miss: Hebrew (Semitic, like Akkadian)"
+177,errors_mbert_base_en_seed42.csv,260,mbert_base,en,nl,other,[reviewed] plausibly correct: Zambia borders/relates to Mozambique
+178,errors_xlmr_base_en-nl-ru-el_seed42.csv,214,xlmr_base,en-nl-ru-el,nl,other,"[reviewed] meaningful greedy ('Nobel ... Award'), wrong"
+179,errors_mbert_base_en-nl-ru-el_seed42.csv,194,mbert_base,en-nl-ru-el,nl,subject_repetition,greedy copies subject piece 'maine'
+180,errors_mbert_base_en_seed42.csv,213,mbert_base,en,nl,language_specific_bias,ranked 'Amsterdam' is tied to the query language (nl)
+181,errors_mbert_base_en_seed42.csv,207,mbert_base,en,nl,subject_repetition,greedy copies subject piece 'bangladesh'
+182,errors_xlmr_base_en_seed42.csv,203,xlmr_base,en,nl,other,[reviewed] near miss: India (contains the gold)
+183,errors_xlmr_base_en_seed42.csv,183,xlmr_base,en,nl,language_specific_bias,ranked 'Nederland' is tied to the query language (nl)
+184,errors_xlmr_base_en-nl-ru-el_seed42.csv,223,xlmr_base,en-nl-ru-el,nl,language_specific_bias,greedy 'Belgien' names a query-language (nl) entity
+185,errors_xlmr_base_en-nl-ru-el_seed42.csv,202,xlmr_base,en-nl-ru-el,nl,non_informative,greedy has no usable content (fragments/function words)
+186,errors_mbert_base_en-nl-ru-el_seed42.csv,254,mbert_base,en-nl-ru-el,nl,other,[reviewed] near miss: Europe (contains the gold)
+187,errors_xlmr_base_en_seed42.csv,196,xlmr_base,en,nl,non_informative,greedy has no usable content (fragments/function words)
+188,errors_mbert_base_en-nl-ru-el_seed42.csv,229,mbert_base,en-nl-ru-el,nl,other,"[reviewed] meaningful greedy ('dieren'), related"
+189,errors_mbert_base_en-nl-ru-el_seed42.csv,196,mbert_base,en-nl-ru-el,nl,non_informative,greedy has no usable content (fragments/function words)
+190,errors_xlmr_base_en-nl-ru-el_seed42.csv,211,xlmr_base,en-nl-ru-el,nl,language_specific_bias,ranked 'Nederlands' is tied to the query language (nl)
+191,errors_mbert_base_en-nl-ru-el_seed42.csv,199,mbert_base,en-nl-ru-el,nl,other,[reviewed] near miss: jazz (gold rhythm-and-blues)
+192,errors_mbert_base_en-nl-ru-el_seed42.csv,265,mbert_base,en-nl-ru-el,nl,other,[reviewed] plausibly correct: Fichte also worked in Berlin
+193,errors_mbert_base_en-nl-ru-el_seed42.csv,257,mbert_base,en-nl-ru-el,nl,other,[reviewed] plausibly correct: the EU has relations with the USA
+194,errors_mbert_base_en-nl-ru-el_seed42.csv,261,mbert_base,en-nl-ru-el,nl,other,"[reviewed] meaningful greedy ('Oxford'), wrong"
+195,errors_mbert_base_en_seed42.csv,188,mbert_base,en,nl,other,"[reviewed] meaningful greedy ('Demokratsche' party), wrong"
+196,errors_xlmr_base_en_seed42.csv,190,xlmr_base,en,nl,non_informative,greedy has no usable content (fragments/function words)
+197,errors_mbert_base_en_seed42.csv,263,mbert_base,en,nl,non_informative,greedy has no usable content (fragments/function words)
+198,errors_mbert_base_en-nl-ru-el_seed42.csv,237,mbert_base,en-nl-ru-el,nl,subject_repetition,greedy copies subject piece 'tempel'
+199,errors_xlmr_base_en-nl-ru-el_seed42.csv,227,xlmr_base,en-nl-ru-el,nl,other,[reviewed] plausibly correct (World Cup participant)
+200,errors_xlmr_base_en_seed42.csv,230,xlmr_base,en,nl,non_informative,greedy has no usable content (fragments/function words)
+201,errors_mbert_base_en-nl-ru-el_seed42.csv,243,mbert_base,en-nl-ru-el,nl,other,[reviewed] near miss: President vs Prime Minister of Israel
+202,errors_xlmr_base_en_seed42.csv,182,xlmr_base,en,nl,language_specific_bias,ranked 'Nederland' is tied to the query language (nl)
+203,errors_xlmr_base_en-nl-ru-el_seed42.csv,244,xlmr_base,en-nl-ru-el,nl,non_informative,greedy has no usable content (fragments/function words)
+204,errors_mbert_base_en_seed42.csv,243,mbert_base,en,nl,language_specific_bias,ranked 'Nederlands' is tied to the query language (nl)
+205,errors_xlmr_base_en_seed42.csv,245,xlmr_base,en,nl,language_specific_bias,ranked 'Nederlands' is tied to the query language (nl)
+206,errors_xlmr_base_en-nl-ru-el_seed42.csv,260,xlmr_base,en-nl-ru-el,nl,other,[reviewed] near miss: greedy 'Novgorod' (another Russian region)
+207,errors_xlmr_base_en_seed42.csv,188,xlmr_base,en,nl,language_specific_bias,ranked 'Nederlands' is tied to the query language (nl)
+208,errors_mbert_base_en_seed42.csv,255,mbert_base,en,nl,other,[reviewed] homonym: Formosa (Argentina) read as Taiwan
+209,errors_mbert_base_en_seed42.csv,245,mbert_base,en,nl,other,[reviewed] greedy_correct_en: 'Albanian'
+210,errors_xlmr_base_en-nl-ru-el_seed42.csv,196,xlmr_base,en-nl-ru-el,nl,subject_repetition,greedy copies subject piece 'anfield'
+211,errors_mbert_base_en-nl-ru-el_seed42.csv,211,mbert_base,en-nl-ru-el,nl,other,[reviewed] greedy partially writes the gold ('Oscarprijs')
+212,errors_mbert_base_en-nl-ru-el_seed42.csv,226,mbert_base,en-nl-ru-el,nl,subject_repetition,greedy copies subject piece 'antiochus'
+213,errors_xlmr_base_en_seed42.csv,254,xlmr_base,en,nl,other,[reviewed] near miss: Netflix (another broadcaster)
+214,errors_xlmr_base_en_seed42.csv,273,xlmr_base,en,nl,language_specific_bias,ranked 'Amsterdam' is tied to the query language (nl)
+215,errors_xlmr_base_en-nl-ru-el_seed42.csv,184,xlmr_base,en-nl-ru-el,nl,other,"greedy_correct: greedy writes the gold, ranking picks 'Rusland'"
+216,errors_xlmr_base_en_seed42.csv,225,xlmr_base,en,nl,language_specific_bias,ranked 'Nederlands voetbalelftal' is tied to the query language (nl)
+217,errors_xlmr_base_en-nl-ru-el_seed42.csv,225,xlmr_base,en-nl-ru-el,nl,language_specific_bias,ranked 'Amsterdam' is tied to the query language (nl)
+218,errors_xlmr_base_en_seed42.csv,215,xlmr_base,en,nl,language_specific_bias,ranked 'Nederland' is tied to the query language (nl)
+219,errors_xlmr_base_en-nl-ru-el_seed42.csv,246,xlmr_base,en-nl-ru-el,nl,other,"greedy_correct: greedy writes the gold, ranking picks 'Frans'"
+220,errors_mbert_base_en-nl-ru-el_seed42.csv,193,mbert_base,en-nl-ru-el,nl,other,[reviewed] greedy partially writes the gold ('Sony')
+221,errors_xlmr_base_en-nl-ru-el_seed42.csv,185,xlmr_base,en-nl-ru-el,nl,language_specific_bias,ranked 'Nederland' is tied to the query language (nl)
+222,errors_mbert_base_en_seed42.csv,242,mbert_base,en,nl,language_specific_bias,ranked 'Nederlands' is tied to the query language (nl)
+223,errors_xlmr_base_en_seed42.csv,236,xlmr_base,en,nl,non_informative,greedy has no usable content (fragments/function words)
+224,errors_xlmr_base_en_seed42.csv,258,xlmr_base,en,nl,subject_repetition,greedy copies subject piece 'trentino'
+225,errors_mbert_base_en_seed42.csv,203,mbert_base,en,nl,other,[reviewed] near miss: rock (gold alternative rock)
+226,errors_mbert_base_en_seed42.csv,184,mbert_base,en,nl,non_informative,greedy has no usable content (fragments/function words)
+227,errors_xlmr_base_en_seed42.csv,232,xlmr_base,en,nl,non_informative,greedy has no usable content (fragments/function words)
+228,errors_mbert_base_en-nl-ru-el_seed42.csv,187,mbert_base,en-nl-ru-el,nl,other,[reviewed] plausibly correct: Spanish for Borges
+229,errors_xlmr_base_en_seed42.csv,243,xlmr_base,en,nl,subject_repetition,greedy copies subject piece 'jet'
+230,errors_mbert_base_en-nl-ru-el_seed42.csv,203,mbert_base,en-nl-ru-el,nl,other,[reviewed] greedy partially writes the gold ('Pallas'); ranked Jupiter (mythology)
+231,errors_mbert_base_en_seed42.csv,232,mbert_base,en,nl,non_informative,greedy has no usable content (fragments/function words)
+232,errors_xlmr_base_en_seed42.csv,207,xlmr_base,en,nl,non_informative,greedy has no usable content (fragments/function words)
+233,errors_xlmr_base_en-nl-ru-el_seed42.csv,216,xlmr_base,en-nl-ru-el,nl,non_informative,greedy has no usable content (fragments/function words)
+234,errors_xlmr_base_en-nl-ru-el_seed42.csv,238,xlmr_base,en-nl-ru-el,nl,other,[reviewed] near alias: 'Amerika' (gold North America)
+235,errors_xlmr_base_en-nl-ru-el_seed42.csv,253,xlmr_base,en-nl-ru-el,nl,other,[reviewed] near miss: greedy 'Italië' (country of the gold language)
+236,errors_mbert_base_en-nl-ru-el_seed42.csv,239,mbert_base,en-nl-ru-el,nl,other,"[reviewed] meaningful greedy ('Italiaans'), wrong"
+237,errors_xlmr_base_en_seed42.csv,193,xlmr_base,en,nl,non_informative,greedy has no usable content (fragments/function words)
+238,errors_mbert_base_en_seed42.csv,233,mbert_base,en,nl,other,"[reviewed] greedy gets the type ('... languages'), not the entity"
+239,errors_mbert_base_en_seed42.csv,268,mbert_base,en,nl,language_specific_bias,ranked 'Amsterdam' is tied to the query language (nl)
+240,errors_xlmr_base_en-nl-ru-el_seed42.csv,248,xlmr_base,en-nl-ru-el,nl,subject_repetition,greedy copies subject piece 'byzantijnse'
+241,errors_mbert_base_en_seed42.csv,276,mbert_base,en,ru,non_informative,greedy has no usable content (fragments/function words)
+242,errors_xlmr_base_en_seed42.csv,315,xlmr_base,en,ru,non_informative,greedy has no usable content (fragments/function words)
+243,errors_xlmr_base_en_seed42.csv,355,xlmr_base,en,ru,non_informative,greedy has no usable content (fragments/function words)
+244,errors_mbert_base_en-nl-ru-el_seed42.csv,297,mbert_base,en-nl-ru-el,ru,other,[reviewed] plausibly correct: Prokhorov won the Lenin Prize; greedy 'Нобелевской'
+245,errors_mbert_base_en_seed42.csv,352,mbert_base,en,ru,language_specific_bias,ranked 'СССР' is tied to the query language (ru)
+246,errors_xlmr_base_en_seed42.csv,308,xlmr_base,en,ru,other,[reviewed] near miss: Mercedes-Benz (competitor of BMW)
+247,errors_xlmr_base_en-nl-ru-el_seed42.csv,305,xlmr_base,en-nl-ru-el,ru,other,[reviewed] greedy partially writes the gold ('прем...')
+248,errors_xlmr_base_en_seed42.csv,327,xlmr_base,en,ru,non_informative,greedy has no usable content (fragments/function words)
+249,errors_xlmr_base_en_seed42.csv,275,xlmr_base,en,ru,language_specific_bias,ranked 'СССР' is tied to the query language (ru)
+250,errors_xlmr_base_en-nl-ru-el_seed42.csv,356,xlmr_base,en-nl-ru-el,ru,other,[reviewed] plausibly correct: Australia has relations with the USA
+251,errors_xlmr_base_en_seed42.csv,357,xlmr_base,en,ru,language_specific_bias,ranked 'Россией' is tied to the query language (ru)
+252,errors_xlmr_base_en_seed42.csv,310,xlmr_base,en,ru,non_informative,greedy has no usable content (fragments/function words)
+253,errors_xlmr_base_en-nl-ru-el_seed42.csv,322,xlmr_base,en-nl-ru-el,ru,non_informative,greedy has no usable content (fragments/function words)
+254,errors_xlmr_base_en-nl-ru-el_seed42.csv,341,xlmr_base,en-nl-ru-el,ru,other,[reviewed] near miss: greedy 'president' (gold chief executive)
+255,errors_mbert_base_en-nl-ru-el_seed42.csv,301,mbert_base,en-nl-ru-el,ru,non_informative,greedy has no usable content (fragments/function words)
+256,errors_mbert_base_en-nl-ru-el_seed42.csv,304,mbert_base,en-nl-ru-el,ru,language_specific_bias,ranked 'Москва' is tied to the query language (ru)
+257,errors_mbert_base_en_seed42.csv,335,mbert_base,en,ru,wrong_entity_type,[reviewed] a region (Bashkortostan) as official language
+258,errors_mbert_base_en-nl-ru-el_seed42.csv,339,mbert_base,en-nl-ru-el,ru,other,[reviewed] greedy partially writes the gold ('Организации...')
+259,errors_xlmr_base_en-nl-ru-el_seed42.csv,302,xlmr_base,en-nl-ru-el,ru,other,[reviewed] plausibly correct: Gustav III spoke French
+260,errors_mbert_base_en_seed42.csv,284,mbert_base,en,ru,wrong_entity_type,[reviewed] greedy writes a sports event for a musical instrument
+261,errors_xlmr_base_en_seed42.csv,331,xlmr_base,en,ru,wrong_entity_type,[reviewed] an award (Oscar) as class of an enzyme
+262,errors_xlmr_base_en_seed42.csv,340,xlmr_base,en,ru,other,[reviewed] near alias: 'премьер-министр...' (gold Prime Minister of Israel)
+263,errors_xlmr_base_en_seed42.csv,336,xlmr_base,en,ru,language_specific_bias,ranked 'русский язык' is tied to the query language (ru)
+264,errors_xlmr_base_en-nl-ru-el_seed42.csv,321,xlmr_base,en-nl-ru-el,ru,non_informative,greedy has no usable content (fragments/function words)
+265,errors_mbert_base_en-nl-ru-el_seed42.csv,300,mbert_base,en-nl-ru-el,ru,other,[reviewed] greedy_correct_en: 'Microsoft'
+266,errors_mbert_base_en_seed42.csv,283,mbert_base,en,ru,other,"[reviewed] meaningful greedy entity ('United ... America'), wrong"
+267,errors_xlmr_base_en-nl-ru-el_seed42.csv,355,xlmr_base,en-nl-ru-el,ru,non_informative,greedy has no usable content (fragments/function words)
+268,errors_xlmr_base_en_seed42.csv,287,xlmr_base,en,ru,other,[reviewed] greedy_correct: greedy writes 'BBC'
+269,errors_xlmr_base_en-nl-ru-el_seed42.csv,323,xlmr_base,en-nl-ru-el,ru,non_informative,greedy has no usable content (fragments/function words)
+270,errors_mbert_base_en_seed42.csv,289,mbert_base,en,ru,wrong_entity_type,[reviewed] ranked 'painting' as music genre of a jazz musician
+271,errors_mbert_base_en-nl-ru-el_seed42.csv,276,mbert_base,en-nl-ru-el,ru,non_informative,greedy has no usable content (fragments/function words)
+272,errors_xlmr_base_en_seed42.csv,329,xlmr_base,en,ru,non_informative,greedy has no usable content (fragments/function words)
+273,errors_xlmr_base_en_seed42.csv,274,xlmr_base,en,ru,non_informative,greedy has no usable content (fragments/function words)
+274,errors_xlmr_base_en-nl-ru-el_seed42.csv,292,xlmr_base,en-nl-ru-el,ru,non_informative,greedy has no usable content (fragments/function words)
+275,errors_mbert_base_en-nl-ru-el_seed42.csv,348,mbert_base,en-nl-ru-el,ru,non_informative,greedy has no usable content (fragments/function words)
+276,errors_mbert_base_en-nl-ru-el_seed42.csv,267,mbert_base,en-nl-ru-el,ru,other,[reviewed] greedy_correct: greedy writes the gold ('Филиппин')
+277,errors_mbert_base_en_seed42.csv,270,mbert_base,en,ru,non_informative,greedy has no usable content (fragments/function words)
+278,errors_xlmr_base_en_seed42.csv,352,xlmr_base,en,ru,language_specific_bias,greedy 'Москве' names a query-language (ru) entity
+279,errors_xlmr_base_en-nl-ru-el_seed42.csv,277,xlmr_base,en-nl-ru-el,ru,non_informative,greedy has no usable content (fragments/function words)
+280,errors_xlmr_base_en_seed42.csv,277,xlmr_base,en,ru,wrong_entity_type,[reviewed] greedy writes a country for a field of work
+281,errors_xlmr_base_en-nl-ru-el_seed42.csv,310,xlmr_base,en-nl-ru-el,ru,other,[reviewed] near miss: Nissan / greedy 'Ford' (other car makers)
+282,errors_mbert_base_en-nl-ru-el_seed42.csv,330,mbert_base,en-nl-ru-el,ru,other,[reviewed] near miss: governor vs governor-general
+283,errors_xlmr_base_en-nl-ru-el_seed42.csv,363,xlmr_base,en-nl-ru-el,ru,other,"[reviewed] meaningful greedy entity ('London'), wrong"
+284,errors_mbert_base_en_seed42.csv,287,mbert_base,en,ru,non_informative,greedy has no usable content (fragments/function words)
+285,errors_xlmr_base_en_seed42.csv,353,xlmr_base,en,ru,language_specific_bias,greedy 'России' names a query-language (ru) entity
+286,errors_xlmr_base_en_seed42.csv,326,xlmr_base,en,ru,other,[reviewed] near miss: another language family
+287,errors_mbert_base_en-nl-ru-el_seed42.csv,316,mbert_base,en-nl-ru-el,ru,other,[reviewed] near miss: Armenian language (an Indo-European language)
+288,errors_xlmr_base_en-nl-ru-el_seed42.csv,325,xlmr_base,en-nl-ru-el,ru,subject_repetition,greedy copies subject piece 'карабахская'
+289,errors_mbert_base_en_seed42.csv,315,mbert_base,en,ru,language_specific_bias,ranked 'Санкт-Петербурге' is tied to the query language (ru)
+290,errors_xlmr_base_en_seed42.csv,305,xlmr_base,en,ru,other,"[reviewed] greedy partially writes the gold ('прем...'), 'Paris' related"
+291,errors_xlmr_base_en-nl-ru-el_seed42.csv,280,xlmr_base,en-nl-ru-el,ru,language_specific_bias,ranked 'Коммунистическая партия Советского Союза' is tied to the query language (ru)
+292,errors_xlmr_base_en-nl-ru-el_seed42.csv,318,xlmr_base,en-nl-ru-el,ru,non_informative,greedy has no usable content (fragments/function words)
+293,errors_xlmr_base_en-nl-ru-el_seed42.csv,345,xlmr_base,en-nl-ru-el,ru,non_informative,greedy has no usable content (fragments/function words)
+294,errors_mbert_base_en-nl-ru-el_seed42.csv,272,mbert_base,en-nl-ru-el,ru,other,"[reviewed] meaningful greedy ('German'), wrong"
+295,errors_mbert_base_en_seed42.csv,330,mbert_base,en,ru,wrong_entity_type,[reviewed] 'genus' as whole of a lake
+296,errors_mbert_base_en_seed42.csv,317,mbert_base,en,ru,other,"[reviewed] meaningful greedy entity ('Warner Music'), wrong"
+297,errors_mbert_base_en_seed42.csv,285,mbert_base,en,ru,wrong_entity_type,[reviewed] greedy writes a genre ('jazz orchestra') for an instrument
+298,errors_mbert_base_en-nl-ru-el_seed42.csv,275,mbert_base,en-nl-ru-el,ru,other,"[reviewed] meaningful greedy occupation ('director'), wrong"
+299,errors_xlmr_base_en_seed42.csv,337,xlmr_base,en,ru,language_specific_bias,ranked 'русский язык' is tied to the query language (ru)
+300,errors_mbert_base_en_seed42.csv,300,mbert_base,en,ru,other,[reviewed] greedy partially writes the gold ('Nobel')
+301,errors_mbert_base_en-nl-ru-el_seed42.csv,314,mbert_base,en-nl-ru-el,ru,language_specific_bias,ranked 'России' is tied to the query language (ru)
+302,errors_mbert_base_en-nl-ru-el_seed42.csv,335,mbert_base,en-nl-ru-el,ru,other,[reviewed] greedy partially writes the gold ('полу...')
+303,errors_mbert_base_en_seed42.csv,338,mbert_base,en,ru,subject_repetition,[reviewed] greedy copies the subject ('Wikipedia')
+304,errors_mbert_base_en-nl-ru-el_seed42.csv,268,mbert_base,en-nl-ru-el,ru,other,[reviewed] plausibly correct: Marx worked in philosophy
+305,errors_xlmr_base_en-nl-ru-el_seed42.csv,324,xlmr_base,en-nl-ru-el,ru,non_informative,greedy has no usable content (fragments/function words)
+306,errors_mbert_base_en_seed42.csv,327,mbert_base,en,ru,wrong_entity_type,[reviewed] 'award' as class of a ministry
+307,errors_mbert_base_en_seed42.csv,291,mbert_base,en,ru,subject_repetition,[reviewed] greedy copies the subject transliterated ('Olбанi' = Albany)
+308,errors_mbert_base_en_seed42.csv,281,mbert_base,en,ru,non_informative,greedy has no usable content (fragments/function words)
+309,errors_xlmr_base_en-nl-ru-el_seed42.csv,289,xlmr_base,en-nl-ru-el,ru,non_informative,greedy has no usable content (fragments/function words)
+310,errors_mbert_base_en-nl-ru-el_seed42.csv,349,mbert_base,en-nl-ru-el,ru,non_informative,greedy has no usable content (fragments/function words)
+311,errors_mbert_base_en-nl-ru-el_seed42.csv,328,mbert_base,en-nl-ru-el,ru,other,"greedy_correct: greedy writes the gold, ranking picks 'итальянский язык'"
+312,errors_xlmr_base_en_seed42.csv,334,xlmr_base,en,ru,non_informative,greedy has no usable content (fragments/function words)
+313,errors_mbert_base_en_seed42.csv,275,mbert_base,en,ru,other,[reviewed] near miss: greedy 'Greek' (PASOK is a Greek party)
+314,errors_mbert_base_en-nl-ru-el_seed42.csv,353,mbert_base,en-nl-ru-el,ru,non_informative,greedy has no usable content (fragments/function words)
+315,errors_mbert_base_en_seed42.csv,349,mbert_base,en,ru,language_specific_bias,greedy 'России' names a query-language (ru) entity
+316,errors_xlmr_base_en-nl-ru-el_seed42.csv,340,xlmr_base,en-nl-ru-el,ru,other,"[reviewed] meaningful greedy ('French'), wrong"
+317,errors_mbert_base_en-nl-ru-el_seed42.csv,351,mbert_base,en-nl-ru-el,ru,subject_repetition,[reviewed] greedy copies the subject ('Кане')
+318,errors_mbert_base_en_seed42.csv,292,mbert_base,en,ru,non_informative,greedy has no usable content (fragments/function words)
+319,errors_mbert_base_en-nl-ru-el_seed42.csv,303,mbert_base,en-nl-ru-el,ru,non_informative,greedy has no usable content (fragments/function words)
+320,errors_xlmr_base_en-nl-ru-el_seed42.csv,327,xlmr_base,en-nl-ru-el,ru,other,[reviewed] near miss: 'gene' (same domain)
